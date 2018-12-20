@@ -14,6 +14,10 @@ const Word = require('./word')
  * for example, we can say: const {User} = require('../db/models')
  * instead of: const User = require('../db/models/user')
  */
+
+ User.hasMany(Word)
+ Word.belongsTo(User)
+
 module.exports = {
   User,
   Word
