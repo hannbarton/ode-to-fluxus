@@ -7,7 +7,8 @@ class Canvas extends React.Component {
     super()
 
     this.state = {
-      isDragging: false
+      isDragging: false,
+      text: 'drag a word here to start building your poem'
     }
   }
 
@@ -24,7 +25,8 @@ class Canvas extends React.Component {
             fill={this.state.isDragging ? 'orange' : 'black'}
             onDragStart={() => {
               this.setState({
-                isDragging: true
+                isDragging: true,
+                text: ''
               })
             }}
             onDragEnd={() => {
@@ -32,6 +34,11 @@ class Canvas extends React.Component {
                 isDragging: false
               })
             }}
+          />
+          <Text
+          text={this.state.text}
+          x={window.innerWidth/3}
+          y={window.innerHeight/3}
           />
         </Layer>
       </Stage>
