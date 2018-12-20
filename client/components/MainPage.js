@@ -31,7 +31,6 @@ class MainPage extends React.Component {
   render() {
     return (
       <div>
-        {/* Drag a word over to start building */}
         <form id="submit-word" onSubmit={this.handleSubmit}>
           <label htmlFor="">Create your own word:</label>
           <input
