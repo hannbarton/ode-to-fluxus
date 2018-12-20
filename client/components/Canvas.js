@@ -1,14 +1,16 @@
 import React from 'react'
 import {render} from 'react-dom'
-import {Stage, Layer, Rect, Text} from 'react-konva'
+import {Stage, Layer, Text} from 'react-konva'
 
 class Canvas extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
       isDragging: false,
-      text: 'drag a word here to start building your poem'
+      text: 'drag a word here to start building your poem',
+      newWord: '',
+      listOfWords: ''
     }
   }
 
