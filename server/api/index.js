@@ -8,3 +8,11 @@ router.use((req, res, next) => {
   error.status = 404
   next(error)
 })
+
+router.use('/words', require('./words'))
+
+router.use((req, res, next) => {
+  const error = new Error('Not Found')
+  error.status = 404
+  next(error)
+})
