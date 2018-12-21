@@ -29,6 +29,7 @@ class MainPage extends React.Component {
   }
 
   render() {
+
     return (
       <div>
         <form id="submit-word" onSubmit={this.handleSubmit}>
