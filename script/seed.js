@@ -1,16 +1,60 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Word} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
+  const words = [
+    {
+      words: 'new',
+      userId: 1
+    },
+    {
+      words: 'library',
+      userId: 1
+    },
+    {
+      words: 'or',
+      userId: 1
+    },
+    {
+      words: 'glorious',
+      userId: 1
+    },
+    {
+      words: 'homeless',
+      userId: 1
+    },
+    {
+      words: 'shelter',
+      userId: 1
+    },
+    {
+      words: 'the',
+      userId: 1
+    },
+    {
+      words: 'future',
+      userId: 1
+    },
+    {
+      words: 'is',
+      userId: 1
+    },
+    {
+      words: 'now',
+      userId: 1
+    }
+  ]
+
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
   ])
+  await Promise.all(words.map(word => Word.create(word)))
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
