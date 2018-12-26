@@ -2,16 +2,17 @@ import axios from 'axios'
 import history from '../history'
 
 const initialState = {
-    words: []
+    words: [],
+    single: {}
 }
 
 const GET_ALL_WORDS = 'GET_ALL_WORDS'
 const ADD_WORD = 'ADD_WORD'
 const REMOVE_WORD = 'REMOVE_WORD'
 
-const getWordList = () => ({type: GET_ALL_WORDS})
+const getWordList = (words) => ({type: GET_ALL_WORDS, words})
 const addWord = word => ({type: ADD_WORD, word})
-const removeWord = word => ({type: REMOVE_WORD, word})
+const removeWord = id => ({type: REMOVE_WORD, id})
 
 export const fetchWordList = () => async dispatch => {
     try {

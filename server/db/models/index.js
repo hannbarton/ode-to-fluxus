@@ -1,10 +1,11 @@
+
 const User = require('./user')
 const Word = require('./word')
 
- User.hasMany(Word)
- Word.belongsTo(User)
+Word.belongsTo(User)
+User.hasMany(Word)
 
 module.exports = {
   User,
-  Word
+  Word,
 }
