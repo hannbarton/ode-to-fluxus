@@ -2,7 +2,7 @@ import axios from 'axios'
 import history from '../history'
 
 const initialState = {
-    words: [],
+    words: ['single'],
     single: {}
 }
 
@@ -10,7 +10,7 @@ const GET_ALL_WORDS = 'GET_ALL_WORDS'
 const ADD_WORD = 'ADD_WORD'
 const REMOVE_WORD = 'REMOVE_WORD'
 
-const getWordList = (words) => ({type: GET_ALL_WORDS, words})
+const getWordList = words => ({type: GET_ALL_WORDS, words})
 const addWord = word => ({type: ADD_WORD, word})
 const removeWord = id => ({type: REMOVE_WORD, id})
 
@@ -44,7 +44,7 @@ export const eraseWord = (wordId) => async dispatch => {
     }
 }
 
-export const wordSubreducer = (state = initialState, action) => {
+export default function(state = initialState, action) {
     switch(action.type) {
         case GET_ALL_WORDS:
             return { ...state, words: action.words}

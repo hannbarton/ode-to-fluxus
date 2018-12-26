@@ -19,20 +19,20 @@ export class Canvas extends React.Component {
   // }
 
   render() {
-    // let counter= 0;
-    console.log(this.props)
+    let counter= 0;
+    console.log('props', this.props.words)
     return (
       <Stage width={window.innerWidth * 0.8} height={window.innerHeight * 0.8}>
         <Layer>
-          {/* {this.props.words.map(eachWord => (
+          {this.props.words.map(eachWord => (
                      <Text
-                     key={eachWord.id}
-                     text={`${eachWord.words}`}
+                     key={eachWord}
+                     text={`${eachWord}`}
                      x={50}
                      y={counter++ * 20}
                      draggable
                      fontSize={18}
-                     fill={this.state.isDragging ? 'orange' : 'black'}
+                    //  fill={this.state.isDragging ? 'orange' : 'black'}
                     //  onDragStart={() => {
                     //    this.setState({
                     //      isDragging: true,
@@ -45,7 +45,7 @@ export class Canvas extends React.Component {
                     //    })
                     //  }}
                    />
-          ))} */}
+          ))}
 
           <Text
             text='word'
@@ -53,26 +53,27 @@ export class Canvas extends React.Component {
             y={20}
             draggable
             fontSize={18}
-            fill={this.state.isDragging ? 'orange' : 'black'}
+            // fill={this.state.isDragging ? 'orange' : 'black'}
           />
-          <Text
-            text={this.state.text}
+          {/* <Text
             x={window.innerWidth / 3}
             y={window.innerHeight / 3}
-          />
+          /> */}
         </Layer>
       </Stage>
     )
   }
 }
 
-// const mapState = state => ({
-//   words: state.wordSubreducer.words
-// })
+const mapState = state => ({
+  words: state.word.words
+})
 
-// const mapDispatch = dispatch => ({
-//   loadwords: () => dispatch(fetchWordList),
-//   destorywords: id => dispatch(eraseWord(id))
-// })
+const mapDispatch = dispatch => ({
+  loadwords: () => dispatch(fetchWordList),
+  destorywords: id => dispatch(eraseWord(id))
+})
 
-// export default connect(mapState, mapDispatch)(Canvas)
+export default connect(mapState, mapDispatch)(Canvas)
+
+// export default Canvas;
