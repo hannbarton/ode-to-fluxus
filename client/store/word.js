@@ -22,3 +22,36 @@ export const fetchWordList = () => async dispatch => {
         console.error(err)
     }
 }
+
+export const postWord = (word) => async dispatch => {
+    try {
+        const res = await axios.post('/api/words', word)
+        dispatch(addWord(res.data))
+    }
+    catch(err) {
+        console.error(err)
+    }
+}
+
+export const eraseWord = (wordId) => async dispatch => {
+    try{
+        const res = await axios.delete(`/api/words/${wordId}`, wordId)
+        dispatch(removeWord(res.data.id))
+    }
+    catch(err) {
+        console.error(err)
+    }
+}
+
+export const wordSubreducer = (state = initialState, action) => {
+    switch(action.type) {
+        case GET_ALL_WORDS:
+            return { ...state, words: action.words}
+        case ADD_WORD:
+            return { ...state, words: [...state.words, action.word.word]};
+        case REMOVE_WORD:
+            return {...state, words: [...state.words.filter(word => +word.id !== +action.id)]}
+        default:
+            return state;
+    }
+}
