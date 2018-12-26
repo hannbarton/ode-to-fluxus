@@ -2,7 +2,7 @@ import axios from 'axios'
 import history from '../history'
 
 const initialState = {
-    words: ['single'],
+    words: [],
     single: {}
 }
 
