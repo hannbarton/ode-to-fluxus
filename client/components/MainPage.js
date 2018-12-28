@@ -1,12 +1,14 @@
 import React from 'react'
 import Canvas from './Canvas'
+import { postWord, loadWordList } from '../store/word'
+import {connect} from 'react-redux'
 
 class MainPage extends React.Component {
   constructor() {
     super()
 
     this.state = {
-      word: ''
+      words: ""
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,8 +25,12 @@ class MainPage extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    if (this.state.word === '') {
+    if (this.state.words === "") {
       console.log('please fill out word before submitting')
+      alert('please fill out word')
+    }
+    else {
+      this.props.postWord(this.state)
     }
   }
 
@@ -37,13 +43,13 @@ class MainPage extends React.Component {
           <input
             className="form-control"
             placeholder="Enter your word"
-            name="word"
+            name="words"
             type="text"
             onChange={this.handleChange}
-            value={this.props.word}
+            value={this.props.words}
           />
 
-          <button type="submit" value="Submit" >Create</button>
+          <button type="submit" >Create</button>
         </form>
         <Canvas />
       </div>
@@ -51,4 +57,11 @@ class MainPage extends React.Component {
   }
 }
 
-export default MainPage
+// export default MainPage
+const mapDispatch = dispatch => ({
+  postWord: (word) => dispatch(postWord(word)),
+  loadWordList: () => dispatch(loadWordList())
+})
+
+export default connect(null, mapDispatch)(MainPage)
+
