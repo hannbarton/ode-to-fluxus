@@ -4,7 +4,6 @@ import {Stage, Layer, Text, Rect} from 'react-konva'
 import Konva from 'konva'
 import {WordMaker} from './WordMaker'
 import {fetchWordList, eraseWord, postWord} from '../store/word'
-// import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux'
 
 export class Canvas extends React.Component {
@@ -29,12 +28,7 @@ export class Canvas extends React.Component {
               y={counter++ * 30}
               draggable
               fontSize={18}
-              onDragStart={evt => {
-                console.log(evt.target.attrs)
-                if (evt.target.attrs.x < 20 && evt.target.attrs.y > 600) {
-                  this.props.destorywords(eachWord.id)
-                }
-              }}
+              onDblClick={() => this.props.destorywords(eachWord.id)}
               //  onDragEnd={() => {
               //    this.setState({
               //      isDragging: false
@@ -43,7 +37,6 @@ export class Canvas extends React.Component {
             />
           ))}
 
-          <Rect x={10} y={600} width={50} height={50} fill="orange" />
         </Layer>
       </Stage>
     )
@@ -61,5 +54,3 @@ const mapDispatch = dispatch => ({
 })
 
 export default connect(mapState, mapDispatch)(Canvas)
-
-// export default Canvas;

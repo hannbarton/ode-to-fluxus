@@ -34,9 +34,9 @@ export const postWord = (word) => async dispatch => {
     }
 }
 
-export const eraseWord = (wordId) => async dispatch => {
+export const eraseWord = (id) => async dispatch => {
     try{
-        const res = await axios.delete(`/api/words/${wordId}`, wordId)
+        const res = await axios.delete(`/api/words/${id}`, id)
         dispatch(removeWord(res.data.id))
     }
     catch(err) {
