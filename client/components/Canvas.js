@@ -1,6 +1,6 @@
 import React from 'react'
 import {render} from 'react-dom'
-import {Stage, Layer, Text} from 'react-konva'
+import {Stage, Layer, Text, Rect} from 'react-konva'
 import Konva from 'konva'
 import {WordMaker} from './WordMaker'
 import {fetchWordList, eraseWord, postWord} from '../store/word'
@@ -13,12 +13,11 @@ export class Canvas extends React.Component {
   }
 
   handleDragStart(evt) {
-    console.log('event dot target', evt.target)
+    console.log('event dot target', evt.target.attrs.x, evt.target.attrs.y)
   }
 
   render() {
     let counter = 0
-    console.log('props', this.props)
     return (
       <Stage width={window.innerWidth * 0.8} height={window.innerHeight * 0.8}>
         <Layer>
@@ -30,29 +29,21 @@ export class Canvas extends React.Component {
               y={counter++ * 30}
               draggable
               fontSize={18}
-              //  fill={this.state.isDragging ? 'orange' : 'black'}
-              //  onDragStart={this.handleDragStart}
+              onDragStart={evt => {
+                console.log(evt.target.attrs)
+                if (evt.target.attrs.x < 20 && evt.target.attrs.y > 600) {
+                  this.props.destorywords(eachWord.id)
+                }
+              }}
               //  onDragEnd={() => {
               //    this.setState({
               //      isDragging: false
               //    })
               //  }}
-
             />
           ))}
 
-          {/* <Text
-            text="word"
-            x={50}
-            y={250}
-            draggable
-            fontSize={18} }
-            fill={this.state.isDragging ? 'orange' : 'black'}
-          />
-          {/* <Text
-            x={window.innerWidth / 3}
-            y={window.innerHeight / 3}
-          /> */}
+          <Rect x={10} y={600} width={50} height={50} fill="orange" />
         </Layer>
       </Stage>
     )
@@ -66,7 +57,7 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   loadwords: () => dispatch(fetchWordList()),
   destorywords: id => dispatch(eraseWord(id)),
-  postWord: (word) => dispatch(postWord(word))
+  postWord: word => dispatch(postWord(word))
 })
 
 export default connect(mapState, mapDispatch)(Canvas)
