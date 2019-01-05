@@ -7,26 +7,24 @@ import {fetchWordList, eraseWord, postWord} from '../store/word'
 import {connect} from 'react-redux'
 
 export class Canvas extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
-      id: ""
+      cursor: 'default'
     }
 
     this.deleteHandler = this.deleteHandler.bind(this)
-    this.setWord = this.setWord.bind(this)
+    this.cursorHandler = this.cursorHandler.bind(this)
   }
 
   componentDidMount() {
     this.props.loadwords()
   }
 
-  setWord(evt) {
-    console.log('event', evt)
-    this.setState({
-      [evt.target.name]: evt.target.value
-    })
+  cursorHandler() {
+    console.log('mouseover')
+    this.setState({cursor: 'pointer'})
   }
 
   deleteHandler() {
@@ -34,12 +32,14 @@ export class Canvas extends React.Component {
   }
 
   render() {
+    console.log(<Text/>)
     let counter = 0
     return (
       <Stage width={window.innerWidth * 0.8} height={window.innerHeight * 0.8}>
         <Layer>
         <Rect fill={'pink'} x={50} y={500} width={50} height={50}
-        onMouseOver={(evt) => console.log(evt)} />
+        // onMouseOver={(evt) => console.log(evt)}
+        onMouseOver={(evt) => console.log(evt.evt.screenX, evt.evt.screenY)}/>
           {this.props.words.map(eachWord => {
             return (
             <Text
@@ -49,11 +49,19 @@ export class Canvas extends React.Component {
               y={counter++ * 30}
               draggable
               fontSize={18}
+              onMouseOver={this.cursorHandler}
               onDblClick={() => this.props.destroywords(eachWord.id)}
-              onDragMove={this.setWord}
-              onDragStart={(evt) => {
-                console.log(evt)
-                if (evt.evt.screenX >= 40 && evt.evt.screenY <= 100) {
+              onDragMove={(evt) => {
+                if (evt.evt.screenX >= 45 && evt.evt.screenX < 80 && evt.evt.screenY >= 600 && evt.evt.screenY < 650) {
+                  console.log('hoviering event', evt)
+                  return (<Rect
+                  fill='red' x={45} y={80} width={5} height={5}/>)
+                }
+              }}
+              onMouseUp={(evt) => {
+                console.log(evt.evt)
+                console.log(evt.target._id)
+                if (evt.evt.screenX >= 45 && evt.evt.screenX < 80 && evt.evt.screenY >= 600 && evt.evt.screenY < 650) {
                 this.props.destroywords(eachWord.id)
               }
             }}
