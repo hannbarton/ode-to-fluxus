@@ -43,6 +43,7 @@
     "connect-session-sequelize": "^4.1.0",
     "express": "^4.16.3",
     "express-session": "^1.15.1",
+    "express-then": "^1.0.3",
     "history": "^4.6.3",
     "konva": "^2.6.0",
     "morgan": "^1.9.1",
