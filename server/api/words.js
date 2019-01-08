@@ -40,7 +40,7 @@ let client = new Twitter({
 	access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
   });
 
-client.get('/trends/place',{id: 1}, function(error, tweets, response) {
+client.get('/trends/place',{id: 2367105}, function(error, tweets, response) {
 	if(error) throw error;
 	console.log(tweets[0]);  // The favorites.
 	// console.log(response);  // Raw response object.
