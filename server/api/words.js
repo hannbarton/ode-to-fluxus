@@ -33,22 +33,6 @@ router.get('/:id', async (req, res, next) => {
 	}
 });
 
-// app.get('/search', async (req, res, next) => {
-// 	try {
-// 		let client = new Twitter({
-// 			consumer_key: process.env.TWITTER_CONSUMER_KEY,
-// 			consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-// 			access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-// 			access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
-// 		  });
-// 		  let tweet = await client.get('/search?q=javascript')
-// 		  res.json(tweet.data)
-// 	}
-// 	catch (err) {
-// 		next(err)
-// 	}
-// })
-
 let client = new Twitter({
 	consumer_key: process.env.TWITTER_CONSUMER_KEY,
 	consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -56,9 +40,9 @@ let client = new Twitter({
 	access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
   });
 
-client.get('favorites/list', function(error, tweets, response) {
+client.get('/trends/place',{id: 1}, function(error, tweets, response) {
 	if(error) throw error;
-	console.log(tweets);  // The favorites.
+	console.log(tweets[0]);  // The favorites.
 	// console.log(response);  // Raw response object.
 })
 
