@@ -9,15 +9,27 @@ const initialState = {
 const GET_ALL_WORDS = 'GET_ALL_WORDS'
 const ADD_WORD = 'ADD_WORD'
 const REMOVE_WORD = 'REMOVE_WORD'
+const GET_TWITTER_HASHTAGS = 'GET_TWITTER_HASHTAGS'
 
 const getWordList = words => ({type: GET_ALL_WORDS, words})
 const addWord = word => ({type: ADD_WORD, word})
 const removeWord = id => ({type: REMOVE_WORD, id})
+const getTwitter = name => ({type: GET_TWITTER_HASHTAGS})
 
 export const fetchWordList = () => async dispatch => {
     try {
        const res = await axios.get('/api/words')
        dispatch(getWordList(res.data))
+    }
+    catch(err) {
+        console.error(err)
+    }
+}
+
+export const fetchTwitter = () => async dispatch => {
+    try {
+       const res = await axios.get('/api/words/twitter')
+       dispatch(getTwitter(res.data))
     }
     catch(err) {
         console.error(err)
@@ -48,6 +60,8 @@ export default function(state = initialState, action) {
     switch(action.type) {
         case GET_ALL_WORDS:
             return { ...state, words: action.words}
+        case GET_TWITTER_HASHTAGS:
+            return {...state, name: action.name}
         case ADD_WORD:
             return { ...state, words: [...state.words, action.word.word]};
         case REMOVE_WORD:

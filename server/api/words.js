@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const {User, Word} = require('../db/models')
-module.exports = router
 var Twitter = require('twitter');
+module.exports = router
 
 let client = new Twitter({
 	consumer_key: process.env.TWITTER_CONSUMER_KEY,
