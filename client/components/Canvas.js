@@ -47,9 +47,9 @@ export class Canvas extends React.Component {
               key={eachWord.id}
               text={`${eachWord.words}`}
               x={50}
-              y={counter++ * 30}
+              y={counter++ * 20}
               draggable
-              fontSize={18}
+              fontSize={12}
               onMouseOver={this.cursorHandler}
               onDblClick={() => this.props.destroywords(eachWord.id)}
               onDragMove={(evt) => {
@@ -70,16 +70,30 @@ export class Canvas extends React.Component {
           )
           })}
           {this.props.name && this.props.name.map(eachHash => {
-            return (
-              <Text
-              key={eachHash.name}
-              text={`${eachHash.name}`}
-              x={50}
-              y={counter++ * 10}
-              draggable
-              fontSize={11}
-              />
-            )
+            if (eachHash.name[0] === '#') {
+              return (
+                <Text
+                key={eachHash.name}
+                text={`${eachHash.name.slice(1)}`}
+                x={50}
+                y={counter++ * 10}
+                draggable
+                fontSize={11}
+                />
+              )
+            }
+            else {
+              return (
+                <Text
+                key={eachHash.name}
+                text={`${eachHash.name}`}
+                x={50}
+                y={counter++ * 10}
+                draggable
+                fontSize={11}
+                />
+              )
+            }
           })}
         </Layer>
       </Stage>

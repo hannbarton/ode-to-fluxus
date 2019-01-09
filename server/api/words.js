@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const {User, Word} = require('../db/models')
+const db = require('../../server/db')
+const {User, Word, TrendingTweet} = require('../db/models')
 var Twitter = require('twitter');
 module.exports = router
 
@@ -21,10 +22,26 @@ router.get('/', async (req, res, next) => {
 
 router.get('/twitter', async (req, res, next) => {
 	try {
-		await client.get('/trends/place',{id: 23424977}, function(error, tweets, response) {
+
+		await db.sync({force: true})
+
+		await client.get('/trends/place',{id: 23424977}, function(error, tweets) {
 		   if(error) throw error;
-		   res.json(tweets[0].trends)
+		   let dataTweet = tweets[0].trends
+
+		   res.json(dataTweet)
+
+		   Promise.all(dataTweet.map(eachTweet => {
+			   if (eachTweet.name[0] === '#') {
+				   eachTweet.name = eachTweet.name.slice(1)
+				TrendingTweet.create(eachTweet)
+			   }
+			   else {
+				   TrendingTweet.create(eachTweet)
+			   }
+			}))
 	   })
+	   await db.sync({force: false})
 	}
 	catch(err) {
 		next(err)
