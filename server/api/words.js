@@ -3,13 +3,12 @@ const {User, Word} = require('../db/models')
 module.exports = router
 var Twitter = require('twitter');
 
-// var client = new Twitter({
-//     consumer_key: process.env.TWITTER_CONSUMER_KEY,
-//     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-//     access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-//     access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
-//   });
-
+let client = new Twitter({
+	consumer_key: process.env.TWITTER_CONSUMER_KEY,
+	consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+	access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+	access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+});
 
 router.get('/', async (req, res, next) => {
   try {
@@ -18,6 +17,14 @@ router.get('/', async (req, res, next) => {
   } catch (err) {
     next(err)
   }
+})
+
+router.get('/twitter', async (req, res, next) => {
+
+	await client.get('/trends/place',{id: 2367105}, function(error, tweets, response) {
+	   if(error) throw error;
+	   res.json(tweets[0].trends) // Raw response object.
+   })
 })
 
 router.get('/:id', async (req, res, next) => {
@@ -32,19 +39,6 @@ router.get('/:id', async (req, res, next) => {
 		next(err);
 	}
 });
-
-let client = new Twitter({
-	consumer_key: process.env.TWITTER_CONSUMER_KEY,
-	consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-	access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-	access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
-  });
-
-client.get('/trends/place',{id: 2367105}, function(error, tweets, response) {
-	if(error) throw error;
-	console.log(tweets[0]);  // The favorites.
-	// console.log(response);  // Raw response object.
-})
 
 router.post('/', async(req, res, next) => {
     try{
