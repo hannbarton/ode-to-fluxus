@@ -3,7 +3,7 @@ import {render} from 'react-dom'
 import {Stage, Layer, Text, Rect} from 'react-konva'
 import Konva from 'konva'
 import {WordMaker} from './WordMaker'
-import {fetchWordList, eraseWord, postWord} from '../store/word'
+import {fetchWordList, eraseWord, postWord, fetchTwitter} from '../store/word'
 import {connect} from 'react-redux'
 
 export class Canvas extends React.Component {
@@ -19,6 +19,7 @@ export class Canvas extends React.Component {
   }
 
   componentDidMount() {
+    this.props.loadTwitter()
     this.props.loadwords()
   }
 
@@ -32,7 +33,7 @@ export class Canvas extends React.Component {
   }
 
   render() {
-    console.log(<Text/>)
+    console.log('props', this.props.name)
     let counter = 0
     return (
       <Stage width={window.innerWidth * 0.8} height={window.innerHeight * 0.8}>
@@ -53,7 +54,7 @@ export class Canvas extends React.Component {
               onDblClick={() => this.props.destroywords(eachWord.id)}
               onDragMove={(evt) => {
                 if (evt.evt.screenX >= 45 && evt.evt.screenX < 80 && evt.evt.screenY >= 600 && evt.evt.screenY < 650) {
-                  console.log('hoviering event', evt)
+                  console.log('hovering event', evt)
                   return (<Rect
                   fill='red' x={45} y={80} width={5} height={5}/>)
                 }
@@ -65,11 +66,21 @@ export class Canvas extends React.Component {
                 this.props.destroywords(eachWord.id)
               }
             }}
-
-
             />
-          )})}
-
+          )
+          })}
+          {this.props.name && this.props.name.map(eachHash => {
+            return (
+              <Text
+              key={eachHash.name}
+              text={`${eachHash.name}`}
+              x={50}
+              y={counter++ * 10}
+              draggable
+              fontSize={11}
+              />
+            )
+          })}
         </Layer>
       </Stage>
     )
@@ -77,13 +88,15 @@ export class Canvas extends React.Component {
 }
 
 const mapState = state => ({
-  words: state.word.words
+  words: state.word.words,
+  name: state.word.name
 })
 
 const mapDispatch = dispatch => ({
   loadwords: () => dispatch(fetchWordList()),
   destroywords: id => dispatch(eraseWord(id)),
-  postWord: word => dispatch(postWord(word))
+  postWord: word => dispatch(postWord(word)),
+  loadTwitter: () => dispatch(fetchTwitter())
 })
 
 export default connect(mapState, mapDispatch)(Canvas)

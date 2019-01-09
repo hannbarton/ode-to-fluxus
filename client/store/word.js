@@ -14,7 +14,7 @@ const GET_TWITTER_HASHTAGS = 'GET_TWITTER_HASHTAGS'
 const getWordList = words => ({type: GET_ALL_WORDS, words})
 const addWord = word => ({type: ADD_WORD, word})
 const removeWord = id => ({type: REMOVE_WORD, id})
-const getTwitter = name => ({type: GET_TWITTER_HASHTAGS})
+const getTwitter = name => ({type: GET_TWITTER_HASHTAGS, name})
 
 export const fetchWordList = () => async dispatch => {
     try {
