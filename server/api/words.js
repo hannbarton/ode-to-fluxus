@@ -20,11 +20,15 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/twitter', async (req, res, next) => {
-
-	await client.get('/trends/place',{id: 2367105}, function(error, tweets, response) {
-	   if(error) throw error;
-	   res.json(tweets[0].trends) // Raw response object.
-   })
+	try {
+		await client.get('/trends/place',{id: 2367105}, function(error, tweets, response) {
+		   if(error) throw error;
+		   res.json(tweets[0].trends) // Raw response object.
+	   })
+	}
+	catch(err) {
+		next(err)
+	}
 })
 
 router.get('/:id', async (req, res, next) => {
