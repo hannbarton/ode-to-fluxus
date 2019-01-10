@@ -34,9 +34,7 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
 
   router.get(
     '/',
-    passport.authenticate('twitter', {
-      scope: 'email'
-    })
+    passport.authenticate('twitter')
   )
 
   router.get(
