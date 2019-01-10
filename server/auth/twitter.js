@@ -7,6 +7,7 @@ module.exports = router
 if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
   console.log('TWITTER client ID / secret not found. Skipping TWITTER OAuth.')
 } else {
+    console.log('twitter oauth init')
   const twitterConfig = {
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
