@@ -36,8 +36,7 @@ router.get('/twitter', async (req, res, next) => {
             eachTweet.name[0] === '#' &&
             eachTweet.name[2] === eachTweet.name[2].toUpperCase()
           ) {
-			eachTweet.name = eachTweet.name.slice(1)
-
+            eachTweet.name = eachTweet.name.slice(1)
           }
           if (
             eachTweet.name[0] === '#' &&
@@ -46,8 +45,8 @@ router.get('/twitter', async (req, res, next) => {
             eachTweet.name = eachTweet.name
               .slice(1)
               .replace(/([a-z])([A-Z])/g, '$1 $2')
-		  }
-		  TrendingTweet.create(eachTweet)
+          }
+          TrendingTweet.create(eachTweet)
         })
       )
       res.json(dataTweet)
