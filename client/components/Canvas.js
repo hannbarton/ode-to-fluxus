@@ -69,23 +69,12 @@ export class Canvas extends React.Component {
             />
           )
           })}
-          {this.props.name && this.props.name.map(eachHash => {
-            if (eachHash.name[0] === '#') {
-              return (
+          {this.props.name && Array.from(new Set(this.props.name)).
+          map(eachHash => {
+
+            return(
                 <Text
-                key={eachHash.name}
-                text={`${eachHash.name.slice(1)}`}
-                x={50}
-                y={counter++ * 10}
-                draggable
-                fontSize={11}
-                />
-              )
-            }
-            else {
-              return (
-                <Text
-                key={eachHash.name}
+                key={eachHash.url}
                 text={`${eachHash.name}`}
                 x={50}
                 y={counter++ * 10}
@@ -94,7 +83,7 @@ export class Canvas extends React.Component {
                 />
               )
             }
-          })}
+          )}
         </Layer>
       </Stage>
     )
