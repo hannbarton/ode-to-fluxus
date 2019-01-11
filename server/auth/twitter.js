@@ -18,12 +18,15 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
   const strategy = new TwitterStrategy(
     twitterConfig,
     (token, tokenSecret, profile, cb) => {
-      console.log('params', token, tokenSecret, profile)
+      profile.token = token;
+      profile.tokenSecret = tokenSecret;
+      console.log(profile)
       User.findOrCreate(
         {
           twitterId: profile.id,
           name: profile.displayName,
-          email: profile.emails[0].value
+          email: profile.email
+          // email: profile.emails[0].value
         },
         function(err, user) {
           return cb(err, user)
