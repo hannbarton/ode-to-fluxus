@@ -29,7 +29,7 @@ const AuthForm = props => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form> */}
-      <a href="/auth/twitter">
+      <a href="/connect/twitter">
         {displayName} with Twitter to make a poem from you own tweets
       </a>
     </div>

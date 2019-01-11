@@ -10,6 +10,9 @@ router.get(
     successRedirect: '/poem',
     failureRedirect: '/login',
     failureFlash: true
-  })
+  }),
+  function(req, res) {
+      console.log(req.user, req.account)
+  }
 
 )
