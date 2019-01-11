@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
-import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -12,9 +11,6 @@ const AuthForm = props => {
 
   return (
     <div>
-      <Link to="/poem">
-        Don't log in and make a poem from trending hashtags
-      </Link>
       {/* <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email">
