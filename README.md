@@ -10,3 +10,4 @@ A application that gives you a random set of #TrendingWords from Twitter and all
 
 ## Example from my application
 ![Image of Friday](https://i.imgur.com/VkHMsdY.png)
+

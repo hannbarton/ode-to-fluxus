@@ -16,7 +16,6 @@ class MainPage extends React.Component {
   }
 
   handleChange(event) {
-      console.log(event.target.value)
     event.preventDefault()
     this.setState({
       [event.target.name]: event.target.value
