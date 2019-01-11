@@ -9,7 +9,7 @@ const App = () => {
     <div>
       {/* <Navbar /> */}
       <Routes />
-      <MainPage/>
+      {/* <MainPage/> */}
     </div>
   )
 }
