@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -11,6 +12,9 @@ const AuthForm = props => {
 
   return (
     <div>
+      <Link to="/poem">
+        Don't log in and make a poem from trending hashtags
+      </Link>
       {/* <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email">
@@ -29,7 +33,9 @@ const AuthForm = props => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form> */}
-      <a href="/auth/twitter">{displayName} with Twitter to make a poem from you own tweets</a>
+      <a href="/auth/twitter">
+        {displayName} with Twitter to make a poem from you own tweets
+      </a>
     </div>
   )
 }
@@ -71,7 +77,6 @@ const mapDispatch = dispatch => {
 
 export const Login = connect(mapLogin, mapDispatch)(AuthForm)
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
-
 
 AuthForm.propTypes = {
   name: PropTypes.string.isRequired,

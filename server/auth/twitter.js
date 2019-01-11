@@ -17,6 +17,7 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
   const strategy = new TwitterStrategy(
     twitterConfig,
     (token, tokenSecret, profile, cb) => {
+      console.log('params', token, tokenSecret, profile)
       User.findOrCreate(
         {
           twitterId: profile.id,
@@ -40,10 +41,11 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
   router.get(
     '/callback',
     passport.authenticate('twitter', {
+      successRedirect: '/poem',
       failureRedirect: '/login'
     }),
     function(req, res) {
-      res.redirect('/')
+      res.redirect('/poem')
     }
   )
 }
