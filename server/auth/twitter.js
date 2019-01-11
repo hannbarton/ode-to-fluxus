@@ -11,7 +11,8 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
   const twitterConfig = {
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-    callbackURL: process.env.TWITTER_CALLBACK
+    callbackURL: process.env.TWITTER_CALLBACK,
+    passReqToCallback: true
   }
 
   const strategy = new TwitterStrategy(
