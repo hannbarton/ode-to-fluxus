@@ -7,6 +7,8 @@ class HomePage extends React.Component {
         return(
             <div>
                 <Link to="/poem">Don't log in and make a poem from trending hashtags</Link>
+                <br/>
+                <br/>
             <Login/>
             </div>
         )
