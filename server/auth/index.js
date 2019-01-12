@@ -7,10 +7,10 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-// router.get('/me', (req, res) => {
-//   console.log('this is the account', req.session)
-//   res.json(req.session)
-// })
+router.get('/me', (req, res) => {
+  console.log('this is the account', req.session)
+  res.json(req.session)
+})
 
 router.use('/google', require('./google'))
 router.use('/twitter', require('./twitter'))
