@@ -12,35 +12,36 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
   const twitterConfig = {
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-    // access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-    // access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
     callbackURL: process.env.TWITTER_CALLBACK,
-    passReqToCallback: true
+    passReqToCallback: true,
   }
 
   const strategy = new TwitterStrategy(
     twitterConfig,
-    (token, tokenSecret, profile, cb) => {
+    async (token, tokenSecret, profile, cb) => {
       profile.token = token
       profile.tokenSecret = tokenSecret
       console.log(profile)
-      User.findOrCreate(
+      await User.findOrCreate(
         {
           twitterId: profile.id,
-          name: profile.displayName,
-          // email: profile.email
-          email: profile.emails[0].value
+          email: profile.email,
+          // email: profile.emails[0].value
         },
         function(err, user) {
+          user.token = token
+          user.tokenSecret = tokenSecret
+          console.log(user)
           return cb(err, user)
         }
       )
+      return cb(null, profile)
     }
   )
 
   passport.use(strategy)
 
-  router.get('/', passport.authorize('twitter', {scope: 'email'}))
+  router.get('/', passport.authorize('twitter', { failureRedirect: '/account' }))
 
   router.get(
     '/callback',
@@ -50,7 +51,8 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
       failureFlash: true,
     }),
     function(req, res) {
-      res.redirect('/poem')
+      res.send(req.session)
+      // res.redirect('/poem')
       console.log('re and res,', res, req.user, req.session)
     }
   )

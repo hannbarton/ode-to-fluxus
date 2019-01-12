@@ -26,6 +26,15 @@ const User = db.define('user', {
   },
   twitterId: {
     type: Sequelize.STRING
+  },
+  displayName: {
+    type: Sequelize.STRING
+  },
+  token: {
+    type: Sequelize.STRING
+  },
+  name: {
+    type: Sequelize.STRING
   }
 })
 
