@@ -13,6 +13,7 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
     callbackURL: process.env.TWITTER_CALLBACK,
+    userAuthorizationURL: "https://api.twitter.com/oauth/authenticate?force_login=true",
     passReqToCallback: true,
   }
 
@@ -25,7 +26,7 @@ passport.use(new TwitterStrategy(
           twitterId: profile.id,
           // email: profile.email,
           token: token,
-          tokenSecret: tokenSecret,
+          secret: tokenSecret,
           email: profile.emails[0].value
         },
         function(err, user) {
@@ -34,13 +35,9 @@ passport.use(new TwitterStrategy(
             return done(err)
           }
           if (user) {
+            console.log('user', user)
             return done(null, user)
           }
-          let account = new User()
-          account.id = profile.id
-          account.token = profile.token
-          account.tokenSecret = profile.tokenSecret
-
           return done(null, user)
         })
     }
@@ -79,6 +76,7 @@ passport.use(new TwitterStrategy(
       failureFlash: true,
     }),
     function(req, res) {
+      console.log('this is the callback req', req)
       res.redirect('/')
       console.log('req', req)
       console.log('res', res)
