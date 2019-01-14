@@ -7,11 +7,18 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-// router.get('/me', (req, res) => {
+router.get('/me', (req, res) => {
 
-//   console.log('this is the account', req.user)
-//   res.json(req.user)
-// })
+console.log('this is working')
+console.log('cookie', req.session['oauth:twitter'])
+
+  res.json(req.session['oauth:twitter'])
+  if (req.isAuthenticated()) {
+    console.log('is authenticated')
+    res.json(req.body.params)
+  }
+  return res.json({ error: 'User is not authenticated' });
+})
 
 router.use('/google', require('./google'))
 router.use('/twitter', require('./twitter'))

@@ -9,57 +9,66 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
 } else {
   console.log('twitter oauth init')
 
-  const twitterConfig = {
+  // const twitterConfig = {
+  //   consumerKey: process.env.TWITTER_CONSUMER_KEY,
+  //   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+  //   callbackURL: process.env.TWITTER_CALLBACK,
+  //   userAuthorizationURL:
+  //     'https://api.twitter.com/oauth/authenticate?force_login=true',
+  //   passReqToCallback: true
+  // }
+
+  let oAuthData = {
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-    callbackURL: process.env.TWITTER_CALLBACK,
-    userAuthorizationURL:
-      'https://api.twitter.com/oauth/authenticate?force_login=true',
-    passReqToCallback: true
-  }
+    accessTokenKey: '',
+    accessTokenSecret: ''
+  };
 
   passport.use(
-    new TwitterStrategy(twitterConfig, (token, tokenSecret, profile, done) => {
-      console.log('this is working', profile)
-      User.findOrCreate(
-        {
-          where: {
-            twitterId: profile.id,
-            token: token,
-            secret: tokenSecret,
-            email: profile.emails[0].value
-          }
-        },
-        function(err, user) {
-          console.log('user', user)
-          if (err) {
-            return done(err)
-          }
-          if (user) {
-            console.log('user', user)
-            return done(null, user)
-          }
-          return done(null, user)
-        }
-        )
-      })
-      )
+    new TwitterStrategy(
+      {
+        consumerKey: process.env.TWITTER_CONSUMER_KEY,
+        consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+        callbackURL: process.env.TWITTER_CALLBACK,
+        userAuthorizationURL:
+          'https://api.twitter.com/oauth/authenticate?force_login=true',
+        passReqToCallback: true
+      },
+      (token, tokenSecret, profile, done) => {
+        process.nextTick(function() {
+          console.log('this is working', profile)
 
-      router.get('/', passport.authorize('twitter', {scope: 'email'}))
+          return done(null, profile)
+        })
+      }
+    )
+  )
 
-      router.get(
-        '/callback',
-        passport.authorize('twitter', {
-          successRedirect: '/poem',
-          failureRedirect: '/login',
-          failureFlash: true
-        }),
-        function(req, res) {
-          console.log('this is the callback req', req)
-          res.redirect('/')
-          console.log('req', req)
-          console.log('res', res)
-          // Associate the Twitter account with the logged-in user
-        }
-      )
+  // router.post('/', async (req, res, next) => {
+  //   try {
+  //     await res.json(req)
+  //   } catch (err) {
+  //     next(err)
+  //   }
+  // })
+
+  router.get('/', passport.authorize('twitter', {scope: 'email'}))
+
+  router.get(
+    '/callback',
+    passport.authorize('twitter', {
+      successRedirect: '/poem',
+      failureRedirect: '/login',
+      failureFlash: true
+    }),
+    function(req, res) {
+      console.log('this is the callback req', res)
+      res.json(req.body)
+      res.redirect('/')
+      console.log('req', req)
+      console.log('res', res)
+      // Associate the Twitter account with the logged-in user
+    }
+  )
 }
