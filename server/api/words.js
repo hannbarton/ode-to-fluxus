@@ -57,20 +57,41 @@ router.get('/twitter', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
-  try {
-    const words = await Word.findById(req.params.id, {
-      include: [
-        {
-          model: User
-        }
-      ]
+router.get('/twitter/:id', async (req, res, next) => {
+  try{
+    console.log(req.user.id)
+
+    let client = new Twitter({
+      consumer_key: process.env.TWITTER_CONSUMER_KEY,
+      consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+      access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+      access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
     })
-    res.json(words)
-  } catch (err) {
+
+    await client.get('statuses/user_timeline', function(err, tweets) {
+      if(err) throw err
+      console.log(tweets)
+    })
+  }
+  catch(err) {
     next(err)
   }
 })
+
+// router.get('/:id', async (req, res, next) => {
+//   try {
+//     const words = await Word.findById(req.params.id, {
+//       include: [
+//         {
+//           model: User
+//         }
+//       ]
+//     })
+//     res.json(words)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
 
 router.post('/', async (req, res, next) => {
   try {

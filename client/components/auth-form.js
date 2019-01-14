@@ -11,7 +11,7 @@ const AuthForm = props => {
 
   return (
     <div>
-      {/* <form onSubmit={handleSubmit} name={name}>
+      <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email">
             <small>Email</small>
@@ -28,7 +28,7 @@ const AuthForm = props => {
           <button type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
-      </form> */}
+      </form>
       <a href="/auth/twitter">
         {displayName} with Twitter to make a poem from your own tweets
       </a>
