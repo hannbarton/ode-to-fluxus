@@ -8,8 +8,9 @@ router.post('/logout', (req, res) => {
 })
 
 // router.get('/me', (req, res) => {
-//   console.log('this is the account', req.params)
-//   res.json(req.session)
+
+//   console.log('this is the account', req.user)
+//   res.json(req.user)
 // })
 
 router.use('/google', require('./google'))

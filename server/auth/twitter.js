@@ -13,25 +13,26 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
     callbackURL: process.env.TWITTER_CALLBACK,
-    userAuthorizationURL: "https://api.twitter.com/oauth/authenticate?force_login=true",
-    passReqToCallback: true,
+    userAuthorizationURL:
+      'https://api.twitter.com/oauth/authenticate?force_login=true',
+    passReqToCallback: true
   }
 
-passport.use(new TwitterStrategy(
-    twitterConfig,
-    (token, tokenSecret, profile, done) => {
-      console.log('this is working')
+  passport.use(
+    new TwitterStrategy(twitterConfig, (token, tokenSecret, profile, done) => {
+      console.log('this is working', profile)
       User.findOrCreate(
         {
-          twitterId: profile.id,
-          // email: profile.email,
-          token: token,
-          secret: tokenSecret,
-          email: profile.emails[0].value
+          where: {
+            twitterId: profile.id,
+            token: token,
+            secret: tokenSecret,
+            email: profile.emails[0].value
+          }
         },
         function(err, user) {
           console.log('user', user)
-          if(err) {
+          if (err) {
             return done(err)
           }
           if (user) {
@@ -39,41 +40,19 @@ passport.use(new TwitterStrategy(
             return done(null, user)
           }
           return done(null, user)
-        })
-    }
+        }
+      )
+    })
   )
-)
 
-//   passport.use('twitter-authz', new TwitterStrategy({
-//     consumerKey: TWITTER_CONSUMER_KEY,
-//     consumerSecret: TWITTER_CONSUMER_SECRET,
-//     callbackURL: "http://www.example.com/connect/twitter/callback"
-//   },
-//   function(token, tokenSecret, profile, done) {
-//     Account.findOne({
-//       domain: 'twitter.com', uid: profile.id
-//     }, function(err, account) {
-//       if (err) { return done(err); }
-//       if (account) { return done(null, account); }
-
-//       var account = new Account();
-//       account.domain = 'twitter.com';
-//       account.uid = profile.id;
-//       var t = { kind: 'oauth', token: token, attributes: { tokenSecret: tokenSecret } };
-//       account.tokens.push(t);
-//       return done(null, account);
-//     });
-//   }
-// ));
-
-  router.get('/', passport.authorize('twitter', { scope: 'email' }))
+  router.get('/', passport.authorize('twitter', {scope: 'email'}))
 
   router.get(
     '/callback',
     passport.authorize('twitter', {
       successRedirect: '/poem',
       failureRedirect: '/login',
-      failureFlash: true,
+      failureFlash: true
     }),
     function(req, res) {
       console.log('this is the callback req', req)

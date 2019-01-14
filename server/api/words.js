@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const db = require('../../server/db')
-const {User, Word, TrendingTweet} = require('../db/models')
+const {Word, TrendingTweet} = require('../db/models')
 var Twitter = require('twitter')
 module.exports = router
 
@@ -104,20 +104,20 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
-  try {
-    const send = {
-      message: 'successfully erased',
-      id: req.params.id
-    }
+// router.delete('/:id', async (req, res, next) => {
+//   try {
+//     const send = {
+//       message: 'successfully erased',
+//       id: req.params.id
+//     }
 
-    await Word.destroy({
-      where: {
-        id: req.params.id
-      }
-    })
-    res.json(send)
-  } catch (err) {
-    next(err)
-  }
-})
+//     await Word.destroy({
+//       where: {
+//         id: req.params.id
+//       }
+//     })
+//     res.json(send)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
