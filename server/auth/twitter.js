@@ -20,10 +20,10 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
       },
       function(req, token, tokenSecret, profile, done) {
         process.nextTick(function() {
-
-          console.log(tokenSecret)
-          console.log('token', token)
-          console.log('this is working', profile)
+          console.log('session/cookie', req.session)
+          // console.log(tokenSecret)
+          // console.log('token', token)
+          // console.log('this is working', profile)
 
           // profile.oauth_token = token
           // profile.oauth_verifier = tokenSecret
@@ -44,7 +44,7 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
       failureFlash: true
     }),
     function(req, res) {
-      // res.send(req.query)
+      // res.send(req.account)
       console.log('query', req.query)
       console.log('acount', req.account)
       res.redirect('/poem')

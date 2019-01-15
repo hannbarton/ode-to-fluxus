@@ -3,7 +3,7 @@ const passport = require('passport')
 module.exports = router
 
 router.post('/logout', (req, res) => {
-  // req.logout()
+  req.logout()
   req.session.destroy()
   res.redirect('/')
 })

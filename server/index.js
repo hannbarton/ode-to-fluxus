@@ -55,11 +55,11 @@ const createApp = () => {
   app.use(
     session({
       secret: process.env.SESSION_SECRET || 'session_secret',
-      store: sessionStore,
+      // store: sessionStore,
       resave: true,
       saveUninitialized: false,
       cookie: {
-        secure: true,
+        secure: false,
         maxAge: 24 * 60 * 60 * 1000
       }
     })
@@ -112,7 +112,7 @@ const startListening = () => {
 const syncDb = () => db.sync()
 
 async function bootApp() {
-  await sessionStore.sync()
+  // await sessionStore.sync()
   await syncDb()
   await createApp()
   await startListening()
