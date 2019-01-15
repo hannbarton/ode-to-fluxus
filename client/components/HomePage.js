@@ -10,6 +10,8 @@ class HomePage extends React.Component {
                 <br/>
                 <br/>
             <Login/>
+            <br/>
+            <Link to='/tweet'> THIRD LINK TO POEM TWEETS</Link>
             </div>
         )
     }
