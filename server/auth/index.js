@@ -21,12 +21,5 @@ router.post('/logout', (req, res) => {
 //   return res.json({ error: 'User is not authenticated' });
 // })
 
-// need to protect endpoints?
-// router.get('/me',
-//   passport.authenticate('bearer', { session: false }),
-//   function(req, res) {
-//     res.json(req.user);
-//   });
-
 router.use('/google', require('./google'))
 router.use('/twitter', require('./twitter'))
