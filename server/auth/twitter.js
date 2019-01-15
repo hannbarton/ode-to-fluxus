@@ -18,12 +18,15 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
           'http://api.twitter.com/oauth/authenticate?force_login=true',
         passReqToCallback: true
       },
-      function(token, tokenSecret, profile, done) {
+      function(req, token, tokenSecret, profile, done) {
         process.nextTick(function() {
 
           console.log(tokenSecret)
           console.log('token', token)
           console.log('this is working', profile)
+
+          profile.oauth_token = token
+          profile.oauth_verifier = tokenSecret
 
           return done(null, profile)
         })
@@ -41,11 +44,10 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
       failureFlash: true
     }),
     function(req, res) {
-      console.log('this is the callback req', res)
-      res.json(req.account)
-      res.redirect('/')
-      console.log('req', req)
-      console.log('res', res)
+      // res.send(req.query)
+      console.log('query', req.query)
+      console.log('acount', req.account)
+      res.redirect('/poem')
       // Associate the Twitter account with the logged-in user
     }
   )
