@@ -1,6 +1,4 @@
 const router = require('express').Router()
-let TwitterStrategy = require('passport-twitter').Strategy
-const passport = require('passport')
 module.exports = router
 
 router.post('/logout', (req, res) => {
