@@ -10,7 +10,7 @@ router.post('/logout', (req, res) => {
 
 // router.get('/me', (req, res) => {
 
-// console.log('this is working', req.account)
+// // console.log('this is working', req.account)
 // console.log('cookie', req.session)
 
 //   res.json(req.session)

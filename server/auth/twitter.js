@@ -25,8 +25,8 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
           console.log('token', token)
           console.log('this is working', profile)
 
-          profile.oauth_token = token
-          profile.oauth_verifier = tokenSecret
+          // profile.oauth_token = token
+          // profile.oauth_verifier = tokenSecret
 
           return done(null, profile)
         })
