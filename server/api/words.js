@@ -9,6 +9,7 @@ const userIsAuthenticated = function (req, res, next) {
 	// Passport adds this method to request object. A middleware is allowed to add properties to
 	// request and response objects
 	if (req.isAuthenticated()) {
+    console.log('is auth')
 		return next();
   }
   else {

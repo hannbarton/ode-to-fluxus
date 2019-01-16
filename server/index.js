@@ -29,11 +29,16 @@ if (process.env.NODE_ENV === 'test') {
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
 // passport registration
-passport.serializeUser((user, done) => done(null, user.id))
+passport.serializeUser((user, done) => {
+  // console.log('SERIALIZE USER', user)
+  console.log('dONE', done)
+  done(null, +user.id)
+})
 
-passport.deserializeUser(async (id, done) => {
+passport.deserializeUser(async (twitterId, done) => {
   try {
-    const user = await db.models.user.findById(id)
+    const user = await db.models.user.findById(twitterId)
+    console.log('DESERIALIZE', twitterId, done )
     done(null, user)
   } catch (err) {
     done(err)
@@ -112,7 +117,7 @@ const startListening = () => {
 const syncDb = () => db.sync()
 
 async function bootApp() {
-  // await sessionStore.sync()
+  await sessionStore.sync()
   await syncDb()
   await createApp()
   await startListening()

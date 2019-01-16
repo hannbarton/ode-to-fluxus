@@ -17,13 +17,15 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
         callbackURL: process.env.TWITTER_CALLBACK,
         userAuthorizationURL:
           'http://api.twitter.com/oauth/authenticate?force_login=true',
-        passReqToCallback: true
+        passReqToCallback: true,
+        // includeEmail: true
       },
        (req, token, tokenSecret, profile, done) => {
           // process.nextTick(function() {
             // console.log('ACCOUNT', profile.account)
-            console.log('PROFILE USERNAME', profile._json)
+            // console.log('PROFILE USERNAME', profile._json)
             // console.log('done', done)
+            // console.log('THIS IS THE REq', req)
 
             const twitterId = profile._json.id
             const displayName = profile.displayName
@@ -36,23 +38,40 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
               where: {twitterId},
               defaults: {displayName, userName, name, accessToken, accessTokenSecret}
             })
-            .then(([user]) => done(null, user))
-            .catch(done)
+
+            // console.log('REQQQQ', profile)
+
+            return done(null, profile)
         }
     )
   )
 
-  router.get('/', passport.authorize('twitter', {scope: 'email'}))
+  router.post('/login', passport.authenticate('local', {
+    successRedirect: '/tweets',
+    failureRedirect: '/login',
+    failureFlash: true
+}))
+
+  router.get('/', passport.authorize('twitter'))
 
   router.get(
     '/callback',
     passport.authorize('twitter', {
-      successRedirect: '/poem',
+      successRedirect: '/tweet',
       failureRedirect: '/login',
       failureFlash: true
     }),
     function(req, res) {
-      res.redirect('/poem')
+      req.session.save(() => {
+        req.logIn(req.account, function(err) {
+          if (err) {
+            console.error(err)
+          }
+          // console.log("THJIS IS THE SENSSION", req.account)
+          return res.redirect('/tweet')
+        });
+
+      })
       // Associate the Twitter account with the logged-in user
     }
   )
