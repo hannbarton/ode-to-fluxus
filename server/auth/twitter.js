@@ -1,6 +1,7 @@
 const passport = require('passport')
 const router = require('express').Router()
 let TwitterStrategy = require('passport-twitter').Strategy
+const {User} = require('../db/models')
 module.exports = router
 
 if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
@@ -20,13 +21,21 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
       },
       function(req, token, tokenSecret, profile, done) {
         process.nextTick(function() {
-          console.log('session/cookie', req.session)
-          // console.log(tokenSecret)
-          // console.log('token', token)
-          // console.log('this is working', profile)
+          // console.log('ACCOUNT', profile.account)
+          console.log('PROFILE USERNAME', profile._json)
+          console.log('done', done)
 
-          // profile.oauth_token = token
-          // profile.oauth_verifier = tokenSecret
+          User.findOrCreate({
+            where: {
+              twitterId: profile._json.id,
+              displayName: profile.displayName,
+              userName: profile._json.screen_name,
+              name: profile._json.name,
+              token: token,
+              tokenSecret: tokenSecret
+            }
+          })
+
 
           return done(null, profile)
         })
@@ -44,9 +53,6 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
       failureFlash: true
     }),
     function(req, res) {
-      // res.send(req.account)
-      console.log('query', req.query)
-      console.log('acount', req.account)
       res.redirect('/poem')
       // Associate the Twitter account with the logged-in user
     }

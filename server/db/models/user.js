@@ -33,13 +33,13 @@ const User = db.define('user', {
   userName: {
     type: Sequelize.STRING
   },
-  token: {
-    type: Sequelize.TEXT
-  },
   name: {
     type: Sequelize.STRING
   },
-  secret: {
+  token: {
+    type: Sequelize.TEXT
+  },
+  tokenSecret: {
     type: Sequelize.TEXT
   }
 })
