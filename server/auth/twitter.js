@@ -19,27 +19,26 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
           'http://api.twitter.com/oauth/authenticate?force_login=true',
         passReqToCallback: true
       },
-      function(req, token, tokenSecret, profile, done) {
-        // process.nextTick(function() {
-          // console.log('ACCOUNT', profile.account)
-          console.log('PROFILE USERNAME', profile._json)
-          // console.log('done', done)
+       (req, token, tokenSecret, profile, done) => {
+          // process.nextTick(function() {
+            // console.log('ACCOUNT', profile.account)
+            console.log('PROFILE USERNAME', profile._json)
+            // console.log('done', done)
 
-          User.findOrCreate({
-            where: {
-              twitterId: profile._json.id,
-              displayName: profile.displayName,
-              userName: profile._json.screen_name,
-              name: profile._json.name,
-              token: token,
-              tokenSecret: tokenSecret
-            }
-          })
-          .then(([user]) => done(null, user))
-          .catch(done)
-          // return done(null, profile)
-        // })
-      }
+            const twitterId = profile._json.id
+            const displayName = profile.displayName
+            const userName = profile._json.screen_name
+            const name = profile._json.name
+            const accessToken = token
+            const accessTokenSecret = tokenSecret
+
+            User.findOrCreate({
+              where: {twitterId},
+              defaults: {displayName, userName, name, accessToken, accessTokenSecret}
+            })
+            .then(([user]) => done(null, user))
+            .catch(done)
+        }
     )
   )
 

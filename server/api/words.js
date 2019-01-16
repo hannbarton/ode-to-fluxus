@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const db = require('../../server/db')
-const {Word, TrendingTweet} = require('../db/models')
+const {Word, TrendingTweet, User} = require('../db/models')
 var Twitter = require('twitter')
 module.exports = router
 
@@ -29,7 +29,9 @@ router.get('/', async (req, res, next) => {
 
 router.get('/twitter', async (req, res, next) => {
   try {
-    await db.sync({force: true})
+
+    // await TrendingTweet.destroy()
+    // await db.sync({force: true})
 
     await client.get('/trends/place', {id: 23424977}, function(error, tweets) {
       if (error) throw error
@@ -58,7 +60,7 @@ router.get('/twitter', async (req, res, next) => {
       )
       res.json(dataTweet)
     })
-    await db.sync({force: false})
+    // await db.sync({force: false})
   } catch (err) {
     next(err)
   }
@@ -66,11 +68,12 @@ router.get('/twitter', async (req, res, next) => {
 
 router.get('/twitter/:id', async (req, res, next) => {
   try{
-    console.log(req.user.id)
+    console.log(req.id)
 
     await twitterUserClient.get('statuses/user_timeline', function(err, tweets) {
       if(err) throw err
       console.log(tweets)
+      res.json(tweets)
     })
   }
   catch(err) {
@@ -89,20 +92,20 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-// router.delete('/:id', async (req, res, next) => {
-//   try {
-//     const send = {
-//       message: 'successfully erased',
-//       id: req.params.id
-//     }
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const send = {
+      message: 'successfully erased',
+      id: req.params.id
+    }
 
-//     await Word.destroy({
-//       where: {
-//         id: req.params.id
-//       }
-//     })
-//     res.json(send)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
+    await Word.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    res.json(send)
+  } catch (err) {
+    next(err)
+  }
+})
