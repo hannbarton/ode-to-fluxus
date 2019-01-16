@@ -25,7 +25,7 @@ const User = db.define('user', {
     }
   },
   twitterId: {
-    type: Sequelize.STRING
+    type: Sequelize.BIGINT
   },
   displayName: {
     type: Sequelize.STRING

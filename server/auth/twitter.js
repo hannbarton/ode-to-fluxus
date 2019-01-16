@@ -20,10 +20,10 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
         passReqToCallback: true
       },
       function(req, token, tokenSecret, profile, done) {
-        process.nextTick(function() {
+        // process.nextTick(function() {
           // console.log('ACCOUNT', profile.account)
           console.log('PROFILE USERNAME', profile._json)
-          console.log('done', done)
+          // console.log('done', done)
 
           User.findOrCreate({
             where: {
@@ -35,10 +35,10 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
               tokenSecret: tokenSecret
             }
           })
-
-
-          return done(null, profile)
-        })
+          .then(([user]) => done(null, user))
+          .catch(done)
+          // return done(null, profile)
+        // })
       }
     )
   )
