@@ -55,7 +55,7 @@ const createApp = () => {
   app.use(
     session({
       secret: process.env.SESSION_SECRET || 'session_secret',
-      // store: sessionStore,
+      store: sessionStore,
       resave: true,
       saveUninitialized: false,
       cookie: {

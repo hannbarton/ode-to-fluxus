@@ -4,18 +4,26 @@ const {Word, TrendingTweet, User} = require('../db/models')
 var Twitter = require('twitter')
 module.exports = router
 
+const userIsAuthenticated = function (req, res, next) {
+	// if user is authenticated in the session, call the next() to call the next request handler
+	// Passport adds this method to request object. A middleware is allowed to add properties to
+	// request and response objects
+	if (req.isAuthenticated()) {
+		return next();
+  }
+  else {
+    console.log('not authenticated')
+  }
+	// if the user is not authenticated then redirect him to the login page
+	// res.redirect('/login');
+}
+
+
 let client = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
   access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
-})
-
-let twitterUserClient = new Twitter({
-  consumer_key: process.env.TWITTER_CONSUMER_KEY,
-  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  access_token_key: '',
-  access_token_secret: ''
 })
 
 router.get('/', async (req, res, next) => {
@@ -66,15 +74,29 @@ router.get('/twitter', async (req, res, next) => {
   }
 })
 
-router.get('/twitter/:id', async (req, res, next) => {
+router.get('/myTweets', userIsAuthenticated, async (req, res, next) => {
   try{
-    console.log(req.id)
+    console.log('hittin')
+    // console.log('userID', req.user)
+    // console.log('twitterID', req.user.twitterId)
 
-    await twitterUserClient.get('statuses/user_timeline', function(err, tweets) {
-      if(err) throw err
-      console.log(tweets)
-      res.json(tweets)
-    })
+    // let twitterUserClient = new Twitter({
+    //   consumer_key: process.env.TWITTER_CONSUMER_KEY,
+    //   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+    //   // access_token_key: req.user.accessToken,
+    //   // access_token_secret: req.user.accessTokenSecret
+    // })
+
+
+    // let params = {screen_name: req.user.twitterId}
+
+    // await twitterUserClient.get('statuses/user_timeline', params, function(err, tweets, response) {
+    //   if(err) throw err
+    //   console.log(tweets)
+    //   console.log(response)
+    //   res.json(tweets)
+    // })
+    // res.json({something:"something"})
   }
   catch(err) {
     next(err)
