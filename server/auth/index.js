@@ -20,10 +20,5 @@ router.post('/logout', (req, res) => {
 //   return res.json({ error: 'User is not authenticated' });
 // })
 
-router.get('/me', (req, res) => {
-// console.log('pasport', req)
-  res.json(req._passport)
-})
-
 router.use('/google', require('./google'))
 router.use('/twitter', require('./twitter'))

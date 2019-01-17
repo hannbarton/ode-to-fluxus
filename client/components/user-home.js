@@ -3,23 +3,23 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
 export const UserHome = props => {
-  const {email} = props
+  const {displayName} = props
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      <h3>Welcome, {displayName}</h3>
     </div>
   )
 }
 
 const mapState = state => {
   return {
-    email: state.user.email
+    displayName: state.user.displayName
   }
 }
 
 export default connect(mapState)(UserHome)
 
 UserHome.propTypes = {
-  email: PropTypes.string
+  displayName: PropTypes.string
 }
