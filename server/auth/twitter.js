@@ -2,13 +2,41 @@ const passport = require('passport')
 const router = require('express').Router()
 let TwitterStrategy = require('passport-twitter').Strategy
 const LocalStrategy = require('passport-local').Strategy
+const db = require('../db')
 const {User} = require('../db/models')
 module.exports = router
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) return next()
+  res.redirect('/login')
+}
 
 if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
   console.log('TWITTER client ID / secret not found. Skipping TWITTER OAuth.')
 } else {
   console.log('twitter oauth init')
+
+  //  passport registration
+  passport.serializeUser((user, done) => {
+    console.log('has been serialized')
+    // console.log('dONE', user)
+
+    const message = {
+      id: user.id
+    }
+
+    done(null, message)
+  })
+
+  passport.deserializeUser(async (twitterUser, done) => {
+    try {
+      const user = await db.models.user.findById(twitterUser.twitterId)
+      console.log('DESERIALIZddd')
+      done(null, user)
+    } catch (err) {
+      done(err)
+    }
+  })
 
   passport.use(
     'twitter',
@@ -48,8 +76,6 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
           }
         })
 
-        // console.log('REQQQQ', req.user)
-
         return done(null, profile)
       }
     )
@@ -77,19 +103,23 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
   //   )
   // )
 
-  router.get('/me', (req, res) => {
-    // console.log('pasport', req)
-      res.json(req.user)
-    })
+  // router.get('/me', (req, res) => {
+  //   // console.log('pasport', req)
+  //     res.json(req.user)
+  //   })
 
+  router.post(
+    '/login',
+    passport.authenticate('local', {failureRedirect: '/login'}),
+    function(req, res) {
+      res.redirect('/poem')
+    }
+  )
 
-  router.post('/login',
-  passport.authenticate('local', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/poem');
-  });
-
-  router.get('/', passport.authorize('twitter'))
+  router.get('/', passport.authorize('twitter'), (req, res) => {
+    // console.log(req.user)
+    res.redirect('/profile/')
+  })
 
   router.get(
     '/callback',
@@ -100,11 +130,15 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
     }),
     function(req, res) {
       req.session.save(() => {
-        req.logIn(req.account, function(err) {
+        req.login(req.account, function(err) {
           if (err) {
             console.error(err)
           }
           console.log('THJIS IS THE SENSSION', req.session)
+          router.get('/me', (reqq, ress, next) => {
+            req.session.save()
+            ress.json(req.user)
+          })
           return res.redirect('/tweet')
         })
       })

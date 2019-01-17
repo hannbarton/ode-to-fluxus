@@ -28,22 +28,22 @@ if (process.env.NODE_ENV === 'test') {
  */
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
-// passport registration
-passport.serializeUser((user, done) => {
-  console.log('has been serialized')
-  // console.log('dONE', user)
-  done(null, user)
-})
+// // passport registration
+// passport.serializeUser((user, done) => {
+//   console.log('has been serialized')
+//   // console.log('dONE', user)
+//   done(null, user)
+// })
 
-passport.deserializeUser(async (twitterUser, done) => {
-  try {
-    const user = await db.models.user.findById(twitterUser.id)
-    console.log('DESERIALIZddd')
-    done(null, user)
-  } catch (err) {
-    done(err)
-  }
-})
+// passport.deserializeUser(async (twitterUser, done) => {
+//   try {
+//     const user = await db.models.user.findById(twitterUser.twitterId)
+//     console.log('DESERIALIZddd')
+//     done(null, user)
+//   } catch (err) {
+//     done(err)
+//   }
+// })
 
 const createApp = () => {
   // logging middleware
@@ -75,6 +75,7 @@ const createApp = () => {
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
+  app.use('/profile', require('./profile'))
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))

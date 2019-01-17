@@ -4,20 +4,20 @@ const {Word, TrendingTweet, User} = require('../db/models')
 var Twitter = require('twitter')
 module.exports = router
 
-const userIsAuthenticated = function (req, res, next) {
-	// if user is authenticated in the session, call the next() to call the next request handler
-	// Passport adds this method to request object. A middleware is allowed to add properties to
-	// request and response objects
-	if (req.isAuthenticated()) {
-    console.log('is auth')
-		return next();
-  }
-  else {
-    console.log('not authenticated')
-    res.redirect('/login');
-  }
-	// if the user is not authenticated then redirect him to the login page
-}
+// const userIsAuthenticated = function (req, res, next) {
+// 	// if user is authenticated in the session, call the next() to call the next request handler
+// 	// Passport adds this method to request object. A middleware is allowed to add properties to
+// 	// request and response objects
+// 	if (req.isAuthenticated()) {
+//     console.log('is auth')
+// 		return next();
+//   }
+//   else {
+//     console.log('not authenticated')
+//     res.redirect('/login');
+//   }
+// 	// if the user is not authenticated then redirect him to the login page
+// }
 
 let client = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
@@ -73,11 +73,11 @@ router.get('/twitter', async (req, res, next) => {
   }
 })
 
-router.get('/myTweets', userIsAuthenticated, async (req, res, next) => {
+router.get('/myTweets', async (req, res, next) => {
   try{
     console.log('hittin')
     await console.log('userID', req.user)
-    res.json(req.user)
+    // res.json(req.user)
     // console.log('twitterID', req.user.twitterId)
 
     // let twitterUserClient = new Twitter({
