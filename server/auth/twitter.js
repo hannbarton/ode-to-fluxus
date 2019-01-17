@@ -39,7 +39,6 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
   })
 
   passport.use(
-    'twitter',
     new TwitterStrategy(
       {
         consumerKey: process.env.TWITTER_CONSUMER_KEY,
@@ -48,35 +47,48 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
         userAuthorizationURL:
           'http://api.twitter.com/oauth/authenticate?force_login=true',
         passReqToCallback: true
-        // includeEmail: true
       },
       (req, token, tokenSecret, profile, done) => {
-        // process.nextTick(function() {
-        // console.log('ACCOUNT', profile.account)
-        // console.log('PROFILE USERNAME', profile._json)
-        // console.log('done', done)
-        // console.log('THIS IS THE REq', req)
+        process.nextTick(function() {
 
-        const twitterId = profile._json.id_str
-        // const twitterId = 123
-        const displayName = profile.displayName
-        const userName = profile._json.screen_name
-        const name = profile._json.name
-        const accessToken = token
-        const accessTokenSecret = tokenSecret
+          if (!req.user) {
+            const twitterId = profile._json.id_str
+            const displayName = profile.displayName
+            const userName = profile._json.screen_name
+            const name = profile._json.name
+            const accessToken = token
+            const accessTokenSecret = tokenSecret
 
-        User.findOrCreate({
-          where: {twitterId},
-          defaults: {
-            displayName,
-            userName,
-            name,
-            accessToken,
-            accessTokenSecret
+            const user = User.findOrCreate({
+              where: {twitterId},
+              defaults: {
+                displayName,
+                userName,
+                name,
+                accessToken,
+                accessTokenSecret
+              }
+            })
+            return done(null, user)
+          }
+          else {
+            var user = new User()
+
+            user.twitterId = profile._json.id_str
+            user.displayName = profile.displayName
+            user.userName = profile._json.screen_name
+            user.name = profile._json.name
+            user.accessToken = token
+            user.accessTokenSecret = tokenSecret
+
+            user.save(function(err) {
+              if (err) {
+                throw err
+              }
+              return done(null, user)
+            })
           }
         })
-
-        return done(null, profile)
       }
     )
   )
@@ -108,18 +120,15 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
   //     res.json(req.user)
   //   })
 
-  router.post(
-    '/login',
-    passport.authenticate('local', {failureRedirect: '/login'}),
-    function(req, res) {
-      res.redirect('/poem')
-    }
-  )
+  // router.post(
+  //   '/login',
+  //   passport.authenticate('local', {failureRedirect: '/login'}),
+  //   function(req, res) {
+  //     res.redirect('/poem')
+  //   }
+  // )
 
-  router.get('/', passport.authorize('twitter'), (req, res) => {
-    // console.log(req.user)
-    res.redirect('/profile/')
-  })
+  router.get('/', passport.authorize('twitter'))
 
   router.get(
     '/callback',
@@ -129,20 +138,7 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
       failureFlash: true
     }),
     function(req, res) {
-      req.session.save(() => {
-        req.login(req.account, function(err) {
-          if (err) {
-            console.error(err)
-          }
-          console.log('THJIS IS THE SENSSION', req.session)
-          router.get('/me', (reqq, ress, next) => {
-            req.session.save()
-            ress.json(req.user)
-          })
-          return res.redirect('/tweet')
-        })
-      })
-      // Associate the Twitter account with the logged-in user
+      return res.redirect('/profile')
     }
   )
 }
