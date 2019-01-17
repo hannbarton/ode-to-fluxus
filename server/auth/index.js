@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const passport = require('passport')
 module.exports = router
 
 router.post('/logout', (req, res) => {
@@ -22,7 +21,7 @@ router.post('/logout', (req, res) => {
 // })
 
 router.get('/me', (req, res) => {
-console.log(req._passport)
+// console.log('pasport', req)
   res.json(req._passport)
 })
 

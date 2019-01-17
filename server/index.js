@@ -31,8 +31,9 @@ if (process.env.NODE_ENV !== 'production') require('../secrets')
 // passport registration
 passport.serializeUser((user, done) => {
   // console.log('SERIALIZE USER', user)
-  console.log('dONE', done)
-  done(null, +user.id)
+
+  console.log('dONE', user.id)
+  done(null, user)
 })
 
 passport.deserializeUser(async (twitterId, done) => {

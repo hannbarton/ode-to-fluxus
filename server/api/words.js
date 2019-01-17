@@ -14,11 +14,10 @@ const userIsAuthenticated = function (req, res, next) {
   }
   else {
     console.log('not authenticated')
+    res.redirect('/login');
   }
 	// if the user is not authenticated then redirect him to the login page
-	// res.redirect('/login');
 }
-
 
 let client = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
@@ -38,7 +37,6 @@ router.get('/', async (req, res, next) => {
 
 router.get('/twitter', async (req, res, next) => {
   try {
-
     // await TrendingTweet.destroy()
     // await db.sync({force: true})
 
@@ -78,7 +76,8 @@ router.get('/twitter', async (req, res, next) => {
 router.get('/myTweets', userIsAuthenticated, async (req, res, next) => {
   try{
     console.log('hittin')
-    // console.log('userID', req.user)
+    await console.log('userID', req.user)
+    res.json(req.user)
     // console.log('twitterID', req.user.twitterId)
 
     // let twitterUserClient = new Twitter({
@@ -87,7 +86,6 @@ router.get('/myTweets', userIsAuthenticated, async (req, res, next) => {
     //   // access_token_key: req.user.accessToken,
     //   // access_token_secret: req.user.accessTokenSecret
     // })
-
 
     // let params = {screen_name: req.user.twitterId}
 
@@ -100,6 +98,8 @@ router.get('/myTweets', userIsAuthenticated, async (req, res, next) => {
     // res.json({something:"something"})
   }
   catch(err) {
+    console.log('NOT HITTING')
+    console.error(err)
     next(err)
   }
 })

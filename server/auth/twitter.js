@@ -1,6 +1,7 @@
 const passport = require('passport')
 const router = require('express').Router()
 let TwitterStrategy = require('passport-twitter').Strategy
+const LocalStrategy   = require('passport-local').Strategy;
 const {User} = require('../db/models')
 module.exports = router
 
@@ -9,7 +10,7 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
 } else {
   console.log('twitter oauth init')
 
-  passport.use(
+  passport.use('twitter',
     new TwitterStrategy(
       {
         consumerKey: process.env.TWITTER_CONSUMER_KEY,
@@ -27,7 +28,8 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
             // console.log('done', done)
             // console.log('THIS IS THE REq', req)
 
-            const twitterId = profile._json.id
+            // const twitterId = profile._json.id
+            const twitterId = 123
             const displayName = profile.displayName
             const userName = profile._json.screen_name
             const name = profile._json.name
@@ -46,11 +48,27 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
     )
   )
 
-  router.post('/login', passport.authenticate('local', {
-    successRedirect: '/tweets',
-    failureRedirect: '/login',
-    failureFlash: true
-}))
+  passport.use('login', new LocalStrategy({
+    passReqToCallback : true
+},
+function(req, username, password, done) {
+    // check in mongo if a user with username exists or not
+    // User.findOne({ 'twitterId' :  req.id },
+    //     function(err, user) {
+    //         // In case of any error, return using the done method
+    //         if (err)
+    //             return done(err);
+    //         // Username does not exist, log the error and redirect back
+    //         if (!user){
+    //             console.log('User Not Found with username ');
+    //             // return done(null, false, req.flash('message', 'User Not found.'));
+    //         }
+            return done(null, req);
+    //     }
+    // );
+
+})
+);
 
   router.get('/', passport.authorize('twitter'))
 
@@ -67,7 +85,7 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
           if (err) {
             console.error(err)
           }
-          // console.log("THJIS IS THE SENSSION", req.account)
+          console.log("THJIS IS THE SENSSION", req.account)
           return res.redirect('/tweet')
         });
 
