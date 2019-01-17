@@ -3,8 +3,8 @@ module.exports = router
 
 const authCheck = (req, res, next) => {
     if (!req.user) {
-        console.log('hittigh auth check not passing')
-        res.redirect('/login')
+        console.log('auth check not passing')
+        res.send('YOU MUST LOG IN')
     }
     else {
         next()
@@ -12,6 +12,5 @@ const authCheck = (req, res, next) => {
 }
 
 router.get('/', authCheck, (req, res) => {
-    console.log('REQ SESIASNDSID')
     res.send('YOU ARE lOGGED in')
 })

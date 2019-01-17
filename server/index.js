@@ -32,7 +32,7 @@ if (process.env.NODE_ENV !== 'production') require('../secrets')
 passport.serializeUser((user, done) => {
   console.log('has been serialized')
   // console.log('dONE', user)
-  done(null, user.twitterId)
+  done(null, user.id)
 })
 
 passport.deserializeUser(async (id, done) => {
