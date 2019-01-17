@@ -2,8 +2,8 @@ const router = require('express').Router()
 module.exports = router
 
 const authCheck = (req, res, next) => {
-    if (!req.session['oauth:twitter']) {
-        console.log(req.session)
+    if (!req.user) {
+        console.log('hittigh auth check not passing')
         res.redirect('/login')
     }
     else {
@@ -12,6 +12,6 @@ const authCheck = (req, res, next) => {
 }
 
 router.get('/', authCheck, (req, res) => {
-    console.log('REQ SESIASNDSID', req.session)
-    res.send('YOU ARE loggED in')
+    console.log('REQ SESIASNDSID')
+    res.send('YOU ARE lOGGED in')
 })

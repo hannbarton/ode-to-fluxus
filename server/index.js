@@ -28,22 +28,23 @@ if (process.env.NODE_ENV === 'test') {
  */
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
-// // passport registration
-// passport.serializeUser((user, done) => {
-//   console.log('has been serialized')
-//   // console.log('dONE', user)
-//   done(null, user)
-// })
+// passport registration
+passport.serializeUser((user, done) => {
+  console.log('has been serialized')
+  // console.log('dONE', user)
+  done(null, user.twitterId)
+})
 
-// passport.deserializeUser(async (twitterUser, done) => {
-//   try {
-//     const user = await db.models.user.findById(twitterUser.twitterId)
-//     console.log('DESERIALIZddd')
-//     done(null, user)
-//   } catch (err) {
-//     done(err)
-//   }
-// })
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await db.models.user.findById(id)
+    console.log('DESERIALIZddd')
+    done(null, user)
+  } catch (err) {
+    console.log('error with deserializeation')
+    done(err)
+  }
+})
 
 const createApp = () => {
   // logging middleware

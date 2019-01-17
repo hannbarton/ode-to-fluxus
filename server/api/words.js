@@ -4,20 +4,18 @@ const {Word, TrendingTweet, User} = require('../db/models')
 var Twitter = require('twitter')
 module.exports = router
 
-// const userIsAuthenticated = function (req, res, next) {
-// 	// if user is authenticated in the session, call the next() to call the next request handler
-// 	// Passport adds this method to request object. A middleware is allowed to add properties to
-// 	// request and response objects
-// 	if (req.isAuthenticated()) {
-//     console.log('is auth')
-// 		return next();
-//   }
-//   else {
-//     console.log('not authenticated')
-//     res.redirect('/login');
-//   }
-// 	// if the user is not authenticated then redirect him to the login page
-// }
+
+const isLoggedIn = (req, res, next) => {
+  if (!req.account.user) {
+      // console.log(req.session)
+      console.log('req', req.account.user)
+      res.redirect('/login')
+  }
+  else {
+    console.log('req acount user',req.account.user)
+      next()
+  }
+}
 
 let client = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
@@ -73,29 +71,30 @@ router.get('/twitter', async (req, res, next) => {
   }
 })
 
-router.get('/myTweets', async (req, res, next) => {
+router.get('/myTweets', isLoggedIn, async (req, res, next) => {
   try{
     console.log('hittin')
-    await console.log('userID', req.user)
+    console.log('userID', req.session['oauth:twitter'].oauth_token)
     // res.json(req.user)
     // console.log('twitterID', req.user.twitterId)
 
-    // let twitterUserClient = new Twitter({
-    //   consumer_key: process.env.TWITTER_CONSUMER_KEY,
-    //   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-    //   // access_token_key: req.user.accessToken,
-    //   // access_token_secret: req.user.accessTokenSecret
-    // })
+    let twitterUserClient = new Twitter({
+      consumer_key: process.env.TWITTER_CONSUMER_KEY,
+      consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+      access_token_key: req.session['oauth:twitter'].oauth_token,
+      access_token_secret: req.session['oauth:twitter'].oauth_token_secret,
+    })
 
-    // let params = {screen_name: req.user.twitterId}
+    await twitterUserClient.get('statuses/home_timeline', function(err, tweets, response) {
 
-    // await twitterUserClient.get('statuses/user_timeline', params, function(err, tweets, response) {
-    //   if(err) throw err
-    //   console.log(tweets)
-    //   console.log(response)
-    //   res.json(tweets)
-    // })
-    // res.json({something:"something"})
+      // Promise.all(tweets)
+
+      console.log('tweets', tweets)
+      if(err) throw err
+      console.log(response)
+      // res.json(tweets)
+    })
+    res.json({something:"NOT WORKING"})
   }
   catch(err) {
     console.log('NOT HITTING')
