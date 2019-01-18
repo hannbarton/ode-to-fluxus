@@ -4,7 +4,6 @@ const {Word, TrendingTweet, User} = require('../db/models')
 var Twitter = require('twitter')
 module.exports = router
 
-
 const isLoggedIn = (req, res, next) => {
   if (!req.user) {
       res.redirect('/login')
