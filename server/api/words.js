@@ -70,8 +70,6 @@ router.get('/twitter', async (req, res, next) => {
 
 router.get('/myTweets', isLoggedIn, async (req, res, next) => {
   try{
-    console.log('hittin')
-    console.log('req.user', req.user)
 
     let twitterUserClient = new Twitter({
       consumer_key: process.env.TWITTER_CONSUMER_KEY,
@@ -80,9 +78,20 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
       access_token_secret: req.user.accessTokenSecret,
     })
 
-    await twitterUserClient.get('statuses/user_timeline', function(err, tweets, response) {
-      if(err) throw err
-      res.json(tweets)
+    await twitterUserClient.get('statuses/user_timeline', {tweet_mode: 'extended'}, function(err, tweets, response) {
+      if(err) {
+        throw err
+      }
+      else {
+        const myTweetArray = tweets.map(eachTweet => {
+          if (eachTweet.full_text[0] === 'R' && eachTweet.full_text[1] === "T") {
+            return eachTweet.retweeted_status.full_text.replace(/\n/g, " ")
+          }else {
+            return eachTweet.full_text.replace(/\n/g, " ")
+          }
+        })
+        res.json(myTweetArray)
+      }
     })
   }
   catch(err) {
