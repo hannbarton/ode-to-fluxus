@@ -91,6 +91,7 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
           }
         })
         res.json(myTweetArray)
+        // res.json(myTweetArray.concat(tweets))
       }
     })
   }
