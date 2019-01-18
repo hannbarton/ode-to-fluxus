@@ -85,12 +85,18 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
       else {
         const myTweetArray = tweets.map(eachTweet => {
           if (eachTweet.full_text[0] === 'R' && eachTweet.full_text[1] === "T") {
-            return {tweet: eachTweet.retweeted_status.full_text.replace(/\n/g, " ")}
+            return {tweet: eachTweet.retweeted_status.full_text.replace(/\n/g, " ").replace("[", "").replace("]", "").split(' ')}
           }else {
-            return {tweet: eachTweet.full_text.replace(/\n/g, " ")}
+            return {tweet: eachTweet.full_text.replace(/\n/g, " ").replace("[", "").replace("]", "").split(' ')}
           }
         })
-        res.json(myTweetArray)
+
+        const filteredArrayofTweets = myTweetArray.map((filteredTweet) => {
+          let randomIndex = Math.floor((Math.random() * filteredTweet.tweet.length - 1))
+          return {tweet: filteredTweet.tweet[randomIndex]}
+        })
+
+        res.json(filteredArrayofTweets)
         // res.json(myTweetArray.concat(tweets))
       }
     })
