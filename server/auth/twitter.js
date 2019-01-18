@@ -54,6 +54,7 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
     }),
     (req, res) => {
       req.session.save(() => {
+        //used to establish a login session.
         req.logIn(req.account, function(err) {
           if (err) {
             console.error(err)
