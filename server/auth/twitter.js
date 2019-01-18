@@ -27,8 +27,6 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
         const accessToken = token
         const accessTokenSecret = tokenSecret
 
-        // console.log('PROFILE',profile)
-
         User.findOrCreate({
           where: {twitterId},
           defaults: {
@@ -39,33 +37,8 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
             accessTokenSecret
           }
         }).then(([user]) => {
-          // console.log('this is hit here', user)
           done(null, user)
         })
-
-        // User.findOne({
-        //   where: { twitterId: profile.id }
-        //   }).then((currentUser) => {
-        //   if (currentUser) {
-        //     console.log('we have the current user' + currentUser)
-        //     done(null, currentUser)
-        //   }
-        //   else {
-        //     User.create({
-        //       where: {twitterId},
-        //       defaults: {
-        //         displayName,
-        //         userName,
-        //         name,
-        //         accessToken,
-        //         accessTokenSecret
-        //       }
-        //     }).then((newUser) => {
-        //       console.log('new user was created' + newUser)
-        //       done(null, newUser)
-        //     })
-        //   }
-        // })
       }
     )
   )
@@ -85,7 +58,6 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
           if (err) {
             console.error(err)
           }
-          console.log('USER AND SESSSION',req.account, req.session)
           return res.redirect('/profile')
         });
        })

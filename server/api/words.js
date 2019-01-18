@@ -10,7 +10,6 @@ const isLoggedIn = (req, res, next) => {
       res.redirect('/login')
   }
   else {
-    console.log('req acount user',req.user)
       next()
   }
 }
@@ -81,7 +80,7 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
       access_token_secret: req.user.accessTokenSecret,
     })
 
-    await twitterUserClient.get('statuses/home_timeline', function(err, tweets, response) {
+    await twitterUserClient.get('statuses/user_timeline', function(err, tweets, response) {
       if(err) throw err
       res.json(tweets)
     })
