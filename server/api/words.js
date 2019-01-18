@@ -6,13 +6,11 @@ module.exports = router
 
 
 const isLoggedIn = (req, res, next) => {
-  if (!req.account.user) {
-      // console.log(req.session)
-      console.log('req', req.account.user)
+  if (!req.user) {
       res.redirect('/login')
   }
   else {
-    console.log('req acount user',req.account.user)
+    console.log('req acount user',req.user)
       next()
   }
 }
@@ -74,27 +72,19 @@ router.get('/twitter', async (req, res, next) => {
 router.get('/myTweets', isLoggedIn, async (req, res, next) => {
   try{
     console.log('hittin')
-    console.log('userID', req.session['oauth:twitter'].oauth_token)
-    // res.json(req.user)
-    // console.log('twitterID', req.user.twitterId)
+    console.log('req.user', req.user)
 
     let twitterUserClient = new Twitter({
       consumer_key: process.env.TWITTER_CONSUMER_KEY,
       consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-      access_token_key: req.session['oauth:twitter'].oauth_token,
-      access_token_secret: req.session['oauth:twitter'].oauth_token_secret,
+      access_token_key: req.user.accessToken,
+      access_token_secret: req.user.accessTokenSecret,
     })
 
     await twitterUserClient.get('statuses/home_timeline', function(err, tweets, response) {
-
-      // Promise.all(tweets)
-
-      console.log('tweets', tweets)
       if(err) throw err
-      console.log(response)
-      // res.json(tweets)
+      res.json(tweets)
     })
-    res.json({something:"NOT WORKING"})
   }
   catch(err) {
     console.log('NOT HITTING')
