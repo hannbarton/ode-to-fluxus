@@ -59,7 +59,7 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
           if (err) {
             console.error(err)
           }
-          return res.redirect('/profile')
+          return res.redirect('/tweet')
         });
        })
     }

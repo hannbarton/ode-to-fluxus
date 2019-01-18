@@ -8,13 +8,21 @@ class HomePage extends React.Component {
       <div className="home-page">
         <Navbar />
         <UserHome />
-        <Link to="/poem">
-          Don't log in and make a poem from trending hashtags
-        </Link>
-        <br />
-        <br />
-        <Login />
-        <br />
+        <div className="inner-paper">
+          <div className="home-links">
+            <h2>Twitter Poem Maker:</h2>
+                <p>Make a poem based on twitter hashtags</p>
+                <br/>
+                <br/>
+                <br/>
+              <Link to="/poem">
+                Don't log in and make a poem from trending hashtags
+              </Link>
+            <br />
+            <br />
+            <Login />
+          </div>
+        </div>
       </div>
     )
   }

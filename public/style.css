@@ -1,12 +1,33 @@
+/* font-family: 'Gaegu', cursive;
+font-family: 'Patrick Hand SC', cursive;
+font-family: 'Itim', cursive;
+font-family: 'Permanent Marker', cursive; */
+
 body {
   font-family: sans-serif;
-  background: url('./images/brown-1.jpg') no-repeat fixed;
-  background-size: cover
 }
 
 a {
   text-decoration: none;
 }
+a:visited{
+  color: #f2f3f4
+}
+
+a:hover{
+  color: #0a091c
+}
+
+h2 {
+  font-family: 'Special Elite', cursive;
+  color:#0a091c
+}
+
+p{
+  font-family: 'Special Elite', cursive;
+  color: #0a091c
+}
+
 
 label {
   display: block;
@@ -25,3 +46,37 @@ form div {
 .home-page {
 
 }
+
+.inner-paper{
+  margin: 0 auto;
+  background: url('./images/brown-1.jpg') no-repeat fixed;
+  background-size: 100% 100%;
+  width: 60vw;
+  height: 70vh;
+  border-radius: 25px
+}
+
+.home-links{
+  font-family: 'Special Elite', cursive;
+  font-size: 14pt;
+  color: #294c82;
+  text-align: center;
+  position: relative;
+  top: 40%;
+  transform: translateY(-50%);
+}
+
+/* .btn-trending-hash {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+} */
