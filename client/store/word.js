@@ -74,6 +74,8 @@ export default function(state = initialState, action) {
             return { ...state, words: action.words}
         case GET_TWITTER_HASHTAGS:
             return {...state, name: action.name}
+        case GET_MY_TWEETS:
+            return {...state, tweet: action.tweet}
         case ADD_WORD:
             return { ...state, words: [...state.words, action.word.word]};
         case REMOVE_WORD:
