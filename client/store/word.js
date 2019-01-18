@@ -10,11 +10,13 @@ const GET_ALL_WORDS = 'GET_ALL_WORDS'
 const ADD_WORD = 'ADD_WORD'
 const REMOVE_WORD = 'REMOVE_WORD'
 const GET_TWITTER_HASHTAGS = 'GET_TWITTER_HASHTAGS'
+const GET_MY_TWEETS = 'GET_MY_TWEETS'
 
 const getWordList = words => ({type: GET_ALL_WORDS, words})
 const addWord = word => ({type: ADD_WORD, word})
 const removeWord = id => ({type: REMOVE_WORD, id})
 const getTwitter = name => ({type: GET_TWITTER_HASHTAGS, name})
+const getMyTweets = tweet => ({type: GET_MY_TWEETS, tweet})
 
 export const fetchWordList = () => async dispatch => {
     try {
@@ -30,6 +32,16 @@ export const fetchTwitter = () => async dispatch => {
     try {
        const res = await axios.get('/api/words/twitter')
        dispatch(getTwitter(res.data))
+    }
+    catch(err) {
+        console.error(err)
+    }
+}
+
+export const fetchMyTweets = () => async dispatch => {
+    try {
+        const res = await axios.get('/api/words/myTweets')
+        dispatch(getMyTweets(res.data))
     }
     catch(err) {
         console.error(err)

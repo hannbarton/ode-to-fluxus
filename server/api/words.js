@@ -85,9 +85,9 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
       else {
         const myTweetArray = tweets.map(eachTweet => {
           if (eachTweet.full_text[0] === 'R' && eachTweet.full_text[1] === "T") {
-            return eachTweet.retweeted_status.full_text.replace(/\n/g, " ")
+            return {tweet: eachTweet.retweeted_status.full_text.replace(/\n/g, " ")}
           }else {
-            return eachTweet.full_text.replace(/\n/g, " ")
+            return {tweet: eachTweet.full_text.replace(/\n/g, " ")}
           }
         })
         res.json(myTweetArray)
