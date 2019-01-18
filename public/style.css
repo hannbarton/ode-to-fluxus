@@ -1,5 +1,7 @@
 body {
   font-family: sans-serif;
+  background: url('./images/brown-1.jpg') no-repeat fixed;
+  background-size: cover
 }
 
 a {
@@ -18,4 +20,8 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.home-page {
+
 }
