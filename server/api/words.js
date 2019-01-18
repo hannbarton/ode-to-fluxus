@@ -1,7 +1,9 @@
 const router = require('express').Router()
 const db = require('../../server/db')
 const {Word, TrendingTweet, User} = require('../db/models')
-var Twitter = require('twitter')
+const Twitter = require('twitter')
+const commonWords = require('./commonWords')
+
 module.exports = router
 
 const isLoggedIn = (req, res, next) => {
@@ -27,6 +29,10 @@ router.get('/', async (req, res, next) => {
   } catch (err) {
     next(err)
   }
+})
+
+router.get('/common', async(req, res, next) => {
+  await res.json(commonWords)
 })
 
 router.get('/twitter', async (req, res, next) => {

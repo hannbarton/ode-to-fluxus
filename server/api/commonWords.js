@@ -115,4 +115,4 @@ const commonWords = [
   'their'
 ]
 
-module.export = commonWords
+module.exports = commonWords
