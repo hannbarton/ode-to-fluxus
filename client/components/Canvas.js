@@ -5,35 +5,29 @@ import Konva from 'konva'
 import {fetchWordList, eraseWord, postWord, fetchTwitter, eraseTwitter} from '../store/word'
 import {connect} from 'react-redux'
 
-export class Canvas extends React.Component {
-  constructor() {
-    super()
 
-    this.deleteHandler = this.deleteHandler.bind(this)
-  }
+
+export class Canvas extends React.Component {
 
   componentDidMount() {
-
     this.props.loadTwitter()
     this.props.loadwords()
   }
 
-  deleteHandler() {
-    this.props.destroywords(this.state.id)
-  }
-
   render() {
     console.log('props', this.props)
+
+
     let height = 1
     let width = 1;
 
     const layout = () => {
-      if (height > window.innerHeight * .85/21) {
+      if (height > window.innerHeight * .85) {
         width += 4
         height = 0
       }
       else {
-        height++
+        height += 20
       }
       return height
     }
@@ -73,17 +67,16 @@ export class Canvas extends React.Component {
             />
           )
           })} */}
-          {this.props.name && this.props.name.slice(0,17).
+          {this.props.name && this.props.name.
           map(eachHash => {
 
             return(
                 <Text
+
                 key={eachHash.id}
                 text={`${eachHash.name}`}
                 x={50 * width}
-                // x={Math.random() * window.innerwidth}
-                y={layout() * 20}
-                // y={Math.random() * window.innerHeight * .8}
+                y={layout()}
                 draggable
                 fontFamily='Special Elite'
                 fontSize={14}
@@ -98,9 +91,7 @@ export class Canvas extends React.Component {
               key={eachWord.id}
               text={`${eachWord.words}`}
               x={50 * width}
-              // x={Math.random() * window.innerwidth}
-              y={layout() * 20}
-              // y={Math.random() * window.innerHeight * .8}
+              y={layout()}
               draggable
               fontSize={14}
               fontFamily='Special Elite'

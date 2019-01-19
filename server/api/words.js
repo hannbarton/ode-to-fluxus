@@ -133,15 +133,21 @@ router.post('/', async (req, res, next) => {
 
 router.delete('/twitter/:id', async (req, res, next) => {
   try {
+
+    const send = {
+      message: 'successfully erased',
+      id: req.params.id
+    }
+
     await TrendingTweet.destroy({
       where: {
         id: req.params.id
       }
     })
 
-    res.json({id: req.params.id})
+    res.json(send)
   } catch (err) {
-    console.err(err)
+    console.error(err)
   }
 })
 
