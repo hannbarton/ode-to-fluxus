@@ -1,6 +1,5 @@
 const router = require('express').Router()
-const db = require('../../server/db')
-const {Word, TrendingTweet, User} = require('../db/models')
+const {Word, TrendingTweet} = require('../db/models')
 const Twitter = require('twitter')
 const commonWords = require('./commonWords')
 
