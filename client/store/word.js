@@ -4,7 +4,7 @@ import history from '../history'
 const initialState = {
     words: [],
     single: {},
-    trendingTweets: []
+    name: []
 }
 
 const GET_ALL_WORDS = 'GET_ALL_WORDS'
@@ -17,7 +17,7 @@ const GET_MY_TWEETS = 'GET_MY_TWEETS'
 const getWordList = words => ({type: GET_ALL_WORDS, words})
 const addWord = word => ({type: ADD_WORD, word})
 const removeWord = id => ({type: REMOVE_WORD, id})
-const removeTwitter = query => ({type: REMOVE_TWITTER, query})
+const removeTwitter = id => ({type: REMOVE_TWITTER, id})
 const getTwitter = name => ({type: GET_TWITTER_HASHTAGS, name})
 const getMyTweets = tweet => ({type: GET_MY_TWEETS, tweet})
 
@@ -35,16 +35,6 @@ export const fetchTwitter = () => async dispatch => {
     try {
        const res = await axios.get('/api/words/twitter')
        dispatch(getTwitter(res.data))
-    }
-    catch(err) {
-        console.error(err)
-    }
-}
-
-export const eraseTwitter = (query) => async dispatch => {
-    try{
-        const res = await axios.delete(`/api/words/twitter/${query}`, query)
-        dispatch(removeTwitter(res.data.query))
     }
     catch(err) {
         console.error(err)
@@ -81,6 +71,17 @@ export const eraseWord = (id) => async dispatch => {
     }
 }
 
+export const eraseTwitter = (id) => async dispatch => {
+    try{
+        const res = await axios.delete(`/api/words/twitter/${id}`, id)
+        dispatch(removeTwitter(res.data.id))
+    }
+    catch(err) {
+        console.error(err)
+    }
+}
+
+
 export default function(state = initialState, action) {
     switch(action.type) {
         case GET_ALL_WORDS:
@@ -94,7 +95,7 @@ export default function(state = initialState, action) {
         case REMOVE_WORD:
             return {...state, words: [...state.words.filter(word => +word.id !== +action.id)]}
         case REMOVE_TWITTER:
-            return {...state, query: [...state.trendingTweets.filter(eachWord => eachWord.query !== action.query)]}
+            return {...state, name: [...state.name.filter(eachWord => +eachWord.id !== +action.id)]}
         default:
             return state;
     }

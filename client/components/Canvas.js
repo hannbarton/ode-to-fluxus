@@ -2,19 +2,14 @@ import React from 'react'
 import {render} from 'react-dom'
 import {Stage, Layer, Text, Rect} from 'react-konva'
 import Konva from 'konva'
-import {fetchWordList, eraseWord, postWord, fetchTwitter, eraseMyTweets} from '../store/word'
+import {fetchWordList, eraseWord, postWord, fetchTwitter, eraseTwitter} from '../store/word'
 import {connect} from 'react-redux'
 
 export class Canvas extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      fontFamily: 'Special Elite'
-    }
+  constructor() {
+    super()
 
     this.deleteHandler = this.deleteHandler.bind(this)
-    this.cursorHandler = this.cursorHandler.bind(this)
   }
 
   componentDidMount() {
@@ -23,33 +18,29 @@ export class Canvas extends React.Component {
     this.props.loadwords()
   }
 
-  cursorHandler() {
-    console.log('mouseover')
-    this.setState({cursor: 'pointer'})
-  }
-
   deleteHandler() {
     this.props.destroywords(this.state.id)
   }
 
   render() {
-    console.log('props', this.props.name)
-    let counter = 1
+    console.log('props', this.props)
+    let height = 1
     let width = 1;
 
     const layout = () => {
-      if (counter > window.innerHeight * .85/20) {
+      if (height > window.innerHeight * .85/21) {
         width += 4
-        counter = 1
+        height = 0
       }
       else {
-        return counter++
+        height++
       }
+      return height
     }
 
     return (
-      <Stage width={window.innerWidth * 1} height={window.innerHeight * .85}>
-        <Layer ref={node => this.layer = node}>
+      <Stage width={window.innerWidth * 1} height={window.innerHeight * .8}>
+        <Layer>
         {/* <Rect fill='pink' x={50} y={500} width={50} height={50}
         // onMouseOver={(evt) => console.log(evt)}
         onMouseOver={(evt) => console.log(evt.evt.screenX, evt.evt.screenY)}/> */}
@@ -82,7 +73,7 @@ export class Canvas extends React.Component {
             />
           )
           })} */}
-          {this.props.name && Array.from(new Set(this.props.name.slice(0,17))).
+          {this.props.name && this.props.name.slice(0,17).
           map(eachHash => {
 
             return(
@@ -90,11 +81,13 @@ export class Canvas extends React.Component {
                 key={eachHash.id}
                 text={`${eachHash.name}`}
                 x={50 * width}
+                // x={Math.random() * window.innerwidth}
                 y={layout() * 20}
+                // y={Math.random() * window.innerHeight * .8}
                 draggable
                 fontFamily='Special Elite'
                 fontSize={14}
-                onDblClick={() => this.props.destroywords(eachHash.id)}
+                onDblClick={() => this.props.eraseTwitter(eachHash.id)}
                 />
               )
             }
@@ -102,15 +95,16 @@ export class Canvas extends React.Component {
           {this.props.words.map(eachWord => {
             return(
               <Text
-              key={eachWord.query}
+              key={eachWord.id}
               text={`${eachWord.words}`}
               x={50 * width}
+              // x={Math.random() * window.innerwidth}
               y={layout() * 20}
+              // y={Math.random() * window.innerHeight * .8}
               draggable
               fontSize={14}
               fontFamily='Special Elite'
-              onMouseOver={this.cursorHandler}
-              onDblClick={() => this.props.destroywords(eachWord.query)}
+              onDblClick={() => this.props.destroywords(eachWord.id)}
               />
             )
           })}
@@ -129,7 +123,8 @@ const mapDispatch = dispatch => ({
   loadwords: () => dispatch(fetchWordList()),
   destroywords: id => dispatch(eraseWord(id)),
   postWord: word => dispatch(postWord(word)),
-  loadTwitter: () => dispatch(fetchTwitter())
+  loadTwitter: () => dispatch(fetchTwitter()),
+  eraseTwitter: id => dispatch(eraseTwitter(id))
 })
 
 export default connect(mapState, mapDispatch)(Canvas)

@@ -131,13 +131,15 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.delete('/twitter/:query', async (req, res, next) => {
+router.delete('/twitter/:id', async (req, res, next) => {
   try {
     await TrendingTweet.destroy({
       where: {
-        query: req.params.query
+        id: req.params.id
       }
     })
+
+    res.json({id: req.params.id})
   } catch (err) {
     console.err(err)
   }
