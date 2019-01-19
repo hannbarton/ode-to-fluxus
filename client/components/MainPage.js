@@ -2,6 +2,7 @@ import React from 'react'
 import Canvas from './Canvas'
 import { postWord, loadWordList } from '../store/word'
 import {connect} from 'react-redux'
+import Navbar from './navbar'
 
 class MainPage extends React.Component {
   constructor() {
@@ -37,6 +38,7 @@ class MainPage extends React.Component {
 
     return (
       <div>
+        <Navbar/>
         <form id="submit-word" onSubmit={this.handleSubmit}>
           <label htmlFor="">Create your own word:</label>
           <input

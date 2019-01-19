@@ -16,7 +16,7 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
         consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
         callbackURL: process.env.TWITTER_CALLBACK,
         userAuthorizationURL:
-          'http://api.twitter.com/oauth/authenticate?force_login=true',
+          'http://api.twitter.com/oauth/authenticate',
         passReqToCallback: true
       },
       (req, token, tokenSecret, profile, done) => {

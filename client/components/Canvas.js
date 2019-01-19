@@ -2,7 +2,6 @@ import React from 'react'
 import {render} from 'react-dom'
 import {Stage, Layer, Text, Rect} from 'react-konva'
 import Konva from 'konva'
-import {WordMaker} from './WordMaker'
 import {fetchWordList, eraseWord, postWord, fetchTwitter} from '../store/word'
 import {connect} from 'react-redux'
 
@@ -36,13 +35,25 @@ export class Canvas extends React.Component {
   render() {
     console.log('props', this.props.name)
     let counter = 0
+    let width = 1;
+
+    const layout = () => {
+      if (counter > window.innerHeight * .9/10) {
+        width += 2
+        counter = 0
+      }
+      else {
+        return counter++
+      }
+    }
+
     return (
-      <Stage width={window.innerWidth * 0.8} height={window.innerHeight * 0.8}>
+      <Stage width={window.innerWidth * 1} height={window.innerHeight * .9}>
         <Layer ref={node => this.layer = node}>
-        <Rect fill='pink' x={50} y={500} width={50} height={50}
+        {/* <Rect fill='pink' x={50} y={500} width={50} height={50}
         // onMouseOver={(evt) => console.log(evt)}
-        onMouseOver={(evt) => console.log(evt.evt.screenX, evt.evt.screenY)}/>
-          {this.props.words.map(eachWord => {
+        onMouseOver={(evt) => console.log(evt.evt.screenX, evt.evt.screenY)}/> */}
+          {/* {this.props.words.map(eachWord => {
             return (
             <Text
               key={eachWord.id}
@@ -70,16 +81,16 @@ export class Canvas extends React.Component {
             }}
             />
           )
-          })}
-          {this.props.name && Array.from(new Set(this.props.name)).
+          })} */}
+          {this.props.name && Array.from(new Set(this.props.name.slice(0,17))).
           map(eachHash => {
 
             return(
                 <Text
                 key={eachHash.url}
                 text={`${eachHash.name}`}
-                x={50}
-                y={counter++ * 10}
+                x={50 * width}
+                y={layout() * 10}
                 draggable
                 fontFamily='Special Elite'
                 fontSize={11}
@@ -87,6 +98,21 @@ export class Canvas extends React.Component {
               )
             }
           )}
+          {this.props.words.map(eachWord => {
+            return(
+              <Text
+              key={eachWord.id}
+              text={`${eachWord.words}`}
+              x={50 * width}
+              y={layout() * 10}
+              draggable
+              fontSize={12}
+              fontFamily='Special Elite'
+              onMouseOver={this.cursorHandler}
+              onDblClick={() => this.props.destroywords(eachWord.id)}
+              />
+            )
+          })}
         </Layer>
       </Stage>
     )

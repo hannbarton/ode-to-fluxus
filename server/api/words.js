@@ -37,7 +37,7 @@ router.get('/common', async(req, res, next) => {
 
 router.get('/twitter', async (req, res, next) => {
   try {
-    await TrendingTweet.sync({force: true})
+    // await TrendingTweet.sync({force: true})
 
     await client.get('/trends/place', {id: 23424977}, function(error, tweets) {
       if (error) throw error
