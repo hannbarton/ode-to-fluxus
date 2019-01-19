@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  background: url('./images/brown.jpg') no-repeat fixed center;
+  background: url('./images/stain.jpg') no-repeat fixed center;
   background-size: cover
 }
 
@@ -46,11 +46,12 @@ form div {
 
 .inner-paper{
   margin: 0 auto;
-  background: url('./images/brown-1.jpg') no-repeat fixed;
+  background: url('./images/brown.jpg') no-repeat fixed;
   background-size: 100% 100%;
   width: 60vw;
   height: 70vh;
-  border-radius: 25px
+  border-radius: 25px;
+  border: solid 1pt #a38d70
 }
 
 .home-links{
