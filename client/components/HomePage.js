@@ -1,6 +1,7 @@
 import React from 'react'
 import {Login, UserHome, Navbar} from '../components'
 import {Link} from 'react-router-dom'
+import twitter from '../../public/images/twitter.jpg'
 
 class HomePage extends React.Component {
   render() {
@@ -16,7 +17,7 @@ class HomePage extends React.Component {
                 <br/>
                 <br/>
               <Link to="/poem">
-                Don't log in and make a poem from trending hashtags
+                Make a poem from trending hashtags
               </Link>
             <br />
             <br />

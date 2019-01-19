@@ -11,7 +11,7 @@ export class Canvas extends React.Component {
     super(props)
 
     this.state = {
-      cursor: 'default'
+      fontFamily: 'Special Elite'
     }
 
     this.deleteHandler = this.deleteHandler.bind(this)
@@ -19,6 +19,7 @@ export class Canvas extends React.Component {
   }
 
   componentDidMount() {
+
     this.props.loadTwitter()
     this.props.loadwords()
   }
@@ -37,8 +38,8 @@ export class Canvas extends React.Component {
     let counter = 0
     return (
       <Stage width={window.innerWidth * 0.8} height={window.innerHeight * 0.8}>
-        <Layer>
-        <Rect fill={'pink'} x={50} y={500} width={50} height={50}
+        <Layer ref={node => this.layer = node}>
+        <Rect fill='pink' x={50} y={500} width={50} height={50}
         // onMouseOver={(evt) => console.log(evt)}
         onMouseOver={(evt) => console.log(evt.evt.screenX, evt.evt.screenY)}/>
           {this.props.words.map(eachWord => {
@@ -49,7 +50,8 @@ export class Canvas extends React.Component {
               x={50}
               y={counter++ * 20}
               draggable
-              fontSize={12}
+              fontSize={14}
+              fontFamily='Roboto, sans-serif'
               onMouseOver={this.cursorHandler}
               onDblClick={() => this.props.destroywords(eachWord.id)}
               onDragMove={(evt) => {
@@ -79,6 +81,7 @@ export class Canvas extends React.Component {
                 x={50}
                 y={counter++ * 10}
                 draggable
+                fontFamily='Special Elite'
                 fontSize={11}
                 />
               )
