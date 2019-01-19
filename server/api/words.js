@@ -60,6 +60,7 @@ router.get('/twitter', async (req, res, next) => {
               .slice(1)
               .replace(/([a-z])([A-Z])/g, '$1 $2')
           }
+
           TrendingTweet.create(eachTweet)
         })
       )
