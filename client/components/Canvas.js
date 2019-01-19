@@ -2,7 +2,7 @@ import React from 'react'
 import {render} from 'react-dom'
 import {Stage, Layer, Text, Rect} from 'react-konva'
 import Konva from 'konva'
-import {fetchWordList, eraseWord, postWord, fetchTwitter} from '../store/word'
+import {fetchWordList, eraseWord, postWord, fetchTwitter, eraseMyTweets} from '../store/word'
 import {connect} from 'react-redux'
 
 export class Canvas extends React.Component {
@@ -34,13 +34,13 @@ export class Canvas extends React.Component {
 
   render() {
     console.log('props', this.props.name)
-    let counter = 0
+    let counter = 1
     let width = 1;
 
     const layout = () => {
-      if (counter > window.innerHeight * .9/10) {
-        width += 2
-        counter = 0
+      if (counter > window.innerHeight * .85/20) {
+        width += 4
+        counter = 1
       }
       else {
         return counter++
@@ -48,7 +48,7 @@ export class Canvas extends React.Component {
     }
 
     return (
-      <Stage width={window.innerWidth * 1} height={window.innerHeight * .9}>
+      <Stage width={window.innerWidth * 1} height={window.innerHeight * .85}>
         <Layer ref={node => this.layer = node}>
         {/* <Rect fill='pink' x={50} y={500} width={50} height={50}
         // onMouseOver={(evt) => console.log(evt)}
@@ -87,13 +87,14 @@ export class Canvas extends React.Component {
 
             return(
                 <Text
-                key={eachHash.url}
+                key={eachHash.id}
                 text={`${eachHash.name}`}
                 x={50 * width}
-                y={layout() * 10}
+                y={layout() * 20}
                 draggable
                 fontFamily='Special Elite'
-                fontSize={11}
+                fontSize={14}
+                onDblClick={() => this.props.destroywords(eachHash.id)}
                 />
               )
             }
@@ -101,15 +102,15 @@ export class Canvas extends React.Component {
           {this.props.words.map(eachWord => {
             return(
               <Text
-              key={eachWord.id}
+              key={eachWord.query}
               text={`${eachWord.words}`}
               x={50 * width}
-              y={layout() * 10}
+              y={layout() * 20}
               draggable
-              fontSize={12}
+              fontSize={14}
               fontFamily='Special Elite'
               onMouseOver={this.cursorHandler}
-              onDblClick={() => this.props.destroywords(eachWord.id)}
+              onDblClick={() => this.props.destroywords(eachWord.query)}
               />
             )
           })}

@@ -37,14 +37,13 @@ router.get('/common', async(req, res, next) => {
 
 router.get('/twitter', async (req, res, next) => {
   try {
-    // await TrendingTweet.sync({force: true})
+    await TrendingTweet.sync({force: true})
 
-    await client.get('/trends/place', {id: 23424977}, function(error, tweets) {
+    await client.get('/trends/place', {id: 23424977}, async (error, tweets) => {
       if (error) throw error
       let dataTweet = tweets[0].trends
 
-      Promise.all(
-        dataTweet.map(eachTweet => {
+      await Promise.all(dataTweet.map(eachTweet => {
           // not all caps
 
           if (
@@ -64,6 +63,8 @@ router.get('/twitter', async (req, res, next) => {
           TrendingTweet.create(eachTweet)
         })
       )
+      // need to pull to db TrendingTweet and send to res.json, but promise won't resolve
+
       res.json(dataTweet)
     })
   } catch (err) {
@@ -119,6 +120,19 @@ router.post('/', async (req, res, next) => {
     })
   } catch (err) {
     next(err)
+  }
+})
+
+router.delete('/twitter/:query', async (req, res, next) => {
+  try{
+    await TrendingTweet.destroy({
+      where: {
+        query: req.params.query
+      }
+    })
+  }
+  catch(err) {
+    console.err(err)
   }
 })
 
