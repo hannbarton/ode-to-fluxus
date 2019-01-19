@@ -31,7 +31,11 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/common', async (req, res, next) => {
-  await res.json(commonWords)
+  try {
+    await res.json(commonWords)
+  } catch (err) {
+    next(err)
+  }
 })
 
 router.get('/twitter', async (req, res, next) => {
@@ -42,7 +46,7 @@ router.get('/twitter', async (req, res, next) => {
     const dataTweet = tweets[0].trends
 
     await Promise.all(
-      dataTweet.forEach(eachTweet => {
+      dataTweet.map(eachTweet => {
         if (
           eachTweet.name[0] === '#' &&
           eachTweet.name[2] === eachTweet.name[2].toUpperCase()
@@ -57,13 +61,12 @@ router.get('/twitter', async (req, res, next) => {
             .slice(1)
             .replace(/([a-z])([A-Z])/g, '$1 $2')
         }
-        TrendingTweet.create(eachTweet)
+        return TrendingTweet.create(eachTweet)
       })
     )
 
-    // need to pull to db TrendingTweet and send to res.json, but promise won't resolv
     const tweetwords = await TrendingTweet.findAll()
-    return res.json(tweetwords)
+    res.json(tweetwords)
   } catch (err) {
     next(err)
   }
@@ -82,7 +85,7 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
       tweet_mode: 'extended'
     })
 
-    const myTweetArray = tweets.forEach(eachTweet => {
+    const myTweetArray = tweets.map(eachTweet => {
       if (eachTweet.full_text[0] === 'R' && eachTweet.full_text[1] === 'T') {
         return {
           tweet: eachTweet.retweeted_status.full_text
@@ -102,7 +105,7 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
       }
     })
 
-    const filteredArrayofTweets = myTweetArray.forEach(filteredTweet => {
+    const filteredArrayofTweets = myTweetArray.map(filteredTweet => {
       let randomIndex = Math.floor(
         Math.random() * filteredTweet.tweet.length - 1
       )
