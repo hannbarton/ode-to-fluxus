@@ -1,10 +1,7 @@
-/* font-family: 'Gaegu', cursive;
-font-family: 'Patrick Hand SC', cursive;
-font-family: 'Itim', cursive;
-font-family: 'Permanent Marker', cursive; */
-
 body {
   font-family: sans-serif;
+  background: url('./images/brown.jpg') no-repeat fixed center;
+  background-size: cover
 }
 
 a {
@@ -65,18 +62,3 @@ form div {
   top: 40%;
   transform: translateY(-50%);
 }
-
-/* .btn-trending-hash {
-  display: inline-block;
-  padding: 15px 25px;
-  font-size: 24px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  outline: none;
-  color: #fff;
-  background-color: #4CAF50;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
-} */
