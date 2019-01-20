@@ -5,6 +5,7 @@ const initialState = {
     words: [],
     single: {},
     name: [],
+    myTweets: []
 }
 
 const GET_ALL_WORDS = 'GET_ALL_WORDS'

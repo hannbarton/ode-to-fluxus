@@ -45,13 +45,14 @@ form div {
 }
 
 .inner-paper{
+  padding: 1em;
   margin: 0 auto;
-  background: url('./images/brown.jpg') no-repeat fixed;
+  background: url('./images/concrete-1.jpg') no-repeat fixed;
   background-size: 100% 100%;
   width: 60vw;
   height: 70vh;
   border-radius: 25px;
-  border: solid 1pt #a38d70
+  border: solid 1pt #d1d1d1
 }
 
 .home-links{
