@@ -87,7 +87,7 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
       tweet_mode: 'extended'
     })
 
-    const myTweetArray = await Promise.all(tweets.map(eachTweet => {
+    await Promise.all(tweets.map(eachTweet => {
 
       if (eachTweet.full_text[0] === 'R' && eachTweet.full_text[1] === 'T') {
 
@@ -98,20 +98,16 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
             .replace(']', '')
             .replace(/["]r/g, '')
             .split(' '),
-            userId: 1
+            userId: req.user.id
         }
 
         let randomIndex = Math.floor(Math.random() * tweet.tweet.length - 1)
 
         tweet.tweet = tweet.tweet[randomIndex]
 
-        return tweet
-
-        // Promise.all(MyTweet.create(tweet))
-
+        return MyTweet.create(tweet)
 
       } else {
-        // let randomized = Math.floor(Math.random() * eachTweet.length - 1)
 
           const realTweet = {
             tweet: eachTweet.full_text
@@ -120,22 +116,20 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
             .replace(']', '')
             .replace(/["]r/g, '')
             .split(' '),
-            userId: 1
+            userId: req.user.id
           }
 
           let randomized = Math.floor(Math.random() * realTweet.tweet.length - 1)
 
         realTweet.tweet = realTweet.tweet[randomized]
-          return realTweet
-        // return MyTweet.create(realTweet)
+          MyTweet.create(realTweet)
 
       }
     }))
 
-    // await Promise.all(myTweetArray.map(each => MyTweet.create(each)))
+    const tweetWords = await MyTweet.findAll()
 
-    console.log(myTweetArray)
-    res.json(myTweetArray)
+    res.json(tweetWords)
 
   } catch (err) {
     console.log('NOT HITTING')
