@@ -1,11 +1,8 @@
 import React from 'react'
 import {render} from 'react-dom'
 import {Stage, Layer, Text, Rect} from 'react-konva'
-import Konva from 'konva'
 import {fetchWordList, eraseWord, postWord, fetchTwitter, eraseTwitter} from '../store/word'
 import {connect} from 'react-redux'
-
-
 
 export class Canvas extends React.Component {
 
@@ -16,7 +13,6 @@ export class Canvas extends React.Component {
 
   render() {
     console.log('props', this.props)
-
 
     let height = 1
     let width = 1;

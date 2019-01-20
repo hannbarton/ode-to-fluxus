@@ -3,7 +3,7 @@ import Canvas from './Canvas'
 import Navbar from './navbar'
 import CreateWord from './CreateWord'
 
-class MainPage extends React.Component {
+class TrendingPage extends React.Component {
 
   render() {
 
@@ -17,5 +17,5 @@ class MainPage extends React.Component {
   }
 }
 
-export default MainPage
+export default TrendingPage
 
