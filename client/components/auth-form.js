@@ -1,49 +1,36 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
 import {auth} from '../store'
 
-/**
- * COMPONENT
- */
+
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+  const {name, displayName, handleSubmit, error, isLoggedIn} = props
 
   return (
     <div>
-      {/* <form onSubmit={handleSubmit} name={name}>
+      {isLoggedIn ? (
         <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
+          <a href="/tweet">Make a poem from your own tweets</a>
         </div>
+      ) : (
         <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
+          <a href="/auth/twitter">
+            {displayName} with Twitter to make a poem from your own tweets
+          </a>
         </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form> */}
-      <a href="/auth/twitter">
-        {displayName} with Twitter to make a poem from your own tweets
-      </a>
+      )}
     </div>
   )
 }
 
-
 //  Login and Signup share the same Component; keep code dry
-
 const mapLogin = state => {
   return {
     name: 'login',
     displayName: 'Login',
-    error: state.user.error
+    error: state.user.error,
+    isLoggedIn: !!state.user.id
   }
 }
 
@@ -74,5 +61,6 @@ AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  error: PropTypes.object
+  error: PropTypes.object,
+  isLoggedIn: PropTypes.bool.isRequired
 }
