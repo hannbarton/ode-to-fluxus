@@ -9,7 +9,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <nav>
       {isLoggedIn ? (
         <div>
-
+          <Link to="/">Home</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
