@@ -6,7 +6,7 @@ import {
   Login,
   Signup,
   UserHome,
-  MainPage,
+  TrendingPage,
   HomePage,
   TweetCanvas
 } from './components'
@@ -26,7 +26,7 @@ class Routes extends Component {
         <Route exact path="/" component={HomePage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/poem" component={MainPage} />
+        <Route path="/poem" component={TrendingPage} />
         {/* <Route path="/tweet" component={TweetCanvas} /> */}
         {isLoggedIn && (
           <Switch>

@@ -1,6 +1,6 @@
 import React from 'react'
 import Canvas from './Canvas'
-import { postWord, loadWordList } from '../store/word'
+import {postWord, loadWordList} from '../store/word'
 import {connect} from 'react-redux'
 
 class CreateWord extends React.Component {
@@ -8,7 +8,7 @@ class CreateWord extends React.Component {
     super()
 
     this.state = {
-      words: "",
+      words: ''
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -24,17 +24,15 @@ class CreateWord extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    if (this.state.words === "") {
+    if (this.state.words === '') {
       console.log('please fill out word before submitting')
       alert('please fill out word')
-    }
-    else {
+    } else {
       this.props.postWord(this.state)
     }
   }
 
   render() {
-
     return (
       <div>
         <form id="submit-word" onSubmit={this.handleSubmit}>
@@ -48,7 +46,7 @@ class CreateWord extends React.Component {
             value={this.props.words}
           />
 
-          <button type="submit" >Create</button>
+          <button type="submit">Create</button>
         </form>
         <Canvas />
       </div>
@@ -57,9 +55,8 @@ class CreateWord extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  postWord: (word) => dispatch(postWord(word)),
+  postWord: word => dispatch(postWord(word)),
   loadWordList: () => dispatch(loadWordList())
 })
 
 export default connect(null, mapDispatch)(CreateWord)
-

@@ -11,13 +11,11 @@ class HomePage extends React.Component {
         <div className="inner-paper">
           <div className="home-links">
             <h2>Found Poetry:</h2>
-                <p>Make a poem based on trending twitter hashtags</p>
-                <br/>
-                <br/>
-                <br/>
-              <Link to="/poem">
-                Make a poem from trending hashtags
-              </Link>
+            <p>Make a poem based on trending twitter hashtags</p>
+            <br />
+            <br />
+            <br />
+            <Link to="/poem">Make a poem from trending hashtags</Link>
             <br />
             <br />
             <Login />
