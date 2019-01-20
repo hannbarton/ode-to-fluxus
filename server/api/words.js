@@ -88,39 +88,53 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
     })
 
     const myTweetArray = await Promise.all(tweets.map(eachTweet => {
+
       if (eachTweet.full_text[0] === 'R' && eachTweet.full_text[1] === 'T') {
-        return {
+
+        const tweet = {
           tweet: eachTweet.retweeted_status.full_text
             .replace(/[\n\r]/g,' ')
             .replace('[', '')
             .replace(']', '')
             .replace(/["]r/g, '')
-            .split(' ')
+            .split(' '),
+            userId: 1
         }
+
+        let randomIndex = Math.floor(Math.random() * tweet.tweet.length - 1)
+
+        tweet.tweet = tweet.tweet[randomIndex]
+
+        return tweet
+
+        // Promise.all(MyTweet.create(tweet))
+
+
       } else {
-        return {
-          tweet: eachTweet.full_text
+        // let randomized = Math.floor(Math.random() * eachTweet.length - 1)
+
+          const realTweet = {
+            tweet: eachTweet.full_text
             .replace(/[\n\r]/g,' ')
             .replace('[', '')
             .replace(']', '')
             .replace(/["]r/g, '')
-            .split(' ')
-        }
+            .split(' '),
+            userId: 1
+          }
+
+          let randomized = Math.floor(Math.random() * realTweet.tweet.length - 1)
+
+        realTweet.tweet = realTweet.tweet[randomized]
+          return realTweet
+        // return MyTweet.create(realTweet)
+
       }
     }))
 
-    await Promise.all(myTweetArray.map(filteredTweet => {
-      let randomIndex = Math.floor(
-        Math.random() * filteredTweet.tweet.length - 1
-      )
-        // console.log(filteredTweet)
-      const eachTweet = Promise.all({tweet: filteredTweet.tweet[randomIndex], userId: 1})
-      console.log(eachTweet)
+    // await Promise.all(myTweetArray.map(each => MyTweet.create(each)))
 
-      // return MyTweet.create(eachTweet)
-    }))
-
-    // const myTweetWords = await MyTweet.findAll()
+    console.log(myTweetArray)
     res.json(myTweetArray)
 
   } catch (err) {
