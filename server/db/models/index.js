@@ -1,7 +1,7 @@
 const User = require('./user')
 const Word = require('./word')
 const TrendingTweet = require('./trendingTweet')
-const MyTweet = require('./myTweets')
+const MyTweet = require('./myTweet')
 
 Word.belongsTo(User)
 MyTweet.belongsTo(User)

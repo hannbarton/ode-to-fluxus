@@ -1,4 +1,5 @@
 import React from 'react'
+import {render} from 'react-dom'
 import { TweetCanvas, CreateMyTweet, Navbar } from './';
 
 class TweetPage extends React.Component {

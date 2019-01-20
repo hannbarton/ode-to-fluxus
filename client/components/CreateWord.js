@@ -48,7 +48,6 @@ class CreateWord extends React.Component {
 
           <button type="submit">Create</button>
         </form>
-        <Canvas />
       </div>
     )
   }
