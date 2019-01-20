@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Word, TrendingTweet} = require('../db/models')
+const {Word, TrendingTweet, MyTweet} = require('../db/models')
 const Twitter = require('twitter')
 const commonWords = require('./commonWords')
 module.exports = router
@@ -87,35 +87,42 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
       tweet_mode: 'extended'
     })
 
-    const myTweetArray = tweets.map(eachTweet => {
+    const myTweetArray = await Promise.all(tweets.map(eachTweet => {
       if (eachTweet.full_text[0] === 'R' && eachTweet.full_text[1] === 'T') {
         return {
           tweet: eachTweet.retweeted_status.full_text
-            .replace(/\n/g, ' ')
+            .replace(/[\n\r]/g,' ')
             .replace('[', '')
             .replace(']', '')
+            .replace(/["]r/g, '')
             .split(' ')
         }
       } else {
         return {
           tweet: eachTweet.full_text
-            .replace(/\n/g, ' ')
+            .replace(/[\n\r]/g,' ')
             .replace('[', '')
             .replace(']', '')
+            .replace(/["]r/g, '')
             .split(' ')
         }
       }
-    })
+    }))
 
-    const filteredArrayofTweets = myTweetArray.map(filteredTweet => {
+    await Promise.all(myTweetArray.map(filteredTweet => {
       let randomIndex = Math.floor(
         Math.random() * filteredTweet.tweet.length - 1
       )
-      return {tweet: filteredTweet.tweet[randomIndex]}
-    })
+        // console.log(filteredTweet)
+      const eachTweet = Promise.all({tweet: filteredTweet.tweet[randomIndex], userId: 1})
+      console.log(eachTweet)
 
-    res.json(filteredArrayofTweets)
-    // res.json(myTweetArray.concat(tweets))
+      // return MyTweet.create(eachTweet)
+    }))
+
+    // const myTweetWords = await MyTweet.findAll()
+    res.json(myTweetArray)
+
   } catch (err) {
     console.log('NOT HITTING')
     console.error(err)
