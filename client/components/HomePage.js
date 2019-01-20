@@ -11,8 +11,8 @@ class HomePage extends React.Component {
         <UserHome />
         <div className="inner-paper">
           <div className="home-links">
-            <h2>Twitter Poem Maker:</h2>
-                <p>Make a poem based on twitter hashtags</p>
+            <h2>Found Poetry:</h2>
+                <p>Make a poem based on trending twitter hashtags</p>
                 <br/>
                 <br/>
                 <br/>

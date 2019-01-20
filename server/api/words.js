@@ -2,8 +2,11 @@ const router = require('express').Router()
 const {Word, TrendingTweet} = require('../db/models')
 const Twitter = require('twitter')
 const commonWords = require('./commonWords')
-
 module.exports = router
+
+const wordSession = (user, next, session) => {
+  session.words = []
+}
 
 const isLoggedIn = (req, res, next) => {
   if (!req.user) {
@@ -122,7 +125,14 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const word = await Word.create(req.body)
+
+    let userId = (req.user) ? req.user.id : null
+
+    const word = await Word.create({
+      words: req.body.words,
+      userId: userId
+    })
+
     res.json({
       word
     })

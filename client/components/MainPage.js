@@ -9,7 +9,7 @@ class MainPage extends React.Component {
     super()
 
     this.state = {
-      words: ""
+      words: "",
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
