@@ -1,7 +1,6 @@
 import React from 'react'
 import {render} from 'react-dom'
 import {Stage, Layer, Text, Rect} from 'react-konva'
-import Konva from 'konva'
 import {fetchMyTweets} from '../store/word'
 import {connect} from 'react-redux'
 
@@ -21,7 +20,7 @@ class TweetCanvas extends React.Component {
             {this.props.tweet && this.props.tweet.map(eachTweet => {
               return(
                 <Text
-                key={eachTweet.tweet}
+                key={eachTweet.id}
                 text={eachTweet.tweet}
                 x={50}
                 y={counter++ * 20}

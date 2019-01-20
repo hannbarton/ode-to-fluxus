@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Word} = require('../db/models')
+const {User, Word, myTweet} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -17,7 +17,7 @@ router.get('/:id', async (req, res, next) => {
   try{
     const user = await User.findById(req.params.id, {
       include: [{
-        model: Word,
+        model: Word, myTweet
       }]
     })
     res.json(user)

@@ -23,13 +23,13 @@ if (process.env.NODE_ENV !== 'production') require('../secrets')
 // passport registration
 passport.serializeUser((user, done) => {
   console.log('has been serialized')
-  // console.log('USERSDDD', user)
+  console.log('USERSDDD', user)
   done(null, user.id)
 })
 
-passport.deserializeUser(async (twitterId, done) => {
+passport.deserializeUser(async (id, done) => {
   try {
-    const user = await db.models.user.findById(twitterId)
+    const user = await db.models.user.findById(id)
     console.log('DESERIALIZED')
     done(null, user)
   } catch (err) {

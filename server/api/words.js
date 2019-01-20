@@ -83,6 +83,8 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
       access_token_secret: req.user.accessTokenSecret
     })
 
+    await MyTweet.sync({force: true})
+
     const tweets = await twitterUserClient.get('statuses/user_timeline', {
       tweet_mode: 'extended'
     })
@@ -101,7 +103,7 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
             userId: req.user.id
         }
 
-        let randomIndex = Math.floor(Math.random() * tweet.tweet.length - 1)
+        let randomIndex = Math.floor(Math.random() * Math.floor(tweet.tweet.length - 1))
 
         tweet.tweet = tweet.tweet[randomIndex]
 
@@ -119,7 +121,7 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
             userId: req.user.id
           }
 
-          let randomized = Math.floor(Math.random() * realTweet.tweet.length - 1)
+          let randomized = Math.floor(Math.random() * Math.floor(realTweet.tweet.length - 1))
 
         realTweet.tweet = realTweet.tweet[randomized]
           MyTweet.create(realTweet)

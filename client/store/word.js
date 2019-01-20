@@ -4,7 +4,7 @@ import history from '../history'
 const initialState = {
     words: [],
     single: {},
-    name: []
+    name: [],
 }
 
 const GET_ALL_WORDS = 'GET_ALL_WORDS'
@@ -41,10 +41,10 @@ export const fetchTwitter = () => async dispatch => {
     }
 }
 
-export const fetchMyTweets = (id) => async dispatch => {
+export const fetchMyTweets = () => async dispatch => {
     try {
-        const res = await axios.get(`/api/words/myTweets/${id}`)
-        dispatch(getMyTweets(res.data.id))
+        const res = await axios.get('/api/words/myTweets')
+        dispatch(getMyTweets(res.data))
     }
     catch(err) {
         console.error(err)
