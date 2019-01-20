@@ -11,5 +11,6 @@ User.hasMany(MyTweets)
 module.exports = {
   User,
   Word,
-  TrendingTweet
+  TrendingTweet,
+  MyTweets
 }
