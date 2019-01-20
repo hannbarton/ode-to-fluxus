@@ -41,10 +41,10 @@ export const fetchTwitter = () => async dispatch => {
     }
 }
 
-export const fetchMyTweets = () => async dispatch => {
+export const fetchMyTweets = (id) => async dispatch => {
     try {
-        const res = await axios.get('/api/words/myTweets')
-        dispatch(getMyTweets(res.data))
+        const res = await axios.get(`/api/words/myTweets/${id}`)
+        dispatch(getMyTweets(res.data.id))
     }
     catch(err) {
         console.error(err)
