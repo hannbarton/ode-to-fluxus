@@ -8,10 +8,15 @@ a {
   text-decoration: none;
 }
 a:visited{
-  color: #f2f3f4
+  color: blueviolet
 }
 
-a:hover{
+.poetry-inline-block{
+  display: inline-block;
+  text-align: right
+}
+
+.a:hover{
   color: #0a091c
 }
 

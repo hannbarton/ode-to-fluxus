@@ -58,7 +58,8 @@ class FoundPoetry extends React.Component {
     )
   }
 
-  handleMouseUp = () => {
+  handleMouseUp = evt => {
+    console.log(evt, this)
     window.removeEventListener('mousemove', this.handleMouseMove)
     window.removeEventListener('mouseup', this.handleMouseUp)
 
@@ -83,17 +84,14 @@ class FoundPoetry extends React.Component {
     const {translateX, translateY, isDragging} = this.state
 
     return (
-      <div>
+
         <Container
           onMouseDown={this.handleMouseDown}
           x={translateX}
           y={translateY}
           isDragging={isDragging}
-        >F{children}</Container>
-        <Container>
-            O
-        </Container>
-      </div>
+        >{children}</Container>
+
     )
   }
 }
@@ -105,16 +103,16 @@ const Container = styled.div.attrs({
 })`
   color: palevioletred;
   cursor: grab;
-  font-size: 12em;
-  padding: 2rem 1rem;
+  font-size: 20vw;
+  padding: 1rem 0.2rem;
   display: inline-block;
 
-    ${({isDragging}) =>
-      isDragging &&
-      css`
-        opacity: 0.8;
-        cursor: grabbing;
-      `};
-  `
+  ${({isDragging}) =>
+    isDragging &&
+    css`
+      opacity: 0.8;
+      cursor: grabbing;
+    `};
+`
 
 export default FoundPoetry
