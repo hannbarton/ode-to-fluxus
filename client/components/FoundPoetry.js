@@ -93,6 +93,7 @@ class FoundPoetry extends React.Component {
     )
   }
 }
+// palevioletred;#252526
 
 const Container = styled.div.attrs({
   style: ({x, y}) => ({

@@ -5,24 +5,23 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          <Link to="/">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <div>
-          <Link to="/">Home</Link>
-          <Link to="/login">Login</Link>
-          {/* <Link to="/signup">Sign Up</Link> */}
-        </div>
-      )}
-    </nav>
-  </div>
+  <nav>
+    {isLoggedIn ? (
+      <div>
+        <Link to="/">Home</Link>
+        <a href="#" onClick={handleClick}>
+          Logout
+        </a>
+        <img src="./images/plus.png" id="plus-btn" />
+      </div>
+    ) : (
+      <div>
+        <Link to="/">Home</Link>
+        <Link to="/login">Login</Link>
+        <img src="./images/plus.png" id="plus-btn" />
+      </div>
+    )}
+  </nav>
 )
 
 const mapState = state => {

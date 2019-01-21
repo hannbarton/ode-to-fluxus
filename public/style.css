@@ -14,10 +14,24 @@ a:visited{
 .poetry-inline-block{
   display: inline-block;
   text-align: right;
-  -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none;      /* IE 10+ */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
+}
+
+#plus-btn {
+  width:45px
+}
+
+#plus-btn:hover {
+  transform: scale(.9);
+  transition-duration: .3s;
+}
+
+#plus-btn:active {
+  transform: rotate(90deg);
+  transition-duration: .3s;
 }
 
 .a:hover{
@@ -36,14 +50,9 @@ label {
   display: block;
 }
 
-nav a {
-  display: inline-block;
-  margin: .2em 2em 0em 2em;
-}
-
-form div {
-  /* margin: 1em; */
-  display: inline-block;
+nav {
+  padding: .2em 2em 0em 2em;
+  float: right;
 }
 
 .inner-paper{

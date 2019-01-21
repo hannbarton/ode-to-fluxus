@@ -12,12 +12,11 @@ class HomePage extends React.Component {
     return (
       <div>
         <Navbar />
-        <br />
+        {/* <br />
         <Link to="/poem">Make a poem from trending hashtags</Link>
         <br />
         <br />
-        <Login />
-
+        <Login /> */}
         <div className="home-page">
           {/* <UserHome /> */}
           <div className="poetry-inline-block">
