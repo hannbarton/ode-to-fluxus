@@ -84,14 +84,12 @@ class FoundPoetry extends React.Component {
     const {translateX, translateY, isDragging} = this.state
 
     return (
-
         <Container
           onMouseDown={this.handleMouseDown}
           x={translateX}
           y={translateY}
           isDragging={isDragging}
         >{children}</Container>
-
     )
   }
 }
@@ -104,7 +102,7 @@ const Container = styled.div.attrs({
   color: palevioletred;
   cursor: grab;
   font-size: 20vw;
-  padding: 1rem 0.2rem;
+  padding: 0rem 2rem 0rem 0rem;
   display: inline-block;
 
   ${({isDragging}) =>

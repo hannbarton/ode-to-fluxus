@@ -13,7 +13,11 @@ a:visited{
 
 .poetry-inline-block{
   display: inline-block;
-  text-align: right
+  text-align: right;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;
 }
 
 .a:hover{
@@ -21,15 +25,12 @@ a:visited{
 }
 
 h2 {
-  font-family: 'Special Elite', cursive;
   color:#0a091c
 }
 
 p{
-  font-family: 'Special Elite', cursive;
   color: #0a091c
 }
-
 
 label {
   display: block;
@@ -37,16 +38,12 @@ label {
 
 nav a {
   display: inline-block;
-  margin: 1em;
+  margin: .2em 2em 0em 2em;
 }
 
 form div {
-  margin: 1em;
+  /* margin: 1em; */
   display: inline-block;
-}
-
-.home-page {
-
 }
 
 .inner-paper{
@@ -61,7 +58,6 @@ form div {
 }
 
 .home-links{
-  font-family: 'Special Elite', cursive;
   font-size: 14pt;
   color: #294c82;
   text-align: center;
