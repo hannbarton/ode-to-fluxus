@@ -7,7 +7,7 @@ class HomePage extends React.Component {
     return (
       <div className="home-page">
         <Navbar />
-        <UserHome />
+        {/* <UserHome /> */}
         <div className="inner-paper">
           <div className="home-links">
             <h2>Found Poetry</h2>
