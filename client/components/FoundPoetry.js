@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { css } from 'styled-components';
+import styled, {css} from 'styled-components'
 
 class FoundPoetry extends React.Component {
   state = {
@@ -79,48 +79,42 @@ class FoundPoetry extends React.Component {
     )
   }
   render() {
-
     const {children} = this.props
     const {translateX, translateY, isDragging} = this.state
 
     return (
-        <div>
-
-
-      <Container
-        onMouseDown={this.handleMouseDown}
-        x={translateX}
-        y={translateY}
-        isDragging={isDragging}
-      >
-        {children}
-      </Container>
       <div>
-          hello world
-      </div>
+        <Container
+          onMouseDown={this.handleMouseDown}
+          x={translateX}
+          y={translateY}
+          isDragging={isDragging}
+        >F{children}</Container>
+        <Container>
+            O
+        </Container>
       </div>
     )
   }
 }
 
 const Container = styled.div.attrs({
-    style: ({ x, y }) => ({
-      transform: `translate(${x}px, ${y}px)`
-    }),
+  style: ({x, y}) => ({
+    transform: `translate(${x}px, ${y}px)`
   })
-  `
+})`
   color: palevioletred;
-  border: 2px solid black;
-  border-radius: 50%;
-  width: 500px
-  height: 500px
   cursor: grab;
+  font-size: 12em;
+  padding: 2rem 1rem;
+  display: inline-block;
 
-    ${({ isDragging }) =>
-    isDragging && css`
-      opacity: 0.8;
-      cursor: grabbing;
-    `};
-  `;
+    ${({isDragging}) =>
+      isDragging &&
+      css`
+        opacity: 0.8;
+        cursor: grabbing;
+      `};
+  `
 
 export default FoundPoetry

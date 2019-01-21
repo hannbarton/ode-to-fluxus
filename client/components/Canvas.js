@@ -74,7 +74,7 @@ export class Canvas extends React.Component {
                 x={50 * width}
                 y={layout()}
                 draggable
-                fontFamily='Special Elite'
+                fontFamily='monospace'
                 fontSize={14}
                 onDblClick={() => this.props.eraseTwitter(eachHash.id)}
                 />
@@ -90,7 +90,7 @@ export class Canvas extends React.Component {
               y={layout()}
               draggable
               fontSize={14}
-              fontFamily='Special Elite'
+              fontFamily='monospace'
               onDblClick={() => this.props.destroywords(eachWord.id)}
               />
             )
