@@ -1,6 +1,7 @@
 import React from 'react'
 import {Login, UserHome, Navbar} from '../components'
 import {Link} from 'react-router-dom'
+import {FoundPoetry} from './'
 
 class HomePage extends React.Component {
   render() {
@@ -22,6 +23,7 @@ class HomePage extends React.Component {
             <Login />
           </div>
         </div>
+        <FoundPoetry />
       </div>
     )
   }

@@ -1,8 +1,6 @@
 import React from 'react'
 import {render} from 'react-dom'
 import {Stage, Layer, Text, Circle} from 'react-konva'
-import PropTypes from 'prop-types'
-import {browserHistory, BrowserRouter, Route, Link} from 'react-router-dom'
 
 class Home extends React.Component {
   constructor() {
@@ -12,7 +10,7 @@ class Home extends React.Component {
   }
 
   homeclickhandler() {
-    console.log('clicked', browserHistory)
+    console.log('clicked')
   }
 
   render() {
@@ -20,7 +18,6 @@ class Home extends React.Component {
       <div>
         <Stage width={window.innerWidth} height={window.innerHeight * 0.9}>
           <Layer>
-            {/* <Link/> */}
             <Circle
               draggable
               x={window.innerWidth / 2}

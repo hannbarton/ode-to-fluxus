@@ -8,7 +8,7 @@ export const UserHome = props => {
 
   return (
     <div>
-      <p>Welcome, {displayName}</p>
+      {/* <p>Welcome, {displayName}</p> */}
       <Home/>
     </div>
   )
