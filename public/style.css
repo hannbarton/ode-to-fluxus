@@ -8,7 +8,7 @@ a {
   text-decoration: none;
 }
 a:visited{
-  color: blueviolet
+  color: black
 }
 
 .poetry-inline-block{
@@ -57,17 +57,6 @@ nav {
 
 .nav-bar-unlogin {
 
-}
-
-.inner-paper{
-  padding: 1em;
-  margin: 0 auto;
-  background: url('./images/concrete-1.jpg') no-repeat fixed;
-  background-size: 100% 100%;
-  width: 60vw;
-  height: 70vh;
-  border-radius: 25px;
-  border: solid 1pt #d1d1d1
 }
 
 .home-links{

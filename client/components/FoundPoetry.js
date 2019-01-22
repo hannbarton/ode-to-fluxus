@@ -13,12 +13,24 @@ class FoundPoetry extends React.Component {
 
     lastTranslateX: 0,
     lastTranslateY: 0,
+
+    rotate: 0
   }
 
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handleMouseMove)
     window.removeEventListener('mouseup', this.handleMouseUp)
+  }
+
+  handleMouseOver() {
+    let random = Math.floor((Math.random() * 4) + 1) * 90
+
+    console.log(random)
+    this.setState({
+        rotate: random
+    })
+
   }
 
   handleMouseDown = ({clientX, clientY}) => {
@@ -29,9 +41,12 @@ class FoundPoetry extends React.Component {
       this.props.onDragStart()
     }
 
+    console.log(clientX, clientY)
+
     this.setState({
       originalX: clientX,
       originalY: clientY,
+
       isDragging: true
     })
   }
@@ -82,13 +97,15 @@ class FoundPoetry extends React.Component {
   }
   render() {
     const {children} = this.props
-    const {translateX, translateY, isDragging} = this.state
+    const {translateX, translateY, isDragging, rotate} = this.state
 
     return (
         <Container
           onMouseDown={this.handleMouseDown}
           x={translateX}
           y={translateY}
+          deg={rotate}
+          onMouseOver={this.handleMouseOver.bind(this)}
           isDragging={isDragging}
         >{children}</Container>
     )
@@ -96,10 +113,21 @@ class FoundPoetry extends React.Component {
 }
 // palevioletred;#252526
 
+// const rotate = keyframes`
+//   from {
+//     transform: rotate(0deg);
+//   }
+
+//   to {
+//     transform: rotate(90deg);
+//   }
+// `
+
 const Container = styled.div.attrs({
-  style: ({x, y}) => ({
-    transform: `translate(${x}px, ${y}px)`
-  })
+  style: ({x, y, deg}) => ({
+    transform: `translate(${x}px, ${y}px) rotate(${deg}deg)`,
+    animation: `${deg} 1s`
+  }),
 })`
   color: palevioletred;
   cursor: grab;
@@ -109,7 +137,15 @@ const Container = styled.div.attrs({
 
   &:hover {
     color: #0c5bd1;
-  }
+
+
+  ${({rotate}) =>
+  rotate &&
+  css`
+  animation: ${rotate} 2s
+  `
+  };
+}
 
   ${({isDragging}) =>
     isDragging &&
