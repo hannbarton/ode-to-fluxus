@@ -1,5 +1,5 @@
 import React from 'react'
-import {Login, UserHome, Navbar} from '../components'
+import {Navbar} from '../components'
 import {Link} from 'react-router-dom'
 import {FoundPoetry} from './'
 
@@ -11,11 +11,6 @@ class HomePage extends React.Component {
     return (
       <div>
         <Navbar />
-        {/* <br />
-        <Link to="/poem">Make a poem from trending hashtags</Link>
-        <br />
-        <br />
-        <Login /> */}
         <div className="home-page">
           {/* <UserHome /> */}
           <div className="poetry-inline-block">

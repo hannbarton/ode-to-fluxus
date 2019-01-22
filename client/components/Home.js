@@ -1,13 +1,20 @@
 import React from 'react'
-import {render} from 'react-dom'
+import {Login, UserHome, Navbar} from '../components'
+import {Link} from 'react-router-dom'
 
 class Home extends React.Component {
 
   render() {
     return (
       <div>
-        <h1>helalsdk</h1>
-        <p>hwllowrl</p>
+        <Navbar />
+        <br />
+        {/* <UserHome /> */}
+        <br/>
+        <Link to="/poem">Make a poem from trending hashtags</Link>
+        <br />
+        <br />
+        <Login />
       </div>
     )
   }

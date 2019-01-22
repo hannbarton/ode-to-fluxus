@@ -26,12 +26,12 @@ class Routes extends Component {
         <Route exact path="/" component={HomePage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/home" component={UserHome} />
         <Route path="/poem" component={TrendingPage} />
         {/* <Route path="/tweet" component={TweetCanvas} /> */}
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
             <Route path="/tweet" component={TweetPage} />
           </Switch>
         )}

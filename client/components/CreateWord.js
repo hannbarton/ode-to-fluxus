@@ -1,5 +1,4 @@
 import React from 'react'
-import Canvas from './Canvas'
 import {postWord, loadWordList} from '../store/word'
 import {connect} from 'react-redux'
 
