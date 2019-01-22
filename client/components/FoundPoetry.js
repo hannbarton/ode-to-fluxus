@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, {css} from 'styled-components'
+import styled, {css, keyframes} from 'styled-components'
 
 class FoundPoetry extends React.Component {
   state = {
@@ -12,8 +12,9 @@ class FoundPoetry extends React.Component {
     translateY: 0,
 
     lastTranslateX: 0,
-    lastTranslateY: 0
+    lastTranslateY: 0,
   }
+
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handleMouseMove)
@@ -103,8 +104,12 @@ const Container = styled.div.attrs({
   color: palevioletred;
   cursor: grab;
   font-size: 20vw;
-  padding: 0rem 2rem 0rem 0rem;
+  padding: 0rem 1rem 0rem 1rem;
   display: inline-block;
+
+  &:hover {
+    color: #0c5bd1;
+  }
 
   ${({isDragging}) =>
     isDragging &&
