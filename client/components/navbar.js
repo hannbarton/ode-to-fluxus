@@ -18,7 +18,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       <div className="nav-bar-unlogin">
         <Link to="/">Home</Link>{" "}
         <Link to="/login">Login</Link>
-        <img src="./images/plus.png" id="plus-btn" />
+        {/* <img src="./images/plus.png" id="plus-btn" /> */}
       </div>
     )}
   </nav>

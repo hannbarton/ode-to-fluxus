@@ -72,11 +72,12 @@ nav {
   float: right;
 }
 
-.home-links{
+.home{
   font-size: 14pt;
   color: #294c82;
   text-align: center;
+  font-size: 12pt;
   position: relative;
   top: 40%;
-  transform: translateY(-50%);
+  transform: translateY(5%);
 }

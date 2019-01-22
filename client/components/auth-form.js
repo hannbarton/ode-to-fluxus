@@ -16,7 +16,7 @@ const AuthForm = props => {
       ) : (
         <div>
           <a href="/auth/twitter">
-            {displayName} with Twitter to make a poem from your own tweets
+            Login with Twitter to make a poem from your own tweets
           </a>
         </div>
       )}
