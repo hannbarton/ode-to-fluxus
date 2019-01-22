@@ -1,7 +1,7 @@
 import React from 'react'
-import styled, {css, keyframes} from 'styled-components'
+import styled, {css} from 'styled-components'
 
-class FoundPoetry extends React.Component {
+class WordMove extends React.Component {
   state = {
     isDragging: false,
 
@@ -13,8 +13,6 @@ class FoundPoetry extends React.Component {
 
     lastTranslateX: 0,
     lastTranslateY: 0,
-
-    rotate: 0
   }
 
 
@@ -23,15 +21,15 @@ class FoundPoetry extends React.Component {
     window.removeEventListener('mouseup', this.handleMouseUp)
   }
 
-  handleMouseOver() {
-    let random = Math.floor((Math.random() * 4) + 1) * 90
+//   handleMouseOver() {
+//     let random = Math.floor((Math.random() * 4) + 1) * 90
 
-    console.log(random)
-    this.setState({
-        rotate: random
-    })
+//     console.log(random)
+//     this.setState({
+//         rotate: random
+//     })
 
-  }
+//   }
 
   handleMouseDown = ({clientX, clientY}) => {
     window.addEventListener('mousemove', this.handleMouseMove)
@@ -75,7 +73,6 @@ class FoundPoetry extends React.Component {
   }
 
   handleMouseUp = evt => {
-    console.log(evt, this)
     window.removeEventListener('mousemove', this.handleMouseMove)
     window.removeEventListener('mouseup', this.handleMouseUp)
 
@@ -97,53 +94,31 @@ class FoundPoetry extends React.Component {
   }
   render() {
     const {children} = this.props
-    const {translateX, translateY, isDragging, rotate} = this.state
+    const {translateX, translateY, isDragging} = this.state
 
     return (
-        <Container
+        <WordContainer
           onMouseDown={this.handleMouseDown}
           x={translateX}
           y={translateY}
-          deg={rotate}
-          onMouseOver={this.handleMouseOver.bind(this)}
           isDragging={isDragging}
-        >{children}</Container>
+        >{children}</WordContainer>
     )
   }
 }
-// palevioletred;#252526
 
-// const rotate = keyframes`
-//   from {
-//     transform: rotate(0deg);
-//   }
-
-//   to {
-//     transform: rotate(90deg);
-//   }
-// `
-
-const Container = styled.div.attrs({
+const WordContainer = styled.div.attrs({
   style: ({x, y, deg}) => ({
     transform: `translate(${x}px, ${y}px) rotate(${deg}deg)`,
     animation: `${deg} 1s`
   }),
 })`
-  color: palevioletred;
+  color: black;
   cursor: grab;
-  font-size: 20vw;
-  padding: 0rem 1rem 0rem 1rem;
-  display: inline-block;
+  font-size: 12pt;
 
   &:hover {
     color: #0c5bd1;
-
-  ${({rotate}) =>
-  rotate &&
-  css`
-  animation: ${rotate} 2s
-  `
-  };
 }
 
   ${({isDragging}) =>
@@ -154,4 +129,4 @@ const Container = styled.div.attrs({
     `};
 `
 
-export default FoundPoetry
+export default WordMove
