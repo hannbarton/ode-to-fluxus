@@ -34,7 +34,7 @@ class CreateWord extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='create-word'>
         <form id="submit-word" onSubmit={this.handleSubmit}>
           <label htmlFor="">Create your own word:</label>
           <input

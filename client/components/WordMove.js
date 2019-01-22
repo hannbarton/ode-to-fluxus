@@ -12,24 +12,13 @@ class WordMove extends React.Component {
     translateY: 0,
 
     lastTranslateX: 0,
-    lastTranslateY: 0,
+    lastTranslateY: 0
   }
-
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handleMouseMove)
     window.removeEventListener('mouseup', this.handleMouseUp)
   }
-
-//   handleMouseOver() {
-//     let random = Math.floor((Math.random() * 4) + 1) * 90
-
-//     console.log(random)
-//     this.setState({
-//         rotate: random
-//     })
-
-//   }
 
   handleMouseDown = ({clientX, clientY}) => {
     window.addEventListener('mousemove', this.handleMouseMove)
@@ -97,35 +86,37 @@ class WordMove extends React.Component {
     const {translateX, translateY, isDragging} = this.state
 
     return (
-        <WordContainer
-          onMouseDown={this.handleMouseDown}
-          x={translateX}
-          y={translateY}
-          isDragging={isDragging}
-        >{children}</WordContainer>
+      <WordContainer
+        onMouseDown={this.handleMouseDown}
+        x={translateX}
+        y={translateY}
+        isDragging={isDragging}
+      >
+        {children}
+      </WordContainer>
     )
   }
 }
 
 const WordContainer = styled.div.attrs({
-  style: ({x, y, deg}) => ({
-    transform: `translate(${x}px, ${y}px) rotate(${deg}deg)`,
-    animation: `${deg} 1s`
-  }),
+  style: ({x, y}) => ({
+    transform: `translate(${x}px, ${y}px)`,
+  })
 })`
   color: black;
   cursor: grab;
   font-size: 12pt;
+  font-family: helvetica;
+  padding: 0rem 1rem 0rem 1rem;
+  display: inline-block;
 
-  &:hover {
-    color: #0c5bd1;
-}
 
   ${({isDragging}) =>
     isDragging &&
     css`
       opacity: 0.8;
       cursor: grabbing;
+      color: green
     `};
 `
 

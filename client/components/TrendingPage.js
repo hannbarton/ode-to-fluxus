@@ -8,6 +8,7 @@ class TrendingPage extends React.Component {
       <div>
         <Navbar />
         <CreateWord />
+        <br/>
         <Canvas />
       </div>
     )

@@ -1,7 +1,11 @@
 body {
   font-family: sans-serif;
   background: url('./images/white-1.jpg') no-repeat fixed center;
-  background-size: cover
+  background-size: cover;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 a {
@@ -9,6 +13,19 @@ a {
 }
 a:visited{
   color: black
+}
+
+.drag-words {
+  padding: 5em;
+  margin: 5em;
+  font-family: 'Courier New', Courier, monospace;
+  opacity: .4;
+  text-align: center;
+  position: relative;
+}
+
+.enter {
+  text-align: center
 }
 
 .poetry-inline-block{
@@ -43,7 +60,7 @@ h2 {
 }
 
 p{
-  color: #0a091c
+  color: #000000
 }
 
 label {
@@ -53,10 +70,6 @@ label {
 nav {
   padding: 0em 2em 0em 2em;
   float: right;
-}
-
-.nav-bar-unlogin {
-
 }
 
 .home-links{

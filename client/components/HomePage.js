@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom'
 import {FoundPoetry} from './'
 
 const found = ['F', 'O', 'U', 'N', 'D']
-
 const poetry = ['P', 'O', 'E', 'T', 'R', 'Y']
 
 class HomePage extends React.Component {
@@ -28,6 +27,10 @@ class HomePage extends React.Component {
               return <FoundPoetry key={i}>{each}</FoundPoetry>
             })}
           </div>
+        </div >
+        <div className='enter'>
+
+        <Link to="/home">Enter</Link>
         </div>
       </div>
     )
