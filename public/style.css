@@ -76,14 +76,21 @@ nav {
   font-size: 14pt;
   color: #294c82;
   text-align: center;
-  font-size: 12pt;
-  position: relative;
-  top: 40%;
-  transform: translateY(5%);
+  font-size: 40pt;
 }
 
 #trash{
   position: absolute;
   right: 0;
   bottom: 0
+}
+
+.home-container{
+  font-size: 12pt;
+  background: url('./images/write-1.jpg') no-repeat;
+  background-size: 100% 100%;
+  width: 40vw;
+  height: 50vh;
+  border-radius: 25px;
+  border: solid 1pt #d1d1d1;
 }

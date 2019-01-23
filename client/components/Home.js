@@ -20,10 +20,13 @@ class Home extends React.Component {
           <p>changed in a profound and systematic manner; </p>
           <p>or </p>
           <p>untreated:</p>
-          <p>virtually unchanged from the order, syntax and meaning of the poem.</p>
-          {/* <UserHome /> */}
+          <p>
+            virtually unchanged from the order, syntax and meaning of the poem.
+          </p>
           <br />
-          <br/>
+          <br />
+        </div>
+        <div className="home-container">
           <Link to="/poem">Make a poem from trending hashtags</Link>
           <br />
           <br />
