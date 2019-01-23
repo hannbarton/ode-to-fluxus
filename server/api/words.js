@@ -54,6 +54,7 @@ router.get('/twitter', async (req, res, next) => {
 
     await Promise.all(
       dataTweet.map(eachTweet => {
+        // id the trending hash starts with # and has numbers
         if (eachTweet.name[0] === '#' && /\d/.test(eachTweet.name)) {
           eachTweet.name.slice(1)
         }

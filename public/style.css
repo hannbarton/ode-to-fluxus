@@ -34,16 +34,12 @@ a:visited{
 }
 
 #plus-btn {
-  width:40px
+  width:40px;
+  float: right
 }
 
 #plus-btn:hover {
   transform: scale(.9);
-  transition-duration: .3s;
-}
-
-#plus-btn:active {
-  transform: rotate(90deg);
   transition-duration: .3s;
 }
 

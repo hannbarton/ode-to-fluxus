@@ -130,7 +130,7 @@ const Container = styled.div.attrs({
   }),
 })`
   color: palevioletred;
-  cursor: grab;
+  cursor: move;
   font-size: 20vw;
   padding: 0rem 1rem 0rem 1rem;
   display: inline-block;
