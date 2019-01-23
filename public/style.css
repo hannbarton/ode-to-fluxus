@@ -12,7 +12,7 @@ a {
   text-decoration: none;
 }
 a:visited{
-  color: black
+  color: blueviolet
 }
 
 .drag-words {
@@ -31,10 +31,6 @@ a:visited{
 .poetry-inline-block{
   display: inline-block;
   text-align: right;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 #plus-btn {
@@ -72,11 +68,23 @@ nav {
   float: right;
 }
 
+.home-outer {
+  display: inline
+}
+
 .home{
-  font-size: 14pt;
+  display: inline
+}
+
+
+h1{
+  padding-right: 1em;
+  padding-left: 1em;
   color: #294c82;
   text-align: center;
-  font-size: 40pt;
+  font-size: 11.5vh;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 #trash{
@@ -86,9 +94,14 @@ nav {
 }
 
 .home-container{
+  position: relative;
+  top: 27%;
+  left: 27%;
+  text-align: center;
   font-size: 12pt;
-  background: url('./images/write-1.jpg') no-repeat;
+  background: url('./images/black.jpg') no-repeat;
   background-size: 100% 100%;
+  /* background: #0c093d52; */
   width: 40vw;
   height: 50vh;
   border-radius: 25px;
