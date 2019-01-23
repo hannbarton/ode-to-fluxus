@@ -42,6 +42,11 @@ router.get('/common', async (req, res, next) => {
 
 router.get('/twitter', async (req, res, next) => {
   try {
+
+    if (!req.session.words) {
+      trendingWordSession(req.user, next, req.session)
+    }
+
     await TrendingTweet.sync({force: true})
 
     const tweets = await client.get('/trends/place', {id: 23424977})
@@ -53,6 +58,7 @@ router.get('/twitter', async (req, res, next) => {
           eachTweet.name.slice(1)
         }
         else if (
+          // if the trending hash is ALL CAPS, just take off #
           eachTweet.name[0] === '#' &&
           eachTweet.name[1] === eachTweet.name[1].toUpperCase() &&
           eachTweet.name[2] === eachTweet.name[2].toUpperCase() &&
@@ -71,7 +77,12 @@ router.get('/twitter', async (req, res, next) => {
     )
 
     const tweetwords = await TrendingTweet.findAll()
+
+    req.session.words = tweetwords.map(each => each.name)
+
     res.json(tweetwords)
+
+    console.log(req.session)
   } catch (err) {
     next(err)
   }
