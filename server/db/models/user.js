@@ -36,10 +36,10 @@ const User = db.define('user', {
   name: {
     type: Sequelize.STRING
   },
-  accessToken: {
+  token: {
     type: Sequelize.TEXT
   },
-  accessTokenSecret: {
+  secret: {
     type: Sequelize.TEXT
   }
 })

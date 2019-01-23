@@ -4,7 +4,7 @@ const Twitter = require('twitter')
 const commonWords = require('./commonWords')
 module.exports = router
 
-const wordSession = (user, next, session) => {
+const trendingWordSession = (user, next, session) => {
   session.words = []
 }
 
@@ -49,19 +49,22 @@ router.get('/twitter', async (req, res, next) => {
 
     await Promise.all(
       dataTweet.map(eachTweet => {
-        if (
+        if (eachTweet.name[0] === '#' && /\d/.test(eachTweet.name)) {
+          eachTweet.name.slice(1)
+        }
+        else if (
           eachTweet.name[0] === '#' &&
-          eachTweet.name[2] === eachTweet.name[2].toUpperCase()
+          eachTweet.name[1] === eachTweet.name[1].toUpperCase() &&
+          eachTweet.name[2] === eachTweet.name[2].toUpperCase() &&
+          eachTweet.name[3] === eachTweet.name[3].toUpperCase()
         ) {
           eachTweet.name = eachTweet.name.slice(1)
         }
-        if (
-          eachTweet.name[0] === '#' &&
-          eachTweet.name[2] === eachTweet.name[2].toLowerCase()
-        ) {
+        else if (eachTweet.name[0] === '#') {
           eachTweet.name = eachTweet.name
             .slice(1)
             .replace(/([a-z])([A-Z])/g, '$1 $2')
+            .replace(/([A-Z])([A-Z])/g, '$1 $2')
         }
         return TrendingTweet.create(eachTweet)
       })
@@ -79,8 +82,8 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
     let twitterUserClient = new Twitter({
       consumer_key: process.env.TWITTER_CONSUMER_KEY,
       consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-      access_token_key: req.user.accessToken,
-      access_token_secret: req.user.accessTokenSecret
+      access_token_key: req.user.token,
+      access_token_secret: req.user.secret
     })
 
     await MyTweet.sync({force: true})
@@ -89,50 +92,50 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
       tweet_mode: 'extended'
     })
 
-    await Promise.all(tweets.map(eachTweet => {
-
-      if (eachTweet.full_text[0] === 'R' && eachTweet.full_text[1] === 'T') {
-
-        const tweet = {
-          tweet: eachTweet.retweeted_status.full_text
-            .replace(/[\n\r]/g,' ')
-            .replace('[', '')
-            .replace(']', '')
-            .replace(/["]r/g, '')
-            .split(' '),
-            userId: req.user.id
-        }
-
-        let randomIndex = Math.floor(Math.random() * Math.floor(tweet.tweet.length - 1))
-
-        tweet.tweet = tweet.tweet[randomIndex]
-
-        return MyTweet.create(tweet)
-
-      } else {
-
-          const realTweet = {
-            tweet: eachTweet.full_text
-            .replace(/[\n\r]/g,' ')
-            .replace('[', '')
-            .replace(']', '')
-            .replace(/["]r/g, '')
-            .split(' '),
+    await Promise.all(
+      tweets.map(eachTweet => {
+        if (eachTweet.full_text[0] === 'R' && eachTweet.full_text[1] === 'T') {
+          const tweet = {
+            tweet: eachTweet.retweeted_status.full_text
+              .replace(/[\n\r]/g, ' ')
+              .replace('[', '')
+              .replace(']', '')
+              .replace(/["]r/g, '')
+              .split(' '),
             userId: req.user.id
           }
 
-          let randomized = Math.floor(Math.random() * Math.floor(realTweet.tweet.length - 1))
+          let randomIndex = Math.floor(
+            Math.random() * Math.floor(tweet.tweet.length - 1)
+          )
 
-        realTweet.tweet = realTweet.tweet[randomized]
+          tweet.tweet = tweet.tweet[randomIndex]
+
+          return MyTweet.create(tweet)
+        } else {
+          const realTweet = {
+            tweet: eachTweet.full_text
+              .replace(/[\n\r]/g, ' ')
+              .replace('[', '')
+              .replace(']', '')
+              .replace(/["]r/g, '')
+              .split(' '),
+            userId: req.user.id
+          }
+
+          let randomized = Math.floor(
+            Math.random() * Math.floor(realTweet.tweet.length - 1)
+          )
+
+          realTweet.tweet = realTweet.tweet[randomized]
           MyTweet.create(realTweet)
-
-      }
-    }))
+        }
+      })
+    )
 
     const tweetWords = await MyTweet.findAll()
 
     res.json(tweetWords)
-
   } catch (err) {
     console.log('NOT HITTING')
     console.error(err)
@@ -142,8 +145,7 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-
-    let userId = (req.user) ? req.user.id : null
+    let userId = req.user ? req.user.id : null
 
     const word = await Word.create({
       words: req.body.words,
@@ -160,7 +162,6 @@ router.post('/', async (req, res, next) => {
 
 router.delete('/twitter/:id', async (req, res, next) => {
   try {
-
     const send = {
       message: 'successfully erased',
       id: req.params.id

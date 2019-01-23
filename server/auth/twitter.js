@@ -19,13 +19,13 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
           'http://api.twitter.com/oauth/authenticate?force_login=true',
         passReqToCallback: true
       },
-      (req, token, tokenSecret, profile, done) => {
+      (req, accessToken, accessTokenSecret, profile, done) => {
         const twitterId = profile.id
         const displayName = profile.displayName
         const userName = profile.userName
         const name = profile._json.name
-        const accessToken = token
-        const accessTokenSecret = tokenSecret
+        const token = accessToken
+        const secret = accessTokenSecret
 
         User.findOrCreate({
           where: {twitterId},
@@ -33,8 +33,8 @@ if (!process.env.TWITTER_CONSUMER_KEY || !process.env.TWITTER_CONSUMER_SECRET) {
             displayName,
             userName,
             name,
-            accessToken,
-            accessTokenSecret
+            token,
+            secret
           }
         }).then(([user]) => {
           done(null, user)
