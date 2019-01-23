@@ -69,16 +69,17 @@ nav {
 }
 
 .home{
-  display: inline
+  display: inline;
 }
 
 
 h1{
   padding-right: 1em;
   padding-left: 1em;
-  color: #294c82;
+  color: black;
+  opacity: .8;
   text-align: center;
-  font-size: 11.5vh;
+  font-size: 11vh;
   text-align: justify;
   text-justify: inter-word;
 }
@@ -90,16 +91,16 @@ h1{
 }
 
 .home-container{
-  position: relative;
-  top: 27%;
-  left: 27%;
+  position: absolute;
+  top: 5%;
+  left: 5%;
   text-align: center;
   font-size: 12pt;
-  background: url('./images/black.jpg') no-repeat;
+  background: url('./images/black.jpg') no-repeat center;
   background-size: 100% 100%;
   /* background: #0c093d52; */
-  width: 40vw;
-  height: 50vh;
+  width: 90vw;
+  height: 90vh;
   border-radius: 25px;
   border: solid 1pt #d1d1d1;
 }
