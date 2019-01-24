@@ -61,7 +61,7 @@ router.get('/twitter', async (req, res, next) => {
       if (req.session.passport) {
         await TrendingTweet.destroy({
           where: {
-            userId: req.session.passport.user.id
+            userId: req.session.passport.user
           }
         })
       }
