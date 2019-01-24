@@ -4,24 +4,11 @@ import {Link} from 'react-router-dom'
 import {Keyframes, animated} from 'react-spring'
 
 const Sidebar = Keyframes.Spring({
-  // Slots can take arrays/chains,
   peek: [{x: 0, from: {x: 100}, delay: 500}, {x: 100, delay: 800}],
-  // single items,
   open: {delay: 0, x: 0},
-  // or async functions with side-effects
   close: async call => {
     await call({delay: 0, x: 100})
   }
-})
-
-// Creates a keyframed trail
-const Content = Keyframes.Trail({
-  peek: [
-    {x: 0, opacity: 1, from: {x: -100, opacity: 0}, delay: 600},
-    {x: -100, opacity: 0, delay: 0}
-  ],
-  open: {x: 0, opacity: 1, delay: 100},
-  close: {x: -100, opacity: 0, delay: 0}
 })
 
 class Home extends React.Component {
