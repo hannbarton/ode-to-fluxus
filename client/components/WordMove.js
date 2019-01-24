@@ -106,7 +106,7 @@ const WordContainer = styled.div.attrs({
   color: black;
   cursor: grab;
   font-size: 12pt;
-  font-family: helvetica;
+  font-family: Futura medium, monospace;
   padding: 0rem 1rem 0rem 1rem;
   display: inline-block;
 

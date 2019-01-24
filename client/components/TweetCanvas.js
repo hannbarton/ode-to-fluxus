@@ -26,7 +26,7 @@ class TweetCanvas extends React.Component {
                 y={counter++ * 20}
                 draggable
                 fontSize={12}
-                fontFamily="Special Elite"
+                fontFamily="Futura medium', monospace"
                 />
               )
             })}

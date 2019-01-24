@@ -21,13 +21,13 @@ a:visited{
 }
 
 .drag-words {
-  padding: 5em;
-  margin: 5em;
+  top: 50%;
+  left: 40%
   /* font-family: 'Courier New', Courier, monospace; */;
   font-family: 'Futura medium', monospace;
   opacity: .4;
   text-align: center;
-  position: relative;
+  position: absolute;
 }
 
 .enter {
