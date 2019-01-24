@@ -40,13 +40,30 @@ router.get('/twitter', async (req, res, next) => {
   try {
 
     // if you are not logged in, the first thing you do, is create an empty user and assign an id onto session
-    if (!req.session.passport.user) {
-      const user = await User.create()
-      req.session.id = user.id
-    }
-    console.log(req.session)
+    // if (!req.session.passport.user) {
+    //   await User.create({
+
+    //   })
+    //   // req.session.user.id = user.id
+
+    //   console.log(req.session)
+    // //   TrendingTweet.destroy({
+    // //     where: {
+    // //       userId: null
+    // //     }
+    // //   })
+    // }
+    // else {
+    //   TrendingTweet.destroy({
+    //     where: {
+    //       userId: req.session.passport.user
+    //     }
+    //   })
+    // }
 
     await TrendingTweet.sync({force: true})
+
+    console.log(req.session)
 
     const tweets = await client.get('/trends/place', {id: 23424977})
     const dataTweet = tweets[0].trends
@@ -72,18 +89,13 @@ router.get('/twitter', async (req, res, next) => {
             .replace(/([a-z])([A-Z])/g, '$1 $2')
             .replace(/([A-Z])([A-Z])/g, '$1 $2')
         }
-        eachTweet.userId = req.session.passport.user
         return TrendingTweet.create(eachTweet)
       })
     )
 
     const tweetwords = await TrendingTweet.findAll()
 
-    // req.session.words = tweetwords.map(each => each.name)
-
     res.json(tweetwords)
-
-    console.log(req.session)
   } catch (err) {
     next(err)
   }
@@ -149,7 +161,6 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
 
     res.json(tweetWords)
   } catch (err) {
-    console.log('NOT HITTING')
     console.error(err)
     next(err)
   }

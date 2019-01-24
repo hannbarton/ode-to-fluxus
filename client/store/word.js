@@ -82,6 +82,15 @@ export const eraseTwitter = (id) => async dispatch => {
     }
 }
 
+export const fetchCommonWords = () => async dispatch => {
+    try {
+        const res = await axios.get('/api/words/common')
+        dispatch(getMyTweets(res.data))
+    }
+    catch(err) {
+        console.error(err)
+    }
+}
 
 export default function(state = initialState, action) {
     switch(action.type) {
