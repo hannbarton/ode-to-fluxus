@@ -12,6 +12,15 @@ const isLoggedIn = (req, res, next) => {
   }
 }
 
+const hasPassport = (req, next) => {
+   if (req.session.passport) {
+     return req.session.passport.user.id
+    }
+    else {
+      return req.session.user.userId
+    }
+}
+
 let client = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -39,10 +48,10 @@ router.get('/common', async (req, res, next) => {
 router.get('/twitter', async (req, res, next) => {
   try {
 
-    console.log('req', req)
+    // console.log('req', req)
 
     // if you are completely new, create a user
-    if (!req.session.user.userId) {
+    if (!req.session.user) {
       const user = await User.create({
         email: 'anonymous',
       })
@@ -58,6 +67,11 @@ router.get('/twitter', async (req, res, next) => {
             userId: req.session.passport.user.id
           }
         })
+        await TrendingTweet.destroy({
+          where: {
+            userId: req.session.user.userId
+          }
+        })
       }
       // else, if you have a userId, refresh your tweets anyway
       if (req.session.user.userId)
@@ -67,8 +81,6 @@ router.get('/twitter', async (req, res, next) => {
         }
       })
     }
-
-    console.log(req.session)
 
     const tweets = await client.get('/trends/place', {id: 23424977})
     const dataTweet = tweets[0].trends
@@ -94,14 +106,18 @@ router.get('/twitter', async (req, res, next) => {
             .replace(/([a-z])([A-Z])/g, '$1 $2')
             .replace(/([A-Z])([A-Z])/g, '$1 $2')
         }
-        eachTweet.userId = req.session.user.userId
+
+        const userId = +hasPassport(req, next)
+        eachTweet.userId = userId
         return TrendingTweet.create(eachTweet)
       })
     )
 
-    const tweetwords = await TrendingTweet.findAll()
+    const tweetwords = await User.findById(+hasPassport(req, next), {
+      include: TrendingTweet
+    })
+    res.json(tweetwords.trendingTweets);
 
-    res.json(tweetwords)
   } catch (err) {
     next(err)
   }
