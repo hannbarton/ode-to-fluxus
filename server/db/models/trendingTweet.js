@@ -5,6 +5,9 @@ const TrendingTweet = db.define('trendingTweet', {
     name: {
         type: Sequelize.STRING,
     },
+    userId: {
+        type: Sequelize.INTEGER
+    },
     url: {
         type: Sequelize.TEXT
     },

@@ -1,12 +1,8 @@
 const router = require('express').Router()
-const {Word, TrendingTweet, MyTweet} = require('../db/models')
+const {Word, TrendingTweet, MyTweet, User} = require('../db/models')
 const Twitter = require('twitter')
 const commonWords = require('./commonWords')
 module.exports = router
-
-const trendingWordSession = (user, next, session) => {
-  session.words = []
-}
 
 const isLoggedIn = (req, res, next) => {
   if (!req.user) {
@@ -43,9 +39,12 @@ router.get('/common', async (req, res, next) => {
 router.get('/twitter', async (req, res, next) => {
   try {
 
-    if (!req.session.words) {
-      trendingWordSession(req.user, next, req.session)
+    // if you are not logged in, the first thing you do, is create an empty user and assign an id onto session
+    if (!req.session.passport.user) {
+      const user = await User.create()
+      req.session.id = user.id
     }
+    console.log(req.session)
 
     await TrendingTweet.sync({force: true})
 
@@ -73,13 +72,14 @@ router.get('/twitter', async (req, res, next) => {
             .replace(/([a-z])([A-Z])/g, '$1 $2')
             .replace(/([A-Z])([A-Z])/g, '$1 $2')
         }
+        eachTweet.userId = req.session.passport.user
         return TrendingTweet.create(eachTweet)
       })
     )
 
     const tweetwords = await TrendingTweet.findAll()
 
-    req.session.words = tweetwords.map(each => each.name)
+    // req.session.words = tweetwords.map(each => each.name)
 
     res.json(tweetwords)
 

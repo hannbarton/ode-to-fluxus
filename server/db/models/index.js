@@ -5,8 +5,10 @@ const MyTweet = require('./myTweet')
 
 Word.belongsTo(User)
 MyTweet.belongsTo(User)
+TrendingTweet.belongsTo(User)
 User.hasMany(Word)
 User.hasMany(MyTweet)
+User.hasMany(TrendingTweet)
 
 module.exports = {
   User,
