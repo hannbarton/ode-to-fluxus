@@ -39,29 +39,34 @@ router.get('/common', async (req, res, next) => {
 router.get('/twitter', async (req, res, next) => {
   try {
 
-    // if you are not logged in, the first thing you do, is create an empty user and assign an id onto session
-    // if (!req.session.passport.user) {
-    //   await User.create({
+    console.log('req', req)
 
-    //   })
-    //   // req.session.user.id = user.id
-
-    //   console.log(req.session)
-    // //   TrendingTweet.destroy({
-    // //     where: {
-    // //       userId: null
-    // //     }
-    // //   })
-    // }
-    // else {
-    //   TrendingTweet.destroy({
-    //     where: {
-    //       userId: req.session.passport.user
-    //     }
-    //   })
-    // }
-
-    await TrendingTweet.sync({force: true})
+    // if you are completely new, create a user
+    if (!req.session.user.userId) {
+      const user = await User.create({
+        email: 'anonymous',
+      })
+      req.session.user = {
+        userId: user.id
+      }
+    }
+    // else, if you have a passport, refresh your tweets from passport.user.id
+    else {
+      if (req.session.passport) {
+        await TrendingTweet.destroy({
+          where: {
+            userId: req.session.passport.user.id
+          }
+        })
+      }
+      // else, if you have a userId, refresh your tweets anyway
+      if (req.session.user.userId)
+      await TrendingTweet.destroy({
+        where: {
+          userId: req.session.user.userId
+        }
+      })
+    }
 
     console.log(req.session)
 
@@ -89,6 +94,7 @@ router.get('/twitter', async (req, res, next) => {
             .replace(/([a-z])([A-Z])/g, '$1 $2')
             .replace(/([A-Z])([A-Z])/g, '$1 $2')
         }
+        eachTweet.userId = req.session.user.userId
         return TrendingTweet.create(eachTweet)
       })
     )
