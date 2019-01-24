@@ -37,7 +37,7 @@ class CreateMyTweet extends React.Component {
 
     return (
       <div>
-        <form id="submit-word" onSubmit={this.handleSubmit}>
+        <form className="create-word" onSubmit={this.handleSubmit}>
           <label htmlFor="">Create your own word:</label>
           <input
             className="form-control"

@@ -10,11 +10,11 @@ const AuthForm = props => {
   return (
     <div>
       {isLoggedIn ? (
-        <div>
+        <div className='home-page'>
           <a href="/tweet">Make a poem from your own tweets</a>
         </div>
       ) : (
-        <div>
+        <div className='home-page'>
           <a href="/auth/twitter">
             Login with Twitter to make a poem from your own tweets
           </a>

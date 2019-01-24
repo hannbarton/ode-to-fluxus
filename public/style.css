@@ -4,6 +4,7 @@
 }
 
 body {
+
   font-family: sans-serif;
   background: url('./images/white-1.jpg') no-repeat fixed center;
   background-size: cover;
@@ -11,6 +12,10 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.create-word {
+  font-family: 'Futura medium', monospace;
 }
 
 a {
@@ -22,8 +27,8 @@ a:visited{
 
 .drag-words {
   top: 50%;
-  left: 40%
-  /* font-family: 'Courier New', Courier, monospace; */;
+  left: calc(50vw - 280px);
+  font-size: 28pt;
   font-family: 'Futura medium', monospace;
   opacity: .4;
   text-align: center;
@@ -68,10 +73,16 @@ label {
 nav {
   padding: 0em 2em 0em 2em;
   float: right;
+  font-family: 'Futura medium'
 }
 
 .home-outer {
-  display: inline
+  display: inline;
+  /* position: relative; */
+}
+
+.home-page {
+  top: 50%
 }
 
 .home{
@@ -98,15 +109,8 @@ h1{
 
 .home-container{
   position: absolute;
-  top: 5%;
-  left: 5%;
   text-align: center;
-  font-size: 12pt;
-  background: url('./images/black.jpg') no-repeat center;
-  background-size: 100% 100%;
-  /* background: #0c093d52; */
-  width: 90vw;
-  height: 90vh;
-  border-radius: 25px;
-  border: solid 1pt #d1d1d1;
+  font-family: 'Futura medium';
+  top: 45%;
+  left: calc(50vw - 145px)
 }

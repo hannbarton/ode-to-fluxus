@@ -35,7 +35,7 @@ class Home extends React.Component {
             <animated.div
               className="sidebar"
               style={{
-                transform: x.interpolate(x => `translate3d(${x}%,0,0)`)
+                transform: x.interpolate(y => `translate3d(${y}%,0,0)`)
               }}
             >
               <div className="home">
