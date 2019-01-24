@@ -14,7 +14,7 @@ const isLoggedIn = (req, res, next) => {
 
 const hasPassport = (req, next) => {
    if (req.session.passport) {
-     return req.session.passport.user.id
+     return req.session.passport.user
     }
     else {
       return req.session.user.userId
@@ -47,11 +47,8 @@ router.get('/common', async (req, res, next) => {
 
 router.get('/twitter', async (req, res, next) => {
   try {
-
-    // console.log('req', req)
-
     // if you are completely new, create a user
-    if (!req.session.user) {
+    if (!req.session.passport) {
       const user = await User.create({
         email: 'anonymous',
       })
@@ -67,14 +64,7 @@ router.get('/twitter', async (req, res, next) => {
             userId: req.session.passport.user.id
           }
         })
-        await TrendingTweet.destroy({
-          where: {
-            userId: req.session.user.userId
-          }
-        })
       }
-      // else, if you have a userId, refresh your tweets anyway
-      if (req.session.user.userId)
       await TrendingTweet.destroy({
         where: {
           userId: req.session.user.userId
