@@ -36,8 +36,8 @@ class WordMove extends React.Component {
 
     this.props.fetchSingleWord(this.props.id)
 
-    console.log(clientX, clientY)
-    console.log('ID', this.props)
+    // console.log(clientX, clientY)
+    // console.log('ID', this.props)
 
     this.setState({
       originalX: clientX,
@@ -80,7 +80,6 @@ class WordMove extends React.Component {
         originalY: 0,
         lastTranslateX: this.state.translateX,
         lastTranslateY: this.state.translateY,
-
         isDragging: false
       },
       () => {

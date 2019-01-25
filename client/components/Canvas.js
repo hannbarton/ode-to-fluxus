@@ -18,7 +18,8 @@ export class Canvas extends React.Component {
     }
 
     this.handleStartToggle = this.handleStartToggle.bind(this)
-    this.handleDragEnter = this.handleDragEnter.bind(this)
+    this.onDrop = this.onDrop.bind(this)
+    this.onDragOver = this.onDragOver.bind(this)
   }
 
   componentDidMount() {
@@ -28,12 +29,20 @@ export class Canvas extends React.Component {
 
   handleStartToggle() {
     this.setState({
-      startToggle: true,
+      startToggle: true
     })
   }
 
-  handleDragEnter() {
-console.log('EVENT', this.props)
+  onDragOver = event => {
+    console.log('dragging')
+    event.preventDefault()
+    // window.addEventListener('mouseup', this.onDrop(event))
+  }
+
+  onDrop(event) {
+    console.log('IDDDD', this.props.single, event)
+    // this.props.destroywords(this.props.single.id)
+    this.props.eraseTwitter(this.props.single.id)
   }
 
   render() {
@@ -53,11 +62,6 @@ console.log('EVENT', this.props)
 
     return (
       <div className="canvas" onClick={this.handleStartToggle}>
-        <img
-          src="./images/trash.jpg"
-          id="trash"
-          onMouseOver={this.handleDragEnter}
-        />
         {this.props.name &&
           this.props.name.map(eachHash => {
             return (
@@ -85,7 +89,11 @@ console.log('EVENT', this.props)
         })}
         <div className="start-toggle">
           {this.state.startToggle ? (
-            <div />
+            <div
+              className="trash"
+              onDragOver={event => this.onDragOver(event)}
+              onMouseUp={event => this.onDrop(event)}
+            />
           ) : (
             <div className="drag-words">DRAG WORDS ONTO CANVAS</div>
           )}

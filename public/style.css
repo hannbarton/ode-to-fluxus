@@ -101,10 +101,12 @@ h1{
   text-justify: inter-word;
 }
 
-#trash{
+div.trash{
   position: absolute;
   right: 0;
-  bottom: 0
+  bottom: 0;
+  content: url('./images/trash.jpg');
+  cursor: url('./images/remove.png')
 }
 
 .home-container{
