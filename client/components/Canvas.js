@@ -14,10 +14,11 @@ export class Canvas extends React.Component {
     super()
 
     this.state = {
-      startToggle: false
+      startToggle: false,
     }
 
     this.handleStartToggle = this.handleStartToggle.bind(this)
+    this.handleDragEnter = this.handleDragEnter.bind(this)
   }
 
   componentDidMount() {
@@ -27,12 +28,15 @@ export class Canvas extends React.Component {
 
   handleStartToggle() {
     this.setState({
-      startToggle: true
+      startToggle: true,
     })
   }
 
+  handleDragEnter() {
+console.log('EVENT', this.props)
+  }
+
   render() {
-    console.log(this.props)
 
     let height = 1
     let width = 1
@@ -52,7 +56,7 @@ export class Canvas extends React.Component {
         <img
           src="./images/trash.jpg"
           id="trash"
-          onMouseOver={this.handleMouseOver}
+          onMouseOver={this.handleDragEnter}
         />
         {this.props.name &&
           this.props.name.map(eachHash => {
@@ -93,7 +97,8 @@ export class Canvas extends React.Component {
 
 const mapState = state => ({
   words: state.word.words,
-  name: state.word.name
+  name: state.word.name,
+  single: state.word.single
 })
 
 const mapDispatch = dispatch => ({

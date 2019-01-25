@@ -3,6 +3,7 @@ import styled, {css} from 'styled-components'
 import {
   eraseWord,
   eraseTwitter,
+  fetchSingleWord
 } from '../store/word'
 import {connect} from 'react-redux'
 
@@ -33,8 +34,10 @@ class WordMove extends React.Component {
       this.props.onDragStart()
     }
 
+    this.props.fetchSingleWord(this.props.id)
+
     console.log(clientX, clientY)
-    console.log(this.props)
+    console.log('ID', this.props)
 
     this.setState({
       originalX: clientX,
@@ -130,11 +133,13 @@ const WordContainer = styled.div.attrs({
 const mapState = state => ({
   words: state.word.words,
   name: state.word.name,
+  single: state.single
 })
 
 const mapDispatch = dispatch => ({
   destroywords: id => dispatch(eraseWord(id)),
   eraseTwitter: id => dispatch(eraseTwitter(id)),
+  fetchSingleWord: id => dispatch(fetchSingleWord(id))
 })
 
 export default connect(mapState, mapDispatch)(WordMove)

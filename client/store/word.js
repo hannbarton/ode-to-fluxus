@@ -36,9 +36,9 @@ export const fetchWordList = () => async dispatch => {
     }
 }
 
-export const fetchSingleWord = (single) => async dispatch => {
+export const fetchSingleWord = (id) => async dispatch => {
     try{
-        const res = await axios.get(`/api/words/twitter/${single.id}`)
+        const res = await axios.get(`/api/words/twitter/${id}`)
         dispatch(setWord(res.data))
     }
     catch(err) {
@@ -109,7 +109,7 @@ export const fetchCommonWords = () => async dispatch => {
 export default function(state = initialState, action) {
     switch(action.type) {
         case SET_SINGLE_WORD:
-            return {...state, single: action.single.id}
+            return {...state, single: action.single}
         case GET_ALL_WORDS:
             return { ...state, words: action.words}
         case GET_TWITTER_HASHTAGS:
