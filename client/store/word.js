@@ -16,6 +16,7 @@ const GET_TWITTER_HASHTAGS = 'GET_TWITTER_HASHTAGS'
 const GET_MY_TWEETS = 'GET_MY_TWEETS'
 const GET_COMMON_WORDS = 'GET_COMMON_WORDS'
 const SET_SINGLE_WORD = 'SET_SINGLE_WORD'
+const CLEAR_SINGLE_WORD = 'CLEAR_SINGLE_WORD'
 
 const getWordList = words => ({type: GET_ALL_WORDS, words})
 const addWord = word => ({type: ADD_WORD, word})
@@ -25,11 +26,21 @@ const getTwitter = name => ({type: GET_TWITTER_HASHTAGS, name})
 const getMyTweets = tweet => ({type: GET_MY_TWEETS, tweet})
 const getCommonWords = tweet => ({type: GET_COMMON_WORDS, tweet})
 const setWord = single => ({type: SET_SINGLE_WORD, single})
+const refreshWord = () => ({type: CLEAR_SINGLE_WORD})
 
 export const fetchWordList = () => async dispatch => {
     try {
        const res = await axios.get('/api/words')
        dispatch(getWordList(res.data))
+    }
+    catch(err) {
+        console.error(err)
+    }
+}
+
+export const clearSingleWord = () => dispatch => {
+    try {
+        dispatch(refreshWord())
     }
     catch(err) {
         console.error(err)
@@ -108,6 +119,8 @@ export const fetchCommonWords = () => async dispatch => {
 
 export default function(state = initialState, action) {
     switch(action.type) {
+        case CLEAR_SINGLE_WORD:
+            return {...state, single: {}}
         case SET_SINGLE_WORD:
             return {...state, single: action.single}
         case GET_ALL_WORDS:

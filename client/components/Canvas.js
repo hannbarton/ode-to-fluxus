@@ -14,7 +14,7 @@ export class Canvas extends React.Component {
     super()
 
     this.state = {
-      startToggle: false,
+      startToggle: false
     }
 
     this.handleStartToggle = this.handleStartToggle.bind(this)
@@ -34,19 +34,16 @@ export class Canvas extends React.Component {
   }
 
   onDragOver = event => {
+    console.log(event.target)
     console.log('dragging')
     event.preventDefault()
-    // window.addEventListener('mouseup', this.onDrop(event))
   }
 
   onDrop(event) {
-    console.log('IDDDD', this.props.single, event)
-    // this.props.destroywords(this.props.single.id)
-    this.props.eraseTwitter(this.props.single.id)
+      this.props.eraseTwitter(this.props.single.id)
   }
 
   render() {
-
     let height = 1
     let width = 1
 
@@ -92,7 +89,7 @@ export class Canvas extends React.Component {
             <div
               className="trash"
               onDragOver={event => this.onDragOver(event)}
-              onMouseUp={event => this.onDrop(event)}
+              onMouseUp={(event, target) => this.onDrop(event, target)}
             />
           ) : (
             <div className="drag-words">DRAG WORDS ONTO CANVAS</div>

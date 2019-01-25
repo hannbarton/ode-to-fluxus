@@ -103,10 +103,14 @@ h1{
 
 div.trash{
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 1em;
+  bottom: 1em;
   content: url('./images/trash.jpg');
-  cursor: url('./images/remove.png')
+  opacity: .6
+}
+
+div.trash:hover{
+  cursor: no-drop
 }
 
 .home-container{

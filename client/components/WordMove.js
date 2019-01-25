@@ -3,7 +3,8 @@ import styled, {css} from 'styled-components'
 import {
   eraseWord,
   eraseTwitter,
-  fetchSingleWord
+  fetchSingleWord,
+  clearSingleWord
 } from '../store/word'
 import {connect} from 'react-redux'
 
@@ -36,9 +37,6 @@ class WordMove extends React.Component {
 
     this.props.fetchSingleWord(this.props.id)
 
-    // console.log(clientX, clientY)
-    // console.log('ID', this.props)
-
     this.setState({
       originalX: clientX,
       originalY: clientY,
@@ -70,7 +68,10 @@ class WordMove extends React.Component {
     )
   }
 
-  handleMouseUp = evt => {
+  handleMouseUp = (evt, target) => {
+    if (!target) {
+      this.props.clearSingleWord()
+    }
     window.removeEventListener('mousemove', this.handleMouseMove)
     window.removeEventListener('mouseup', this.handleMouseUp)
 
@@ -138,7 +139,8 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   destroywords: id => dispatch(eraseWord(id)),
   eraseTwitter: id => dispatch(eraseTwitter(id)),
-  fetchSingleWord: id => dispatch(fetchSingleWord(id))
+  fetchSingleWord: id => dispatch(fetchSingleWord(id)),
+  clearSingleWord: () => dispatch(clearSingleWord())
 })
 
 export default connect(mapState, mapDispatch)(WordMove)
