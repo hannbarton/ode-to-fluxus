@@ -1,5 +1,10 @@
 import React from 'react'
 import styled, {css} from 'styled-components'
+import {
+  eraseWord,
+  eraseTwitter,
+} from '../store/word'
+import {connect} from 'react-redux'
 
 class WordMove extends React.Component {
   state = {
@@ -29,6 +34,7 @@ class WordMove extends React.Component {
     }
 
     console.log(clientX, clientY)
+    console.log(this.props)
 
     this.setState({
       originalX: clientX,
@@ -82,7 +88,7 @@ class WordMove extends React.Component {
     )
   }
   render() {
-    const {children} = this.props
+    const {children, id} = this.props
     const {translateX, translateY, isDragging} = this.state
 
     return (
@@ -91,6 +97,7 @@ class WordMove extends React.Component {
         x={translateX}
         y={translateY}
         isDragging={isDragging}
+        id={id}
       >
         {children}
       </WordContainer>
@@ -120,4 +127,14 @@ const WordContainer = styled.div.attrs({
     `};
 `
 
-export default WordMove
+const mapState = state => ({
+  words: state.word.words,
+  name: state.word.name,
+})
+
+const mapDispatch = dispatch => ({
+  destroywords: id => dispatch(eraseWord(id)),
+  eraseTwitter: id => dispatch(eraseTwitter(id)),
+})
+
+export default connect(mapState, mapDispatch)(WordMove)

@@ -195,6 +195,16 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.get('/twitter/:id', async(req, res, next) => {
+  try{
+    const tweet = await TrendingTweet.findById(req.params.id)
+    res.json(tweet)
+  }
+  catch(err) {
+    console.error(err)
+  }
+})
+
 router.delete('/twitter/:id', async (req, res, next) => {
   try {
     const send = {

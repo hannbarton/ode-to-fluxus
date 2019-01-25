@@ -41,7 +41,7 @@ class TweetCanvas extends React.Component {
     }
 
     return (
-      <div className="canvas">
+      <div className="canvas" onClick={this.handleStartToggle}>
         {this.props.tweet &&
           this.props.tweet.map(eachTweet => {
             return (
@@ -52,7 +52,7 @@ class TweetCanvas extends React.Component {
           })}
         <div className="start-toggle">
           {this.state.startToggle ? (
-            <div>{''}</div>
+            <div/>
           ) : (
             <div className="drag-words">DRAG WORDS ONTO CANVAS</div>
           )}

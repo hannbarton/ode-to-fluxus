@@ -32,6 +32,8 @@ export class Canvas extends React.Component {
   }
 
   render() {
+    console.log(this.props)
+
     let height = 1
     let width = 1
 
@@ -50,7 +52,7 @@ export class Canvas extends React.Component {
         <img
           src="./images/trash.jpg"
           id="trash"
-          onMouseOver={evt => console.log(evt)}
+          onMouseOver={this.handleMouseOver}
         />
         {this.props.name &&
           this.props.name.map(eachHash => {
@@ -59,7 +61,7 @@ export class Canvas extends React.Component {
                 key={eachHash.id}
                 x={50 * width}
                 y={layout()}
-                onDblClick={() => this.props.eraseTwitter(eachHash.id)}
+                id={eachHash.id}
               >
                 {`${eachHash.name}`}
               </WordMove>
@@ -71,7 +73,7 @@ export class Canvas extends React.Component {
               key={eachWord.id}
               x={50 * width}
               y={layout()}
-              onDblClick={() => this.props.destroywords(eachWord.id)}
+              id={eachWord.id}
             >
               {`${eachWord.words}`}
             </WordMove>
@@ -79,7 +81,7 @@ export class Canvas extends React.Component {
         })}
         <div className="start-toggle">
           {this.state.startToggle ? (
-            <div>{''}</div>
+            <div />
           ) : (
             <div className="drag-words">DRAG WORDS ONTO CANVAS</div>
           )}
