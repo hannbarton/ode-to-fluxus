@@ -50,19 +50,7 @@ export class Canvas extends React.Component {
   }
 
   render() {
-    let height = 1
-    let width = 1
-
-    const layout = () => {
-      if (height > window.height * 0.85) {
-        width += 4
-        height = 0
-      } else {
-        height += 20
-      }
-      return height
-    }
-
+    console.log(this)
     return (
       <div className="canvas" onClick={this.handleStartToggle}>
         {this.props.name &&
@@ -71,6 +59,8 @@ export class Canvas extends React.Component {
               <WordMove
                 key={eachHash.id}
                 id={eachHash.id}
+                x={0}
+                y={0}
               >
                 {`${eachHash.name}`}
               </WordMove>

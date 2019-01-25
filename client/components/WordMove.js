@@ -99,8 +99,8 @@ class WordMove extends React.Component {
     return (
       <WordContainer
         onMouseDown={this.handleMouseDown}
-        x={translateX || x}
-        y={translateY || y}
+        x={translateX}
+        y={translateY}
         isDragging={isDragging}
         id={id}
       >
