@@ -27,6 +27,11 @@ export class Canvas extends React.Component {
     this.props.loadwords()
   }
 
+  // componentWillUnmount() {
+  //   this.props.loadTwitter()
+  //   this.props.loadwords()
+  // }
+
   handleStartToggle() {
     this.setState({
       startToggle: true
@@ -40,6 +45,7 @@ export class Canvas extends React.Component {
   }
 
   onDrop(event) {
+    event.preventDefault()
       this.props.eraseTwitter(this.props.single.id)
   }
 
@@ -64,8 +70,6 @@ export class Canvas extends React.Component {
             return (
               <WordMove
                 key={eachHash.id}
-                x={50 * width}
-                y={layout()}
                 id={eachHash.id}
               >
                 {`${eachHash.name}`}
@@ -76,8 +80,6 @@ export class Canvas extends React.Component {
           return (
             <WordMove
               key={eachWord.id}
-              x={50 * width}
-              y={layout()}
               id={eachWord.id}
             >
               {`${eachWord.words}`}
@@ -89,7 +91,7 @@ export class Canvas extends React.Component {
             <div
               className="trash"
               onDragOver={event => this.onDragOver(event)}
-              onMouseUp={(event, target) => this.onDrop(event, target)}
+              onMouseUp={(event) => this.onDrop(event)}
             />
           ) : (
             <div className="drag-words">DRAG WORDS ONTO CANVAS</div>

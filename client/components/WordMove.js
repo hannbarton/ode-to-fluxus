@@ -1,8 +1,10 @@
 import React from 'react'
 import styled, {css} from 'styled-components'
 import {
+  fetchWordList,
   eraseWord,
   eraseTwitter,
+  fetchTwitter,
   fetchSingleWord,
   clearSingleWord
 } from '../store/word'
@@ -69,6 +71,7 @@ class WordMove extends React.Component {
   }
 
   handleMouseUp = (evt, target) => {
+    console.log('promos.', this.props)
     if (!target) {
       this.props.clearSingleWord()
     }
@@ -91,14 +94,13 @@ class WordMove extends React.Component {
     )
   }
   render() {
-    const {children, id} = this.props
+    const {children, id, x, y} = this.props
     const {translateX, translateY, isDragging} = this.state
-
     return (
       <WordContainer
         onMouseDown={this.handleMouseDown}
-        x={translateX}
-        y={translateY}
+        x={translateX || x}
+        y={translateY || y}
         isDragging={isDragging}
         id={id}
       >
@@ -137,6 +139,8 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
+  loadwords: () => dispatch(fetchWordList()),
+  loadTwitter: () => dispatch(fetchTwitter()),
   destroywords: id => dispatch(eraseWord(id)),
   eraseTwitter: id => dispatch(eraseTwitter(id)),
   fetchSingleWord: id => dispatch(fetchSingleWord(id)),
