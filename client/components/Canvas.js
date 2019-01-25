@@ -47,7 +47,11 @@ export class Canvas extends React.Component {
 
     return (
       <div className="canvas" onClick={this.handleStartToggle}>
-      <img src='./images/trash.jpg' id='trash' onMouseOver={(evt) => console.log(evt)}/>
+        <img
+          src="./images/trash.jpg"
+          id="trash"
+          onMouseOver={evt => console.log(evt)}
+        />
         {this.props.name &&
           this.props.name.map(eachHash => {
             return (
@@ -80,7 +84,6 @@ export class Canvas extends React.Component {
             <div className="drag-words">DRAG WORDS ONTO CANVAS</div>
           )}
         </div>
-
       </div>
     )
   }

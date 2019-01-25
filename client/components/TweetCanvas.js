@@ -1,37 +1,63 @@
 import React from 'react'
-import {render} from 'react-dom'
-import {Stage, Layer, Text, Rect} from 'react-konva'
+import {WordMove} from './'
 import {fetchMyTweets} from '../store/word'
 import {connect} from 'react-redux'
 
 class TweetCanvas extends React.Component {
+  constructor() {
+    super()
+
+    this.state = {
+      startToggle: false
+    }
+
+    this.handleStartToggle = this.handleStartToggle.bind(this)
+  }
+
+
   componentDidMount() {
     this.props.loadMyTweets()
   }
 
+  handleStartToggle() {
+    this.setState({
+      startToggle: true
+    })
+  }
+
+
   render() {
-    let counter = 0;
+    let height = 1
+    let width = 1
+
+    const layout = () => {
+      if (height > window.height * 0.85) {
+        width += 4
+        height = 0
+      } else {
+        height += 20
+      }
+      return height
+    }
 
     return (
-      <Stage width={window.innerWidth * 0.8} height={window.innerHeight * 0.8}>
-        <Layer>
-            <Rect fill='orange' x={50} y={500} width={50} height={50} />
-
-            {this.props.tweet && this.props.tweet.map(eachTweet => {
-              return(
-                <Text
-                key={eachTweet.id}
-                text={eachTweet.tweet}
-                x={50}
-                y={counter++ * 20}
-                draggable
-                fontSize={12}
-                fontFamily="Futura medium', monospace"
-                />
-              )
-            })}
-        </Layer>
-      </Stage>
+      <div className="canvas">
+        {this.props.tweet &&
+          this.props.tweet.map(eachTweet => {
+            return (
+              <WordMove key={eachTweet.id} x={50 * width} y={layout()}>
+                {`${eachTweet.tweet}`}
+              </WordMove>
+            )
+          })}
+        <div className="start-toggle">
+          {this.state.startToggle ? (
+            <div>{''}</div>
+          ) : (
+            <div className="drag-words">DRAG WORDS ONTO CANVAS</div>
+          )}
+        </div>
+      </div>
     )
   }
 }
