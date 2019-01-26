@@ -70,13 +70,17 @@ class WordMove extends React.Component {
     )
   }
 
-  handleMouseUp = (evt, target) => {
+  handleMouseUp = (event, target) => {
     console.log('promos.', this.props)
+
+    event.preventDefault()
+
+    window.removeEventListener('mousemove', this.handleMouseMove)
+    window.removeEventListener('mouseup', this.handleMouseUp)
+
     if (!target) {
       this.props.clearSingleWord()
     }
-    window.removeEventListener('mousemove', this.handleMouseMove)
-    window.removeEventListener('mouseup', this.handleMouseUp)
 
     this.setState(
       {

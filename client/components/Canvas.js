@@ -26,6 +26,10 @@ export class Canvas extends React.Component {
     this.props.loadTwitter()
     this.props.loadwords()
   }
+  // getDerivedStateFromProps() {
+  //       this.props.loadTwitter()
+  //   this.props.loadwords()
+  // }
 
   handleStartToggle() {
     this.setState({
@@ -50,7 +54,8 @@ export class Canvas extends React.Component {
   }
 
   render() {
-    console.log(this)
+    console.log("PROPSP", this)
+
     return (
       <div className="canvas" onClick={this.handleStartToggle}>
         {this.props.name &&
@@ -59,14 +64,12 @@ export class Canvas extends React.Component {
               <WordMove
                 key={eachHash.id}
                 id={eachHash.id}
-                x={0}
-                y={0}
               >
                 {`${eachHash.name}`}
               </WordMove>
             )
           })}
-        {this.props.words.map(eachWord => {
+        {this.props.words && this.props.words.map(eachWord => {
           return (
             <WordMove
               key={eachWord.id}
