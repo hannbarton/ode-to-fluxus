@@ -71,7 +71,7 @@ class WordMove extends React.Component {
   }
 
   handleMouseUp = (evt, target) => {
-    console.log('promos.', this.props)
+    console.log('promos.', this.props, target)
     if (!target) {
       this.props.clearSingleWord()
     }

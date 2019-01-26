@@ -27,11 +27,6 @@ export class Canvas extends React.Component {
     this.props.loadwords()
   }
 
-  // componentWillUnmount() {
-  //   this.props.loadTwitter()
-  //   this.props.loadwords()
-  // }
-
   handleStartToggle() {
     this.setState({
       startToggle: true
@@ -45,8 +40,14 @@ export class Canvas extends React.Component {
   }
 
   onDrop(event) {
-    event.preventDefault()
+    console.log('EVENT', event.target)
+    if (event.target) {
+      event.preventDefault()
       this.props.eraseTwitter(this.props.single.id)
+    }
+    else {
+      event.preventDefault()
+    }
   }
 
   render() {
@@ -57,6 +58,7 @@ export class Canvas extends React.Component {
           this.props.name.map(eachHash => {
             return (
               <WordMove
+              draggable="false"
                 key={eachHash.id}
                 id={eachHash.id}
                 x={0}
@@ -69,6 +71,7 @@ export class Canvas extends React.Component {
         {this.props.words.map(eachWord => {
           return (
             <WordMove
+            draggable="false"
               key={eachWord.id}
               id={eachWord.id}
             >
@@ -79,9 +82,10 @@ export class Canvas extends React.Component {
         <div className="start-toggle">
           {this.state.startToggle ? (
             <div
+
               className="trash"
               onDragOver={event => this.onDragOver(event)}
-              onMouseUp={(event) => this.onDrop(event)}
+              onMouseUp={event => this.onDrop(event)}
             />
           ) : (
             <div className="drag-words">DRAG WORDS ONTO CANVAS</div>
