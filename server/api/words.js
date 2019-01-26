@@ -48,7 +48,7 @@ router.get('/common', async (req, res, next) => {
 router.get('/twitter', async (req, res, next) => {
   try {
     // if you are completely new, create a user
-    if (!req.session.passport) {
+    if (!req.session.passport && !req.session.user) {
       const user = await User.create({
         email: 'anonymous',
       })

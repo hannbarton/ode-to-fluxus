@@ -71,7 +71,7 @@ class WordMove extends React.Component {
   }
 
   handleMouseUp = (event, target) => {
-    console.log('promos.', this.props)
+    console.log('propssss', this.props)
 
     event.preventDefault()
 
@@ -98,8 +98,11 @@ class WordMove extends React.Component {
     )
   }
   render() {
-    const {children, id, x, y} = this.props
+    const {children, id} = this.props
     const {translateX, translateY, isDragging} = this.state
+
+    console.log('LAST', this.state)
+
     return (
       <WordContainer
         onMouseDown={this.handleMouseDown}
