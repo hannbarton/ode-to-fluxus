@@ -34,14 +34,13 @@ export class Canvas extends React.Component {
   }
 
   onDragOver = event => {
-    console.log(event.target)
+    console.log(event)
     console.log('dragging')
     event.preventDefault()
   }
 
   onDrop(event) {
-    console.log('EVENT', event.target)
-    if (event.target) {
+    if (this.props.single.id) {
       event.preventDefault()
       this.props.eraseTwitter(this.props.single.id)
     }
@@ -58,7 +57,6 @@ export class Canvas extends React.Component {
           this.props.name.map(eachHash => {
             return (
               <WordMove
-              draggable="false"
                 key={eachHash.id}
                 id={eachHash.id}
                 x={0}
@@ -71,7 +69,6 @@ export class Canvas extends React.Component {
         {this.props.words.map(eachWord => {
           return (
             <WordMove
-            draggable="false"
               key={eachWord.id}
               id={eachWord.id}
             >
@@ -84,7 +81,7 @@ export class Canvas extends React.Component {
             <div
 
               className="trash"
-              onDragOver={event => this.onDragOver(event)}
+              onMouseOver={event => this.onDragOver(event)}
               onMouseUp={event => this.onDrop(event)}
             />
           ) : (

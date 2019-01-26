@@ -99,8 +99,10 @@ export const eraseWord = (id) => async dispatch => {
 
 export const eraseTwitter = (id) => async dispatch => {
     try{
+        dispatch(refreshWord())
         const res = await axios.delete(`/api/words/twitter/${id}`, id)
         dispatch(removeTwitter(res.data.id))
+
     }
     catch(err) {
         console.error(err)
