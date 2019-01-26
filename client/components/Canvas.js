@@ -26,10 +26,6 @@ export class Canvas extends React.Component {
     this.props.loadTwitter()
     this.props.loadwords()
   }
-  // getDerivedStateFromProps() {
-  //       this.props.loadTwitter()
-  //   this.props.loadwords()
-  // }
 
   handleStartToggle() {
     this.setState({
@@ -82,7 +78,6 @@ export class Canvas extends React.Component {
         <div className="start-toggle">
           {this.state.startToggle ? (
             <div
-
               className="trash"
               onMouseOver={event => this.onDragOver(event)}
               onMouseUp={event => this.onDrop(event)}
