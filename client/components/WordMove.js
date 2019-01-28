@@ -110,7 +110,7 @@ class WordMove extends React.PureComponent {
   render() {
     const {children, id} = this.props
     const {translateX, translateY, isDragging} = this.state
-    console.log(translateX)
+    // console.log(translateX)
 
     // console.log('LAST', this.props)
 

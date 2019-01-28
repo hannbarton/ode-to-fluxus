@@ -67,18 +67,21 @@ export class Canvas extends React.PureComponent {
   }
 
   render() {
-    // console.log("PROPSP", this.props)
+    console.log("PROPSP", this.props.name)
 
     return (
       <div className="canvas" onClick={this.handleStartToggle}>
-        {this.props.name.map(eachHash => {
-          // console.log(eachHash)
-          return (
-            <WordMove key={eachHash.id} id={eachHash.id}>
-              {`${eachHash.name}`}
-            </WordMove>
-          )
-        })}
+      {this.props.name && Object.entries(this.props.name).map(([key, value]) => {
+        console.log("should be the word",value.name)
+        return (
+          <WordMove
+          key={key}
+          id={key}
+          >
+            {`${value.name}`}
+          </WordMove>
+        )
+      })}
         {this.props.words &&
           this.props.words.map(eachWord => {
             return (
