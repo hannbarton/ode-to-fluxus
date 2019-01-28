@@ -9,19 +9,17 @@ import {
 } from '../store/word'
 import {connect} from 'react-redux'
 
-export class Canvas extends React.PureComponent {
+export class Canvas extends React.Component {
   constructor() {
     super()
 
     this.state = {
       startToggle: false,
-      isMoved: false
     }
 
     this.handleStartToggle = this.handleStartToggle.bind(this)
     this.onDrop = this.onDrop.bind(this)
     this.onDragOver = this.onDragOver.bind(this)
-    this.isMoved = this.isMoved.bind(this)
   }
 
   componentDidMount() {
@@ -39,54 +37,41 @@ export class Canvas extends React.PureComponent {
     })
   }
 
-  onDragOver = (event, target) => {
-    // console.log(target)
-    // console.log('dragging')
+  onDragOver = (event) => {
     event.preventDefault()
   }
 
-  onDrop(event, target) {
-    console.log(target)
+  onDrop(event) {
+    event.preventDefault()
     if (this.props.single.id) {
-      // event.preventDefault()
       this.props.eraseTwitter(this.props.single.id)
-      console.log('after')
-    } else {
-      // event.preventDefault()
     }
   }
 
-  isMoved(event) {
-    console.log('event***', event)
-    console.log('state', this.state)
-    console.log(event.target)
-
-    this.setState({
-      isMoved: true
-    })
-  }
-
   render() {
-    console.log('PROPSP', this.props.name)
-
+    let counter = 0;
     return (
       <div className="canvas" onClick={this.handleStartToggle}>
-        {this.props.name &&
+        {
           Object.entries(this.props.name).map(([key, value]) => {
             return (
-              <WordMove key={key} id={key}>
+              <WordMove
+              key={key} id={key}
+              startx={0}
+              starty={counter++ * 20}
+              >
                 {`${value.name}`}
               </WordMove>
             )
           })}
-        {this.props.words &&
+        {/* {this.props.words &&
           this.props.words.map(eachWord => {
             return (
               <WordMove key={eachWord.id} id={eachWord.id}>
                 {`${eachWord.words}`}
               </WordMove>
             )
-          })}
+          })} */}
         <div className="start-toggle">
           {this.state.startToggle ? (
             <div

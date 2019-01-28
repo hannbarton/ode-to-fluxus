@@ -2,10 +2,10 @@ import axios from 'axios'
 import history from '../history'
 
 const initialState = {
-    words: [],
-    single: {},
-    name: {},
-    myTweets: []
+  words: [],
+  single: {},
+  name: {},
+  myTweets: []
 }
 
 const GET_ALL_WORDS = 'GET_ALL_WORDS'
@@ -29,118 +29,120 @@ const setWord = single => ({type: SET_SINGLE_WORD, single})
 const refreshWord = () => ({type: CLEAR_SINGLE_WORD})
 
 export const fetchWordList = () => async dispatch => {
-    try {
-       const res = await axios.get('/api/words')
-       dispatch(getWordList(res.data))
-    }
-    catch(err) {
-        console.error(err)
-    }
+  try {
+    const res = await axios.get('/api/words')
+    dispatch(getWordList(res.data))
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 export const clearSingleWord = () => dispatch => {
-    try {
-        dispatch(refreshWord())
-    }
-    catch(err) {
-        console.error(err)
-    }
+  try {
+    dispatch(refreshWord())
+  } catch (err) {
+    console.error(err)
+  }
 }
 
-export const fetchSingleWord = (id) => async dispatch => {
-    try{
-        const res = await axios.get(`/api/words/twitter/${id}`)
-        dispatch(setWord(res.data))
-    }
-    catch(err) {
-        console.error(err)
-    }
+export const fetchSingleWord = id => async dispatch => {
+  try {
+    const res = await axios.get(`/api/words/twitter/${id}`)
+    dispatch(setWord(res.data))
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 export const fetchTwitter = () => async dispatch => {
-    try {
-       const res = await axios.get('/api/words/twitter')
-       console.log(res.data)
-       dispatch(getTwitter(res.data))
-    }
-    catch(err) {
-        console.error(err)
-    }
+  try {
+    const res = await axios.get('/api/words/twitter')
+    console.log(res.data)
+    dispatch(getTwitter(res.data))
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 export const fetchMyTweets = () => async dispatch => {
-    try {
-        const res = await axios.get('/api/words/myTweets')
-        dispatch(getMyTweets(res.data))
-    }
-    catch(err) {
-        console.error(err)
-    }
+  try {
+    const res = await axios.get('/api/words/myTweets')
+    dispatch(getMyTweets(res.data))
+  } catch (err) {
+    console.error(err)
+  }
 }
 
-export const postWord = (word) => async dispatch => {
-    try {
-        const res = await axios.post('/api/words', word)
-        dispatch(addWord(res.data))
-    }
-    catch(err) {
-        console.error(err)
-    }
+export const postWord = word => async dispatch => {
+  try {
+    const res = await axios.post('/api/words', word)
+    dispatch(addWord(res.data))
+  } catch (err) {
+    console.error(err)
+  }
 }
 
-export const eraseWord = (id) => async dispatch => {
-    try{
-        const res = await axios.delete(`/api/words/${id}`, id)
-        dispatch(removeWord(res.data.id))
-    }
-    catch(err) {
-        console.error(err)
-    }
+export const eraseWord = id => async dispatch => {
+  try {
+    const res = await axios.delete(`/api/words/${id}`, id)
+    dispatch(removeWord(res.data.id))
+  } catch (err) {
+    console.error(err)
+  }
 }
 
-export const eraseTwitter = (id) => async dispatch => {
-    try{
-        dispatch(refreshWord())
-        const res = await axios.delete(`/api/words/twitter/${id}`, id)
-        dispatch(removeTwitter(res.data.id))
-    }
-    catch(err) {
-        console.error(err)
-    }
+export const eraseTwitter = id => async dispatch => {
+  try {
+    dispatch(refreshWord())
+    const res = await axios.delete(`/api/words/twitter/${id}`, id)
+    dispatch(removeTwitter(res.data.id))
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 export const fetchCommonWords = () => async dispatch => {
-    try {
-        const res = await axios.get('/api/words/common')
-        dispatch(getMyTweets(res.data))
-    }
-    catch(err) {
-        console.error(err)
-    }
+  try {
+    const res = await axios.get('/api/words/common')
+    dispatch(getMyTweets(res.data))
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 //eslint-disable-next-line
 export default function(state = initialState, action) {
-    switch(action.type) {
-        case CLEAR_SINGLE_WORD:
-            return {...state, single: {}}
-        case SET_SINGLE_WORD:
-            return {...state, single: action.single}
-        case GET_ALL_WORDS:
-            return { ...state, words: action.words}
-        case GET_TWITTER_HASHTAGS:
-            return {...state, name: action.name}
-        case GET_MY_TWEETS:
-            return {...state, tweet: action.tweet}
-        case ADD_WORD:
-            return { ...state, words: [...state.words, action.word.word]};
-        case REMOVE_WORD:
-            return {...state, words: [...state.words.filter(word => +word.id !== +action.id)]}
-        case REMOVE_TWITTER:
-            return {...state, name: [...state.name.filter(eachWord => +eachWord.id !== +action.id)]}
-        // case GET_COMMON_WORDS:
-        //     return {...state, tweet: action.tweet}
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case CLEAR_SINGLE_WORD:
+      return {...state, single: {}}
+    case SET_SINGLE_WORD:
+      return {...state, single: action.single}
+    case GET_ALL_WORDS:
+      return {...state, words: action.words}
+    case GET_TWITTER_HASHTAGS:
+      return {...state, name: action.name}
+    case GET_MY_TWEETS:
+      return {...state, tweet: action.tweet}
+    case ADD_WORD:
+      return {...state, words: [...state.words, action.word.word]}
+    case REMOVE_WORD:
+      return {
+        ...state,
+        words: [...state.words.filter(word => +word.id !== +action.id)]
+      }
+    case REMOVE_TWITTER:
+      return {
+        ...state,
+        name: Object.assign(
+          {},
+          ...Object.keys(state.name)
+            .filter(k => k !== action.id)
+            .map(k => ({[k]: state.name[k]}))
+        )
+      }
+    // case GET_COMMON_WORDS:
+    //     return {...state, tweet: action.tweet}
+    default:
+      return state
+  }
 }

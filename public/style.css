@@ -89,6 +89,9 @@ nav {
   display: inline;
 }
 
+.canvas{
+  display: inline-block
+}
 
 h1{
   padding-right: 1em;

@@ -6,35 +6,32 @@ import {
 } from '../store/word'
 import {connect} from 'react-redux'
 
-class WordMove extends React.PureComponent {
+class WordMove extends React.Component {
   state = {
     isDragging: false,
 
-    originalX: 0,
-    originalY: 0,
+    originalX: this.props.startx,
+    originalY: this.props.starty,
 
-    translateX: 0,
-    translateY: 0,
+    translateX: this.props.startx,
+    translateY: this.props.starty,
 
-    lastTranslateX: 0,
-    lastTranslateY: 0,
+    lastTranslateX: this.props.startx,
+    lastTranslateY: this.props.starty,
   }
 
   componentWillUnmount() {
-    console.log('component will unlasmdoj')
-
     window.removeEventListener('mousemove', this.handleMouseMove)
     window.removeEventListener('mouseup', this.handleMouseUp)
   }
 
-  componentDidMount() {
-    console.log('DID UODATE', this.state)
-    this.setState(
-      {
-        isDragging: false
-      }
-    )
-  }
+  // componentDidMount() {
+  //   this.setState(
+  //     {
+  //       isDragging: false
+  //     }
+  //   )
+  // }
 
   handleMouseDown = ({clientX, clientY}) => {
     window.addEventListener('mousemove', this.handleMouseMove)
@@ -50,19 +47,17 @@ class WordMove extends React.PureComponent {
       originalX: clientX,
       originalY: clientY,
 
-      isDragging: true
+      isDragging: true,
     })
   }
 
   handleMouseMove = ({clientX, clientY}) => {
     const {isDragging} = this.state
     const {onDrag} = this.props
-    // console.log(this.state)
 
-    // console.log('dragging not', clientX, clientY)
-    // if (!isDragging) {
-    //   return
-    // }
+    if (!isDragging) {
+      return
+    }
     this.setState(
       prevState => ({
         translateX: clientX - prevState.originalX + prevState.lastTranslateX,
@@ -80,7 +75,6 @@ class WordMove extends React.PureComponent {
   }
 
   handleMouseUp = (event, target) => {
-    // console.log('propssss', this.props)
 
     event.preventDefault()
 
@@ -108,11 +102,9 @@ class WordMove extends React.PureComponent {
     )
   }
   render() {
-    const {children, id} = this.props
+    const {children, id, startx, starty} = this.props
     const {translateX, translateY, isDragging} = this.state
-    // console.log(translateX)
-
-    // console.log('LAST', this.props)
+    console.log('corrds', translateX, translateY, startx, starty)
 
     return (
       <WordContainer
@@ -121,6 +113,8 @@ class WordMove extends React.PureComponent {
         x={translateX}
         isDragging={isDragging}
         id={id}
+        startx={startx}
+        starty={starty}
       >
         {children}
       </WordContainer>
@@ -139,6 +133,7 @@ const WordContainer = styled.div.attrs({
   font-family: Futura medium, monospace;
   padding: 0rem 1rem 0rem 1rem;
   display: inline-block;
+  position: absolute;
 
   ${({isDragging}) =>
     isDragging &&
@@ -150,8 +145,6 @@ const WordContainer = styled.div.attrs({
 `
 
 const mapState = state => ({
-  // words: state.word.words,
-  // name: state.word.name,
   single: state.single || {}
 })
 
