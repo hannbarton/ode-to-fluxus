@@ -50,6 +50,7 @@ export class Canvas extends React.Component {
 
   render() {
     let counter = 0;
+    let newCounter = 50
     return (
       <div className="canvas" onClick={this.handleStartToggle}>
         {
@@ -64,14 +65,17 @@ export class Canvas extends React.Component {
               </WordMove>
             )
           })}
-        {/* {this.props.words &&
+        {this.props.words &&
           this.props.words.map(eachWord => {
             return (
-              <WordMove key={eachWord.id} id={eachWord.id}>
+              <WordMove key={eachWord.id} id={eachWord.id}
+              startx={0}
+              starty={newCounter++ * 20}
+              >
                 {`${eachWord.words}`}
               </WordMove>
             )
-          })} */}
+          })}
         <div className="start-toggle">
           {this.state.startToggle ? (
             <div
