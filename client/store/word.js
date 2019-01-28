@@ -102,7 +102,6 @@ export const eraseTwitter = (id) => async dispatch => {
         dispatch(refreshWord())
         const res = await axios.delete(`/api/words/twitter/${id}`, id)
         dispatch(removeTwitter(res.data.id))
-
     }
     catch(err) {
         console.error(err)
@@ -119,6 +118,7 @@ export const fetchCommonWords = () => async dispatch => {
     }
 }
 
+//eslint-disable-next-line
 export default function(state = initialState, action) {
     switch(action.type) {
         case CLEAR_SINGLE_WORD:
@@ -137,8 +137,8 @@ export default function(state = initialState, action) {
             return {...state, words: [...state.words.filter(word => +word.id !== +action.id)]}
         case REMOVE_TWITTER:
             return {...state, name: [...state.name.filter(eachWord => +eachWord.id !== +action.id)]}
-        case GET_COMMON_WORDS:
-            return {...state, tweet: action.tweet}
+        // case GET_COMMON_WORDS:
+        //     return {...state, tweet: action.tweet}
         default:
             return state;
     }

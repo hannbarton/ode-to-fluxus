@@ -65,11 +65,13 @@ router.get('/twitter', async (req, res, next) => {
           }
         })
       }
-      await TrendingTweet.destroy({
-        where: {
-          userId: req.session.user.userId
-        }
-      })
+      if (req.session.user) {
+        await TrendingTweet.destroy({
+          where: {
+            userId: req.session.user.userId
+          }
+        })
+      }
     }
 
     const tweets = await client.get('/trends/place', {id: 23424977})

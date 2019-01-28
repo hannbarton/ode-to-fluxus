@@ -1,16 +1,12 @@
 import React from 'react'
 import styled, {css} from 'styled-components'
 import {
-  fetchWordList,
-  eraseWord,
-  eraseTwitter,
-  fetchTwitter,
   fetchSingleWord,
   clearSingleWord
 } from '../store/word'
 import {connect} from 'react-redux'
 
-class WordMove extends React.Component {
+class WordMove extends React.PureComponent {
   state = {
     isDragging: false,
 
@@ -21,12 +17,23 @@ class WordMove extends React.Component {
     translateY: 0,
 
     lastTranslateX: 0,
-    lastTranslateY: 0
+    lastTranslateY: 0,
   }
 
   componentWillUnmount() {
+    console.log('component will unlasmdoj')
+
     window.removeEventListener('mousemove', this.handleMouseMove)
     window.removeEventListener('mouseup', this.handleMouseUp)
+  }
+
+  componentDidMount() {
+    console.log('DID UODATE', this.state)
+    this.setState(
+      {
+        isDragging: false
+      }
+    )
   }
 
   handleMouseDown = ({clientX, clientY}) => {
@@ -50,10 +57,12 @@ class WordMove extends React.Component {
   handleMouseMove = ({clientX, clientY}) => {
     const {isDragging} = this.state
     const {onDrag} = this.props
+    // console.log(this.state)
 
-    if (!isDragging) {
-      return
-    }
+    // console.log('dragging not', clientX, clientY)
+    // if (!isDragging) {
+    //   return
+    // }
     this.setState(
       prevState => ({
         translateX: clientX - prevState.originalX + prevState.lastTranslateX,
@@ -71,7 +80,7 @@ class WordMove extends React.Component {
   }
 
   handleMouseUp = (event, target) => {
-    console.log('propssss', this.props)
+    // console.log('propssss', this.props)
 
     event.preventDefault()
 
@@ -92,6 +101,7 @@ class WordMove extends React.Component {
       },
       () => {
         if (this.props.onDragEnd) {
+          console.log('ON DRAG END')
           this.props.onDragEnd()
         }
       }
@@ -100,14 +110,15 @@ class WordMove extends React.Component {
   render() {
     const {children, id} = this.props
     const {translateX, translateY, isDragging} = this.state
+    console.log(translateX)
 
-    console.log('LAST', this.state)
+    // console.log('LAST', this.props)
 
     return (
       <WordContainer
         onMouseDown={this.handleMouseDown}
-        x={translateX}
         y={translateY}
+        x={translateX}
         isDragging={isDragging}
         id={id}
       >
@@ -119,7 +130,7 @@ class WordMove extends React.Component {
 
 const WordContainer = styled.div.attrs({
   style: ({x, y}) => ({
-    transform: `translate(${x}px, ${y}px)`,
+    transform: `translate(${x}px, ${y}px)`
   })
 })`
   color: black;
@@ -129,27 +140,22 @@ const WordContainer = styled.div.attrs({
   padding: 0rem 1rem 0rem 1rem;
   display: inline-block;
 
-
   ${({isDragging}) =>
     isDragging &&
     css`
       opacity: 0.8;
       cursor: grabbing;
-      color: green
+      color: green;
     `};
 `
 
 const mapState = state => ({
-  words: state.word.words,
-  name: state.word.name,
-  single: state.single
+  // words: state.word.words,
+  // name: state.word.name,
+  single: state.single || {}
 })
 
 const mapDispatch = dispatch => ({
-  loadwords: () => dispatch(fetchWordList()),
-  loadTwitter: () => dispatch(fetchTwitter()),
-  destroywords: id => dispatch(eraseWord(id)),
-  eraseTwitter: id => dispatch(eraseTwitter(id)),
   fetchSingleWord: id => dispatch(fetchSingleWord(id)),
   clearSingleWord: () => dispatch(clearSingleWord())
 })
