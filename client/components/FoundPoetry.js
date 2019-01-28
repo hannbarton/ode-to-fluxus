@@ -111,17 +111,6 @@ class FoundPoetry extends React.Component {
     )
   }
 }
-// palevioletred;#252526
-
-// const rotate = keyframes`
-//   from {
-//     transform: rotate(0deg);
-//   }
-
-//   to {
-//     transform: rotate(90deg);
-//   }
-// `
 
 const Container = styled.div.attrs({
   style: ({x, y, deg}) => ({
