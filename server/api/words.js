@@ -108,7 +108,15 @@ router.get('/twitter', async (req, res, next) => {
     const tweetwords = await User.findById(+hasPassport(req, next), {
       include: TrendingTweet
     })
-    res.json(tweetwords.trendingTweets);
+
+    const arrayToObject = (array) => array.reduce((obj, item) => {
+      obj[item.id] = item;
+      return obj
+    }, {})
+
+    const tweetObject = arrayToObject(tweetwords.trendingTweets)
+
+    res.json(tweetObject);
 
   } catch (err) {
     next(err)
