@@ -25,14 +25,6 @@ class WordMove extends React.Component {
     window.removeEventListener('mouseup', this.handleMouseUp)
   }
 
-  // componentDidMount() {
-  //   this.setState(
-  //     {
-  //       isDragging: false
-  //     }
-  //   )
-  // }
-
   handleMouseDown = ({clientX, clientY}) => {
     window.addEventListener('mousemove', this.handleMouseMove)
     window.addEventListener('mouseup', this.handleMouseUp)
@@ -87,15 +79,12 @@ class WordMove extends React.Component {
 
     this.setState(
       {
-        originalX: 0,
-        originalY: 0,
         lastTranslateX: this.state.translateX,
         lastTranslateY: this.state.translateY,
         isDragging: false
       },
       () => {
         if (this.props.onDragEnd) {
-          console.log('ON DRAG END')
           this.props.onDragEnd()
         }
       }
@@ -104,7 +93,6 @@ class WordMove extends React.Component {
   render() {
     const {children, id, startx, starty} = this.props
     const {translateX, translateY, isDragging} = this.state
-    console.log('corrds', translateX, translateY, startx, starty)
 
     return (
       <WordContainer

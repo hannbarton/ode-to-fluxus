@@ -30,7 +30,14 @@ let client = new Twitter({
 
 router.get('/', async (req, res, next) => {
   try {
-    const words = await Word.findAll()
+
+    const userId = req.session.user.passport ? req.session.passport.user : req.session.user.userId
+
+    const words = await Word.findAll({
+      where: {
+        userId: userId
+      }
+    })
     res.json(words)
   } catch (err) {
     next(err)
@@ -190,7 +197,7 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    let userId = req.user ? req.user.id : null
+    let userId = req.session.user.passport ? req.session.passport.user : req.session.user.userId
 
     const word = await Word.create({
       words: req.body.words,

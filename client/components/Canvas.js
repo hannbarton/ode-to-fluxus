@@ -27,10 +27,6 @@ export class Canvas extends React.Component {
     this.props.loadwords()
   }
 
-  componentWillUnmount() {
-    console.log('SECOND UNMOUNT')
-  }
-
   handleStartToggle() {
     this.setState({
       startToggle: true
@@ -50,7 +46,9 @@ export class Canvas extends React.Component {
 
   render() {
     let counter = 0;
-    let newCounter = 50
+    let newCounter = 0;
+    console.log(counter)
+    console.log('props', this.props)
     return (
       <div className="canvas" onClick={this.handleStartToggle}>
         {
@@ -69,7 +67,7 @@ export class Canvas extends React.Component {
           this.props.words.map(eachWord => {
             return (
               <WordMove key={eachWord.id} id={eachWord.id}
-              startx={0}
+              startx={270}
               starty={newCounter++ * 20}
               >
                 {`${eachWord.words}`}
