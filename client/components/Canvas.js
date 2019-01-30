@@ -37,7 +37,7 @@ export class Canvas extends React.Component {
     event.preventDefault()
   }
 
-  onDrop(event) {
+  onDrop = (event) => {
     event.preventDefault()
     if (this.props.single.id) {
       this.props.eraseTwitter(this.props.single.id)

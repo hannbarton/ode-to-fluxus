@@ -44,6 +44,16 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/:id', async(req, res, next) => {
+  try{
+    const word = await Word.findById(req.params.id)
+    res.json(word)
+  }
+  catch(err) {
+    console.error(err)
+  }
+})
+
 router.get('/common', async (req, res, next) => {
   try {
     await res.json(commonWords)

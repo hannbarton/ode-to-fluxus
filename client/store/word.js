@@ -4,6 +4,7 @@ import history from '../history'
 const initialState = {
   words: [],
   single: {},
+  singleMyWord: {},
   name: {},
   myTweets: []
 }
@@ -17,6 +18,7 @@ const GET_MY_TWEETS = 'GET_MY_TWEETS'
 const GET_COMMON_WORDS = 'GET_COMMON_WORDS'
 const SET_SINGLE_WORD = 'SET_SINGLE_WORD'
 const CLEAR_SINGLE_WORD = 'CLEAR_SINGLE_WORD'
+const SET_SINGLE_MY_WORD = 'SET_SINGLE_MY_WORD'
 
 const getWordList = words => ({type: GET_ALL_WORDS, words})
 const addWord = word => ({type: ADD_WORD, word})
@@ -26,6 +28,7 @@ const getTwitter = name => ({type: GET_TWITTER_HASHTAGS, name})
 const getMyTweets = tweet => ({type: GET_MY_TWEETS, tweet})
 const getCommonWords = tweet => ({type: GET_COMMON_WORDS, tweet})
 const setWord = single => ({type: SET_SINGLE_WORD, single})
+const setMyWord = singleMyWord => ({type: SET_SINGLE_MY_WORD, singleMyWord})
 const refreshWord = () => ({type: CLEAR_SINGLE_WORD})
 
 export const fetchWordList = () => async dispatch => {
@@ -50,6 +53,16 @@ export const fetchSingleWord = id => async dispatch => {
     const res = await axios.get(`/api/words/twitter/${id}`)
     dispatch(setWord(res.data))
   } catch (err) {
+    console.error(err)
+  }
+}
+
+export const fetchSingleMyWord = id => async dispatch => {
+  try{
+    const res = await axios.get(`/api/words`)
+    dispatch(setMyWord(res.data))
+  }
+  catch(err) {
     console.error(err)
   }
 }
@@ -114,9 +127,11 @@ export const fetchCommonWords = () => async dispatch => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case CLEAR_SINGLE_WORD:
-      return {...state, single: {}}
+      return {...state, single: {}, singleMyWord: {}}
     case SET_SINGLE_WORD:
       return {...state, single: action.single}
+    case SET_SINGLE_MY_WORD:
+      return {...state, singleMyWord: action.singleMyWord}
     case GET_ALL_WORDS:
       return {...state, words: action.words}
     case GET_TWITTER_HASHTAGS:
