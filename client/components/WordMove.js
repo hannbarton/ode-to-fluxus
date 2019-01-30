@@ -2,7 +2,8 @@ import React from 'react'
 import styled, {css} from 'styled-components'
 import {
   fetchSingleWord,
-  clearSingleWord
+  clearSingleWord,
+  fetchSingleMyWord
 } from '../store/word'
 import {connect} from 'react-redux'
 
@@ -33,7 +34,12 @@ class WordMove extends React.Component {
       this.props.onDragStart()
     }
 
-    this.props.fetchSingleWord(this.props.id)
+    if (this.props.id) {
+      this.props.fetchSingleWord(this.props.id)
+    }
+    else if (this.props.myId) {
+      this.props.fetchSingleMyWord(this.props.myId)
+    }
 
     this.setState({
       originalX: clientX,
@@ -91,7 +97,8 @@ class WordMove extends React.Component {
     )
   }
   render() {
-    const {children, id, startx, starty} = this.props
+    console.log(this.props)
+    const {children, id, startx, starty, myId} = this.props
     const {translateX, translateY, isDragging} = this.state
 
     return (
@@ -101,6 +108,7 @@ class WordMove extends React.Component {
         x={translateX}
         isDragging={isDragging}
         id={id}
+        myId={myId}
         startx={startx}
         starty={starty}
       >
@@ -133,12 +141,14 @@ const WordContainer = styled.div.attrs({
 `
 
 const mapState = state => ({
-  single: state.single || {}
+  single: state.single || {},
+  singleMyWord: state.singleMyWord || {}
 })
 
 const mapDispatch = dispatch => ({
   fetchSingleWord: id => dispatch(fetchSingleWord(id)),
-  clearSingleWord: () => dispatch(clearSingleWord())
+  clearSingleWord: () => dispatch(clearSingleWord()),
+  fetchSingleMyWord: id => dispatch(fetchSingleMyWord(id))
 })
 
 export default connect(mapState, mapDispatch)(WordMove)

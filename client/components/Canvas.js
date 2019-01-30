@@ -42,6 +42,9 @@ export class Canvas extends React.Component {
     if (this.props.single.id) {
       this.props.eraseTwitter(this.props.single.id)
     }
+    else if (this.props.singleMyWord.id) {
+      this.props.eraseWord(this.props.singleMyWord.id)
+    }
   }
 
   render() {
@@ -66,7 +69,7 @@ export class Canvas extends React.Component {
         {this.props.words &&
           this.props.words.map(eachWord => {
             return (
-              <WordMove key={eachWord.id} id={eachWord.id}
+              <WordMove key={eachWord.id} myId={eachWord.id}
               startx={270}
               starty={newCounter++ * 20}
               >
@@ -94,16 +97,17 @@ const mapState = state => {
   return {
     words: state.word.words,
     name: state.word.name,
-    single: state.word.single || {}
+    single: state.word.single || {},
+    singleMyWord: state.word.singleMyWord || {}
   }
 }
 
 const mapDispatch = dispatch => ({
   loadwords: () => dispatch(fetchWordList()),
-  destroywords: id => dispatch(eraseWord(id)),
+  eraseWord: id => dispatch(eraseWord(id)),
   postWord: word => dispatch(postWord(word)),
   loadTwitter: () => dispatch(fetchTwitter()),
-  eraseTwitter: id => dispatch(eraseTwitter(id))
+  eraseTwitter: id => dispatch(eraseTwitter(id)),
 })
 
 export default connect(mapState, mapDispatch)(Canvas)

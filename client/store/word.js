@@ -59,7 +59,7 @@ export const fetchSingleWord = id => async dispatch => {
 
 export const fetchSingleMyWord = id => async dispatch => {
   try{
-    const res = await axios.get(`/api/words`)
+    const res = await axios.get(`/api/words/words/${id}`)
     dispatch(setMyWord(res.data))
   }
   catch(err) {
@@ -97,7 +97,7 @@ export const postWord = word => async dispatch => {
 
 export const eraseWord = id => async dispatch => {
   try {
-    const res = await axios.delete(`/api/words/${id}`, id)
+    const res = await axios.delete(`/api/words/words/${id}`, id)
     dispatch(removeWord(res.data.id))
   } catch (err) {
     console.error(err)

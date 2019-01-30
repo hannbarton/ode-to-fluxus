@@ -44,7 +44,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async(req, res, next) => {
+router.get('/words/:id', async(req, res, next) => {
   try{
     const word = await Word.findById(req.params.id)
     res.json(word)
@@ -251,7 +251,7 @@ router.delete('/twitter/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/words/:id', async (req, res, next) => {
   try {
     const send = {
       message: 'successfully erased',
