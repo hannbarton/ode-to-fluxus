@@ -14,7 +14,7 @@ export class Canvas extends React.Component {
     super()
 
     this.state = {
-      startToggle: false,
+      startToggle: false
     }
 
     this.handleStartToggle = this.handleStartToggle.bind(this)
@@ -23,8 +23,8 @@ export class Canvas extends React.Component {
   }
 
   componentDidMount() {
-    this.props.loadTwitter()
-    this.props.loadwords()
+    this.props.loadTwitter();
+    this.props.loadwords();
   }
 
   handleStartToggle() {
@@ -33,45 +33,44 @@ export class Canvas extends React.Component {
     })
   }
 
-  onDragOver = (event) => {
+  onDragOver = event => {
     event.preventDefault()
   }
 
-  onDrop = (event) => {
+  onDrop = event => {
     event.preventDefault()
     if (this.props.single.id) {
       this.props.eraseTwitter(this.props.single.id)
-    }
-    else if (this.props.singleMyWord.id) {
+    } else if (this.props.singleMyWord.id) {
       this.props.eraseWord(this.props.singleMyWord.id)
     }
   }
 
   render() {
-    let counter = 0;
-    let newCounter = 0;
+    let counter = 0
+    let newCounter = 0
     // console.log(counter)
     // console.log('props', this.props)
     return (
       <div className="canvas" onClick={this.handleStartToggle}>
-        {
-          Object.entries(this.props.name).map(([key, value]) => {
-            return (
-              <WordMove
-              key={key} id={key}
-              startx={0}
-              starty={counter++ * 20}
-              >
-                {`${value.name}`}
-              </WordMove>
-            )
-          })}
+        {Object.entries(this.props.name).map(([key, value]) => {
+          return (
+            <WordMove key={key}
+            id={key}
+            startx={0}
+            starty={counter++ * 20}>
+              {`${value.name}`}
+            </WordMove>
+          )
+        })}
         {this.props.words &&
           this.props.words.map(eachWord => {
             return (
-              <WordMove key={eachWord.id} myId={eachWord.id}
-              startx={270}
-              starty={newCounter++ * 20}
+              <WordMove
+                key={eachWord.id}
+                myId={eachWord.id}
+                startx={270}
+                starty={newCounter++ * 20}
               >
                 {`${eachWord.words}`}
               </WordMove>
@@ -93,21 +92,19 @@ export class Canvas extends React.Component {
   }
 }
 
-const mapState = state => {
-  return {
-    words: state.word.words,
-    name: state.word.name,
-    single: state.word.single || {},
-    singleMyWord: state.word.singleMyWord || {}
-  }
-}
+const mapState = state => ({
+  words: state.word.words,
+  name: state.word.name,
+  single: state.word.single || {},
+  singleMyWord: state.word.singleMyWord || {}
+})
 
 const mapDispatch = dispatch => ({
   loadwords: () => dispatch(fetchWordList()),
   eraseWord: id => dispatch(eraseWord(id)),
   postWord: word => dispatch(postWord(word)),
   loadTwitter: () => dispatch(fetchTwitter()),
-  eraseTwitter: id => dispatch(eraseTwitter(id)),
+  eraseTwitter: id => dispatch(eraseTwitter(id))
 })
 
 export default connect(mapState, mapDispatch)(Canvas)

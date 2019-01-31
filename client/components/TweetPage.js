@@ -1,6 +1,5 @@
 import React from 'react'
-import {render} from 'react-dom'
-import { TweetCanvas, CreateMyTweet, Navbar } from './';
+import { TweetCanvas, CreateWord, Navbar } from './';
 
 class TweetPage extends React.Component {
 
@@ -9,7 +8,7 @@ class TweetPage extends React.Component {
     return (
       <div>
         <Navbar />
-        <CreateMyTweet />
+        <CreateWord />
         <TweetCanvas />
       </div>
     )

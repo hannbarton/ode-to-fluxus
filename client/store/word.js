@@ -5,6 +5,7 @@ const initialState = {
   words: [],
   single: {},
   singleMyWord: {},
+  singleMyTweet: {},
   name: {},
   myTweets: []
 }
@@ -19,6 +20,7 @@ const GET_COMMON_WORDS = 'GET_COMMON_WORDS'
 const SET_SINGLE_WORD = 'SET_SINGLE_WORD'
 const CLEAR_SINGLE_WORD = 'CLEAR_SINGLE_WORD'
 const SET_SINGLE_MY_WORD = 'SET_SINGLE_MY_WORD'
+const REMOVE_MY_TWEET = 'REMOVE_MY_TWEET'
 
 const getWordList = words => ({type: GET_ALL_WORDS, words})
 const addWord = word => ({type: ADD_WORD, word})
@@ -30,6 +32,7 @@ const getCommonWords = tweet => ({type: GET_COMMON_WORDS, tweet})
 const setWord = single => ({type: SET_SINGLE_WORD, single})
 const setMyWord = singleMyWord => ({type: SET_SINGLE_MY_WORD, singleMyWord})
 const refreshWord = () => ({type: CLEAR_SINGLE_WORD})
+const removeMyTweets = id => ({type: REMOVE_MY_TWEET, id})
 
 export const fetchWordList = () => async dispatch => {
   try {
@@ -114,6 +117,16 @@ export const eraseTwitter = id => async dispatch => {
   }
 }
 
+export const eraseMyTweets = id => async dispatch => {
+  try{
+    const res = await axios.delete(`/api/words/myTweets/${id}`, id)
+    dispatch(removeMyTweets(res.data.id))
+  }
+  catch(err) {
+    console.error(err)
+  }
+}
+
 export const fetchCommonWords = () => async dispatch => {
   try {
     const res = await axios.get('/api/words/common')
@@ -155,6 +168,8 @@ export default function(state = initialState, action) {
             .map(k => ({[k]: state.name[k]}))
         )
       }
+      case REMOVE_MY_TWEET:
+        return {...state, tweet: [...state.tweet.filter(eachtweet => +eachtweet.id !== +action.id)]}
     // case GET_COMMON_WORDS:
     //     return {...state, tweet: action.tweet}
     default:

@@ -205,6 +205,25 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
   }
 })
 
+router.get('/myTweets/:id', async(req, res, next) => {
+  try{
+    const word = await MyTweet.findById(req.params.id)
+    res.json(word)
+  }
+  catch(err) {
+    next(err)
+  }
+})
+
+router.get('/common', async (req, res, next) => {
+  try {
+    await res.json(commonWords)
+  } catch (err) {
+    next(err)
+  }
+})
+
+
 router.post('/', async (req, res, next) => {
   try {
     let userId = req.session.user.passport ? req.session.passport.user : req.session.user.userId
@@ -265,6 +284,28 @@ router.delete('/words/:id', async (req, res, next) => {
     })
     res.json(send)
   } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/myTweets/:id', async(req, res, next) => {
+  try{
+
+    const send = {
+      message: 'successfully erased',
+      id: req.params.id
+    }
+
+    await MyTweet.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+
+    res.json(send)
+
+  }
+  catch(err) {
     next(err)
   }
 })

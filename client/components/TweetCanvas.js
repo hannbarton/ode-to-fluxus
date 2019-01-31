@@ -1,6 +1,12 @@
 import React from 'react'
 import {WordMove} from './'
-import {fetchMyTweets} from '../store/word'
+import {
+  fetchMyTweets,
+  eraseWord,
+  postWord,
+  fetchWordList,
+  eraseMyTweets
+} from '../store/word'
 import {connect} from 'react-redux'
 
 class TweetCanvas extends React.Component {
@@ -18,6 +24,7 @@ class TweetCanvas extends React.Component {
 
   componentDidMount() {
     this.props.loadMyTweets()
+    this.props.loadwords()
   }
 
   handleStartToggle() {
@@ -26,22 +33,23 @@ class TweetCanvas extends React.Component {
     })
   }
 
-  onDragOver = (event) => {
+  onDragOver = event => {
     event.preventDefault()
   }
 
-  onDrop = (event) => {
+  onDrop = event => {
     event.preventDefault()
     if (this.props.single.id) {
-      this.props.eraseTwitter(this.props.single.id)
-    }
-    else if (this.props.singleMyWord.id) {
+      this.props.eraseMyTweets(this.props.single.id)
+    } else if (this.props.singleMyWord.id) {
       this.props.eraseWord(this.props.singleMyWord.id)
     }
   }
 
   render() {
+    console.log('props', this.props)
     let counter = 0
+    let newCounter = 0
     return (
       <div className="canvas" onClick={this.handleStartToggle}>
         {this.props.tweet &&
@@ -54,6 +62,19 @@ class TweetCanvas extends React.Component {
                 starty={counter++ * 20}
               >
                 {`${eachTweet.tweet}`}
+              </WordMove>
+            )
+          })}
+        {this.props.words &&
+          this.props.words.map(eachWord => {
+            return (
+              <WordMove
+                key={eachWord.id}
+                myId={eachWord.id}
+                startx={150}
+                starty={newCounter++ * 20}
+              >
+                {`${eachWord.words}`}
               </WordMove>
             )
           })}
@@ -74,11 +95,18 @@ class TweetCanvas extends React.Component {
 }
 
 const mapState = state => ({
-  tweet: state.word.tweet
+  words: state.word.words,
+  tweet: state.word.tweet,
+  singleTweet: state.word.singleTweet || {},
+  singleMyWord: state.word.singleMyWord || {}
 })
 
 const mapDispatch = dispatch => ({
-  loadMyTweets: () => dispatch(fetchMyTweets())
+  loadMyTweets: () => dispatch(fetchMyTweets()),
+  loadwords: () => dispatch(fetchWordList()),
+  eraseWord: id => dispatch(eraseWord(id)),
+  postWord: word => dispatch(postWord(word)),
+  eraseMyTweets: id => dispatch(eraseMyTweets(id))
 })
 
 export default connect(mapState, mapDispatch)(TweetCanvas)
