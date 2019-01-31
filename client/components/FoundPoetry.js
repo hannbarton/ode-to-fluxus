@@ -26,7 +26,7 @@ class FoundPoetry extends React.Component {
   handleMouseOver() {
     let random = Math.floor((Math.random() * 4) + 1) * 90
 
-    console.log(random)
+    // console.log(random)
     this.setState({
         rotate: random
     })
@@ -41,7 +41,7 @@ class FoundPoetry extends React.Component {
       this.props.onDragStart()
     }
 
-    console.log(clientX, clientY)
+    // console.log(clientX, clientY)
 
     this.setState({
       originalX: clientX,

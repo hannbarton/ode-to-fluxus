@@ -97,7 +97,7 @@ class WordMove extends React.Component {
     )
   }
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     const {children, id, startx, starty, myId} = this.props
     const {translateX, translateY, isDragging} = this.state
 

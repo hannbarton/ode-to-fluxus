@@ -50,8 +50,8 @@ export class Canvas extends React.Component {
   render() {
     let counter = 0;
     let newCounter = 0;
-    console.log(counter)
-    console.log('props', this.props)
+    // console.log(counter)
+    // console.log('props', this.props)
     return (
       <div className="canvas" onClick={this.handleStartToggle}>
         {
