@@ -71,7 +71,7 @@ router.get('/twitter', async (req, res, next) => {
       req.session.user = await {
         userId: user.id
       }
-    } else if (req.session.user) {
+    } if (req.session.user) {
       // else, if you have a passport, refresh your tweets from passport.user.id
 
       await TrendingTweet.destroy({
@@ -79,7 +79,7 @@ router.get('/twitter', async (req, res, next) => {
           userId: req.session.user.userId
         }
       })
-    } else if (req.session.passport) {
+    } if (req.session.passport) {
       await TrendingTweet.destroy({
         where: {
           userId: req.session.passport.user
