@@ -5,7 +5,7 @@ import {
   eraseWord,
   postWord,
   fetchWordList,
-  eraseMyTweets
+  eraseMyTweets,
 } from '../store/word'
 import {connect} from 'react-redux'
 
@@ -110,7 +110,6 @@ const mapDispatch = dispatch => ({
   eraseWord: id => dispatch(eraseWord(id)),
   postWord: word => dispatch(postWord(word)),
   eraseMyTweets: id => dispatch(eraseMyTweets(id)),
-  fetchSingleTweet: id => dispatch(fetchSingleTweet(id))
 })
 
 export default connect(mapState, mapDispatch)(TweetCanvas)

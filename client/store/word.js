@@ -152,7 +152,7 @@ export const fetchCommonWords = () => async dispatch => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case CLEAR_SINGLE_WORD:
-      return {...state, single: {}, singleMyWord: {}}
+      return {...state, single: {}, singleMyWord: {}, singleTweet: {}}
     case SET_SINGLE_WORD:
       return {...state, single: action.single}
     case SET_SINGLE_MY_WORD:
