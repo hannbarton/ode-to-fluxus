@@ -41,7 +41,8 @@ class TweetCanvas extends React.Component {
     event.preventDefault()
     if (this.props.singleTweet.id) {
       this.props.eraseMyTweets(this.props.singleTweet.id)
-    } else if (this.props.singleMyWord.id) {
+    }
+    if (this.props.singleMyWord.id) {
       this.props.eraseWord(this.props.singleMyWord.id)
     }
   }
@@ -71,6 +72,7 @@ class TweetCanvas extends React.Component {
               <WordMove
                 key={eachWord.id}
                 tweetId={eachWord.id}
+                myId={eachWord.id}
                 startx={150}
                 starty={newCounter++ * 20}
               >
@@ -107,7 +109,8 @@ const mapDispatch = dispatch => ({
   loadwords: () => dispatch(fetchWordList()),
   eraseWord: id => dispatch(eraseWord(id)),
   postWord: word => dispatch(postWord(word)),
-  eraseMyTweets: id => dispatch(eraseMyTweets(id))
+  eraseMyTweets: id => dispatch(eraseMyTweets(id)),
+  fetchSingleTweet: id => dispatch(fetchSingleTweet(id))
 })
 
 export default connect(mapState, mapDispatch)(TweetCanvas)

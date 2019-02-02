@@ -5,7 +5,7 @@ const initialState = {
   words: [],
   single: {},
   singleMyWord: {},
-  singleMyTweet: {},
+  singleTweet: {},
   name: {},
   myTweets: []
 }
@@ -16,7 +16,7 @@ const REMOVE_WORD = 'REMOVE_WORD'
 const REMOVE_TWITTER = 'REMOVE_TWITTER'
 const GET_TWITTER_HASHTAGS = 'GET_TWITTER_HASHTAGS'
 const GET_MY_TWEETS = 'GET_MY_TWEETS'
-const GET_COMMON_WORDS = 'GET_COMMON_WORDS'
+// const GET_COMMON_WORDS = 'GET_COMMON_WORDS'
 const SET_SINGLE_WORD = 'SET_SINGLE_WORD'
 const CLEAR_SINGLE_WORD = 'CLEAR_SINGLE_WORD'
 const SET_SINGLE_MY_WORD = 'SET_SINGLE_MY_WORD'
@@ -29,7 +29,7 @@ const removeWord = id => ({type: REMOVE_WORD, id})
 const removeTwitter = id => ({type: REMOVE_TWITTER, id})
 const getTwitter = name => ({type: GET_TWITTER_HASHTAGS, name})
 const getMyTweets = tweet => ({type: GET_MY_TWEETS, tweet})
-const getCommonWords = tweet => ({type: GET_COMMON_WORDS, tweet})
+// const getCommonWords = tweet => ({type: GET_COMMON_WORDS, tweet})
 const setWord = single => ({type: SET_SINGLE_WORD, single})
 const setMyWord = singleMyWord => ({type: SET_SINGLE_MY_WORD, singleMyWord})
 const refreshWord = () => ({type: CLEAR_SINGLE_WORD})
