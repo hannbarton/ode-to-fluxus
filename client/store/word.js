@@ -34,7 +34,7 @@ const setWord = single => ({type: SET_SINGLE_WORD, single})
 const setMyWord = singleMyWord => ({type: SET_SINGLE_MY_WORD, singleMyWord})
 const refreshWord = () => ({type: CLEAR_SINGLE_WORD})
 const removeMyTweets = id => ({type: REMOVE_MY_TWEET, id})
-const setTweetWord = single => ({type: SET_TWEET_WORD, single})
+const setTweetWord = singleTweet => ({type: SET_TWEET_WORD, singleTweet})
 
 export const fetchWordList = () => async dispatch => {
   try {
