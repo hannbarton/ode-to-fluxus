@@ -3,7 +3,8 @@ import styled, {css} from 'styled-components'
 import {
   fetchSingleWord,
   clearSingleWord,
-  fetchSingleMyWord
+  fetchSingleMyWord,
+  fetchSingleTweet,
 } from '../store/word'
 import {connect} from 'react-redux'
 
@@ -33,12 +34,14 @@ class WordMove extends React.Component {
     if (this.props.onDragStart) {
       this.props.onDragStart()
     }
-
     if (this.props.id) {
       this.props.fetchSingleWord(this.props.id)
     }
     else if (this.props.myId) {
       this.props.fetchSingleMyWord(this.props.myId)
+    }
+    else if (this.props.tweetId) {
+      this.props.fetchSingleTweet(this.props.tweetId)
     }
 
     this.setState({
@@ -98,7 +101,7 @@ class WordMove extends React.Component {
   }
   render() {
     // console.log(this.props)
-    const {children, id, startx, starty, myId} = this.props
+    const {children, id, startx, starty, myId, tweetId} = this.props
     const {translateX, translateY, isDragging} = this.state
 
     return (
@@ -109,6 +112,7 @@ class WordMove extends React.Component {
         isDragging={isDragging}
         id={id}
         myId={myId}
+        tweetId={tweetId}
         startx={startx}
         starty={starty}
       >
@@ -148,7 +152,8 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   fetchSingleWord: id => dispatch(fetchSingleWord(id)),
   clearSingleWord: () => dispatch(clearSingleWord()),
-  fetchSingleMyWord: id => dispatch(fetchSingleMyWord(id))
+  fetchSingleMyWord: id => dispatch(fetchSingleMyWord(id)),
+  fetchSingleTweet: id => dispatch(fetchSingleTweet(id))
 })
 
 export default connect(mapState, mapDispatch)(WordMove)

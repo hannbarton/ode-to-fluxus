@@ -39,8 +39,8 @@ class TweetCanvas extends React.Component {
 
   onDrop = event => {
     event.preventDefault()
-    if (this.props.single.id) {
-      this.props.eraseMyTweets(this.props.single.id)
+    if (this.props.singleTweet.id) {
+      this.props.eraseMyTweets(this.props.singleTweet.id)
     } else if (this.props.singleMyWord.id) {
       this.props.eraseWord(this.props.singleMyWord.id)
     }
@@ -57,7 +57,7 @@ class TweetCanvas extends React.Component {
             return (
               <WordMove
                 key={eachTweet.id}
-                id={eachTweet.id}
+                tweetId={eachTweet.id}
                 startx={0}
                 starty={counter++ * 20}
               >
@@ -70,7 +70,7 @@ class TweetCanvas extends React.Component {
             return (
               <WordMove
                 key={eachWord.id}
-                myId={eachWord.id}
+                tweetId={eachWord.id}
                 startx={150}
                 starty={newCounter++ * 20}
               >
@@ -97,6 +97,7 @@ class TweetCanvas extends React.Component {
 const mapState = state => ({
   words: state.word.words,
   tweet: state.word.tweet,
+  single: state.word.single || {},
   singleTweet: state.word.singleTweet || {},
   singleMyWord: state.word.singleMyWord || {}
 })

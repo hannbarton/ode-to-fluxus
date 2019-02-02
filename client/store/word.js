@@ -21,6 +21,7 @@ const SET_SINGLE_WORD = 'SET_SINGLE_WORD'
 const CLEAR_SINGLE_WORD = 'CLEAR_SINGLE_WORD'
 const SET_SINGLE_MY_WORD = 'SET_SINGLE_MY_WORD'
 const REMOVE_MY_TWEET = 'REMOVE_MY_TWEET'
+const SET_TWEET_WORD = 'SET_TWEET_WORD'
 
 const getWordList = words => ({type: GET_ALL_WORDS, words})
 const addWord = word => ({type: ADD_WORD, word})
@@ -33,10 +34,11 @@ const setWord = single => ({type: SET_SINGLE_WORD, single})
 const setMyWord = singleMyWord => ({type: SET_SINGLE_MY_WORD, singleMyWord})
 const refreshWord = () => ({type: CLEAR_SINGLE_WORD})
 const removeMyTweets = id => ({type: REMOVE_MY_TWEET, id})
+const setTweetWord = single => ({type: SET_TWEET_WORD, single})
 
 export const fetchWordList = () => async dispatch => {
   try {
-    const res = await axios.get('/api/words')
+    const res = await axios.get('/api/words/words')
     dispatch(getWordList(res.data))
   } catch (err) {
     console.error(err)
@@ -46,6 +48,16 @@ export const fetchWordList = () => async dispatch => {
 export const clearSingleWord = () => dispatch => {
   try {
     dispatch(refreshWord())
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const fetchTwitter = () => async dispatch => {
+  try {
+    const res = await axios.get('/api/words/twitter')
+    console.log(res.data)
+    dispatch(getTwitter(res.data))
   } catch (err) {
     console.error(err)
   }
@@ -70,16 +82,6 @@ export const fetchSingleMyWord = id => async dispatch => {
   }
 }
 
-export const fetchTwitter = () => async dispatch => {
-  try {
-    const res = await axios.get('/api/words/twitter')
-    console.log(res.data)
-    dispatch(getTwitter(res.data))
-  } catch (err) {
-    console.error(err)
-  }
-}
-
 export const fetchMyTweets = () => async dispatch => {
   try {
     const res = await axios.get('/api/words/myTweets')
@@ -89,9 +91,19 @@ export const fetchMyTweets = () => async dispatch => {
   }
 }
 
+export const fetchSingleTweet = id => async dispatch => {
+  try {
+    const res = await axios.get(`/api/words/myTweets/${id}`)
+    dispatch(setTweetWord(res.data))
+  }
+  catch(err) {
+    console.error(err)
+  }
+}
+
 export const postWord = word => async dispatch => {
   try {
-    const res = await axios.post('/api/words', word)
+    const res = await axios.post('/api/words/words', word)
     dispatch(addWord(res.data))
   } catch (err) {
     console.error(err)
@@ -145,6 +157,8 @@ export default function(state = initialState, action) {
       return {...state, single: action.single}
     case SET_SINGLE_MY_WORD:
       return {...state, singleMyWord: action.singleMyWord}
+    case SET_TWEET_WORD:
+      return {...state, singleTweet: action.singleTweet}
     case GET_ALL_WORDS:
       return {...state, words: action.words}
     case GET_TWITTER_HASHTAGS:
