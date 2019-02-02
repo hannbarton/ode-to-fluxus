@@ -16,7 +16,7 @@ const hasPassport = (req, next) => {
   if (req.session.passport) {
     return req.session.passport.user
   } else {
-    return req.session.user.userId
+    return req.session.sessionUser.session_id
   }
 }
 
@@ -29,13 +29,13 @@ let client = new Twitter({
 
 router.get('/words', async (req, res, next) => {
   try {
-    const userId = req.session.passport
+    const id = req.session.passport
       ? req.session.passport.user
-      : req.session.user.userId
+      : req.session.sessionUser.session_id
 
     const words = await Word.findAll({
       where: {
-        userId: userId
+        userId: id
       }
     })
     res.json(words)
@@ -64,25 +64,30 @@ router.get('/common', async (req, res, next) => {
 router.get('/twitter', async (req, res, next) => {
   try {
     // if you are completely new, create a user
-    if (!req.session.passport && !req.session.user.userId) {
+    if (!req.session) {
+      req.session.save()
+    }
+    if (!req.session.passport && !req.session.sessionUser) {
       const user = await User.create({
         email: 'anonymous'
       })
-      req.session.user = await {
-        userId: user.id
+
+      req.session.sessionUser = await {
+        session_id : user.id
       }
-    } if (req.session.user) {
+    }
+    if (req.session.sessionUser) {
       // else, if you have a passport, refresh your tweets from passport.user.id
 
       await TrendingTweet.destroy({
         where: {
-          userId: req.session.user.userId
+          session_id: req.session.sessionUser.session_id
         }
       })
     } if (req.session.passport) {
       await TrendingTweet.destroy({
         where: {
-          userId: req.session.passport.user
+          session_id: req.session.passport.user
         }
       })
     }
@@ -110,8 +115,9 @@ router.get('/twitter', async (req, res, next) => {
             .replace(/([A-Z])([A-Z])/g, '$1 $2')
         }
 
-        const userId = +hasPassport(req, next)
-        eachTweet.userId = userId
+        const sessionUser = +hasPassport(req, next)
+        eachTweet.session_id = sessionUser
+        eachTweet.userId = sessionUser
         return TrendingTweet.create(eachTweet)
       })
     )
@@ -126,7 +132,7 @@ router.get('/twitter', async (req, res, next) => {
         return obj
       }, {})
 
-    const tweetObject = arrayToObject(tweetwords.trendingTweets)
+    const tweetObject = await arrayToObject(tweetwords.trendingTweets)
 
     res.json(tweetObject)
   } catch (err) {
@@ -159,7 +165,7 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
               .replace(']', '')
               .replace(/["]r/g, '')
               .split(' '),
-            userId: req.user.id
+            session_id: req.user.id
           }
 
           let randomIndex = Math.floor(
@@ -177,7 +183,7 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
               .replace(']', '')
               .replace(/["]r/g, '')
               .split(' '),
-            userId: req.user.id
+            session_id: req.user.id
           }
 
           let randomized = Math.floor(
@@ -218,13 +224,13 @@ router.get('/common', async (req, res, next) => {
 
 router.post('/words', async (req, res, next) => {
   try {
-    let userId = req.session.user.passport
+    let id = req.session.passport
       ? req.session.passport.user
-      : req.session.user.userId
+      : req.session.sessionUser.session_id
 
     const word = await Word.create({
       words: req.body.words,
-      userId: userId
+      userId: id
     })
 
     res.json({

@@ -5,7 +5,7 @@ const TrendingTweet = db.define('trendingTweet', {
     name: {
         type: Sequelize.STRING,
     },
-    userId: {
+    session_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         validate: {
