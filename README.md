@@ -21,14 +21,14 @@ CSS
 
 
 ## Example from my application
-![Image of Friday](https://i.imgur.com/VkHMsdY.png)
+![example](https://i.imgur.com/ndz6iAo.png)
 
 ===================================================================
 
 #### Installation
 download or fork the application onto your computer
 
-1. Obtain your own Twitter customer key, Twitter customer secret, Twitter access token key and Twitter access token secret. Please refer to the Twitter documentation on how to obtain your own secrets in order to run this application. Please these keys and codes within a hidden secrets.js file at the root level.
+1. Obtain your own Twitter customer key, Twitter customer secret, Twitter access token key and Twitter access token secret. Please refer to the Twitter documentation on how to obtain your own secrets in order to run this application. Please place these keys and codes within a hidden secrets.js file at the root level of your application.
 
 2. Add ```process.env.TWITTER_CALLBACK = http://127.0.0.1:3000/auth/twitter/callback'``` to your secrets.js file
 
