@@ -44,9 +44,9 @@ a:visited{
   text-align: right;
 }
 
-#plus-btn {
-  width:40px;
-  float: right
+img#plus-btn {
+  width:30px;
+  float: right;
 }
 
 #plus-btn:hover {
@@ -71,14 +71,13 @@ label {
 }
 
 nav {
-  padding: 0em 2em 0em 2em;
+  padding: .3em 1em 0em 1em;
   float: right;
   font-family: 'Futura medium'
 }
 
 .home-outer {
   display: inline;
-  /* position: relative; */
 }
 
 .home-page {
@@ -99,9 +98,13 @@ h1{
   color: purple;
   opacity: .8;
   text-align: center;
-  font-size: 11vh;
+  font-size: 9.5vh;
   text-align: justify;
   text-justify: inter-word;
+}
+
+.sidebar {
+  padding-right: -1rem;
 }
 
 div.trash{
