@@ -21,7 +21,7 @@ CSS
 
 
 ## Example from my application
-! [Imgur](https://i.imgur.com/KBEWmUa.png)
+![Imgur](https://i.imgur.com/KBEWmUa.png)
 
 ===================================================================
 
