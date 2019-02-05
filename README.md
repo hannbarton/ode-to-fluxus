@@ -2,7 +2,7 @@
 
 Deployment: https://ode-to-fluxus.herokuapp.com/
 
-A application that gives you a random set of currentlky #TrendingWords from Twitter and allows you to drag and drop words and phrases to form poems in an avant garde, free form style (similar to ee cummings or fluxus).
+A application that gives you a random set of currently #TrendingWords from Twitter and allows you to drag and drop words and phrases to form poems in an avant garde, free form style (similar to ee cummings or fluxus).
 
 This application was inspired by the concept of Found Poetry. Found Poetry is a type of poetry created by taking words, phrases, and sometimes whole passages from other sources and reframing them by making changes in spacing and lines, or by adding or deleting text, thus imparting new meaning.
 
