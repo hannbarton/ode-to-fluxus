@@ -21,7 +21,7 @@ This application was inspired by the concept of Found Poetry. Found Poetry is a 
 
 
 ## Example from my application
-![Imgur](https://i.imgur.com/vI7Gij6.png)
+![Imgur](https://i.imgur.com/vI7Gij6.png?2)
 
 =====================================================================================
 
