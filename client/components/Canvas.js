@@ -50,16 +50,17 @@ export class Canvas extends React.Component {
     let counter = 0
     let newCounter = 0
     // console.log(counter)
-    // console.log('props', this.props)
+    console.log('props', this.props)
     return (
       <div className="canvas" onClick={this.handleStartToggle}>
-        {Object.entries(this.props.name).map(([key, value]) => {
+        {this.props.name && this.props.name.map(eachWord => {
           return (
-            <WordMove key={key}
-            id={key}
+            <WordMove
+            key={eachWord.id}
+            id={eachWord.id}
             startx={0}
             starty={counter++ * 20}>
-              {`${value.name}`}
+              {`${eachWord.name}`}
             </WordMove>
           )
         })}

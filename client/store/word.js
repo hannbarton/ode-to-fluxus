@@ -6,7 +6,7 @@ const initialState = {
   single: {},
   singleMyWord: {},
   singleTweet: {},
-  name: {},
+  name: [],
   myTweets: []
 }
 
@@ -175,12 +175,7 @@ export default function(state = initialState, action) {
     case REMOVE_TWITTER:
       return {
         ...state,
-        name: Object.assign(
-          {},
-          ...Object.keys(state.name)
-            .filter(k => k !== action.id)
-            .map(k => ({[k]: state.name[k]}))
-        )
+        name: [...state.name.filter(eachName => +eachName.id !== +action.id)]
       }
       case REMOVE_MY_TWEET:
         return {...state, tweet: [...state.tweet.filter(eachtweet => +eachtweet.id !== +action.id)]}
