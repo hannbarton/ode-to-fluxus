@@ -49,7 +49,7 @@ router.get('/words/:id', async (req, res, next) => {
     const word = await Word.findById(req.params.id)
     res.json(word)
   } catch (err) {
-    console.error(err)
+    next(err)
   }
 })
 
@@ -126,15 +126,7 @@ router.get('/twitter', async (req, res, next) => {
       include: TrendingTweet
     })
 
-    const arrayToObject = array =>
-      array.reduce((obj, item) => {
-        obj[item.id] = item
-        return obj
-      }, {})
-
-    const tweetObject = await arrayToObject(tweetwords.trendingTweets)
-
-    res.json(tweetObject)
+    res.json(tweetwords.trendingTweets)
   } catch (err) {
     next(err)
   }
