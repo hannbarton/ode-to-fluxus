@@ -23,8 +23,8 @@ export class Canvas extends React.Component {
   }
 
   componentDidMount() {
-    this.props.loadTwitter();
-    this.props.loadwords();
+    this.props.loadTwitter()
+    this.props.loadwords()
   }
 
   handleStartToggle() {
@@ -53,17 +53,19 @@ export class Canvas extends React.Component {
     console.log('props', this.props)
     return (
       <div className="canvas" onClick={this.handleStartToggle}>
-        {this.props.name && this.props.name.map(eachWord => {
-          return (
-            <WordMove
-            key={eachWord.id}
-            id={eachWord.id}
-            startx={0}
-            starty={counter++ * 20}>
-              {`${eachWord.name}`}
-            </WordMove>
-          )
-        })}
+        {this.props.name &&
+          this.props.name.map(eachWord => {
+            return (
+              <WordMove
+                key={eachWord.id}
+                id={eachWord.id}
+                startx={0}
+                starty={counter++ * 20}
+              >
+                {`${eachWord.name}`}
+              </WordMove>
+            )
+          })}
         {this.props.words &&
           this.props.words.map(eachWord => {
             return (

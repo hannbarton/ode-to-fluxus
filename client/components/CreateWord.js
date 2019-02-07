@@ -35,10 +35,9 @@ class CreateWord extends React.Component {
     return (
       <div className='create-word'>
         <form id="submit-word" onSubmit={this.handleSubmit}>
-          <label htmlFor="">Create your own word:</label>
           <input
             className="form-control"
-            placeholder="Enter your word"
+            placeholder="ADD A WORD"
             name="words"
             type="text"
             onChange={this.handleChange}

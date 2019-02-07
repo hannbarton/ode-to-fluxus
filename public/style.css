@@ -26,8 +26,8 @@ a:visited{
 }
 
 .drag-words {
-  top: 50%;
-  left: calc(50vw - 280px);
+  top: 45%;
+  left: calc(50vw - 210px);
   font-size: 28pt;
   font-family: 'Futura medium', monospace;
   opacity: .4;
@@ -109,10 +109,12 @@ h1{
 
 div.trash{
   position: absolute;
-  right: 1em;
-  bottom: 1em;
-  content: url('./images/trash.jpg');
-  opacity: .6
+  right: 1.3em;
+  bottom: 1.3em;
+  height: 60px;
+  width: auto;
+  content: url('./images/trash.png');
+  opacity: .4
 }
 
 div.trash:hover{
