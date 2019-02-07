@@ -18,6 +18,29 @@ body {
   font-family: 'Futura medium', monospace;
 }
 
+button.create-button {
+  font-family: 'Futura medium', monospace;
+  font-size: 11pt;
+  color: white;
+  background-color: black;
+  /* border: solid 1px black; */
+  border-bottom: solid 1.5px black;
+  border-top: solid .1px black;
+  border-right: solid 1px black;
+  border-left: solid 1px black;
+  margin: 5px;
+  padding: 3px 10px;
+}
+
+input.form-control {
+  border: solid 1px black;
+  width: 250px;
+  height: 15px;
+  padding: 4px 9px;
+  font-size: 13px;
+  /* opacity: .5; */
+}
+
 a {
   text-decoration: none;
 }

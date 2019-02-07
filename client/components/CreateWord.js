@@ -44,7 +44,7 @@ class CreateWord extends React.Component {
             value={this.props.words}
           />
 
-          <button type="submit">Create</button>
+          <button type="submit" className='create-button'>CREATE</button>
         </form>
       </div>
     )
