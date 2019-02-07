@@ -10,9 +10,10 @@ class HomePage extends React.Component {
   render() {
     return (
       <div>
+        <div className="mobileShow">Not currently mobile compatible. Please use desktop</div>
+        <div className='show'>
         <Navbar />
         <div className="home-page">
-          {/* <UserHome /> */}
           <div className="poetry-inline-block">
             {found.map((each, i) => {
               return <FoundPoetry key={i}>{each}</FoundPoetry>
@@ -22,11 +23,11 @@ class HomePage extends React.Component {
               return <FoundPoetry key={i}>{each}</FoundPoetry>
             })}
           </div>
-        </div >
-        <div className='enter'>
-
-        <Link to="/home">Enter</Link>
         </div>
+        <div className="enter">
+          <Link to="/home">Enter</Link>
+        </div>
+      </div>
       </div>
     )
   }

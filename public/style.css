@@ -3,8 +3,23 @@
   src: url(./futura/futura\ medium\ bt.ttf);
 }
 
-body {
+.mobileShow {
+  display: none;
+}
 
+@media (max-width: 992px) {
+  .mobileShow {
+    display: inline;
+    font-size: 15vh;
+    text-align: center;
+    color: palevioletred
+  }
+  .show{
+    display: none;
+  }
+}
+
+body {
   font-family: sans-serif;
   background: url('./images/white-1.jpg') no-repeat fixed center;
   background-size: cover;
@@ -23,7 +38,6 @@ button.create-button {
   font-size: 11pt;
   color: white;
   background-color: black;
-  /* border: solid 1px black; */
   border-bottom: solid 1.5px black;
   border-top: solid .1px black;
   border-right: solid 1px black;
@@ -38,7 +52,6 @@ input.form-control {
   height: 15px;
   padding: 4px 9px;
   font-size: 13px;
-  /* opacity: .5; */
 }
 
 a {
