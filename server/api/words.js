@@ -15,8 +15,12 @@ const isLoggedIn = (req, res, next) => {
 const hasPassport = (req, next) => {
   if (req.session.passport) {
     return req.session.passport.user
-  } else {
+  }
+  else if (req.session.sessionUser) {
     return req.session.sessionUser.session_id
+  }
+  else {
+    next()
   }
 }
 
