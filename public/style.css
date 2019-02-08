@@ -83,6 +83,8 @@ a:visited{
 img#plus-btn {
   width:30px;
   float: right;
+  padding: 1em;
+  opacity: .5
 }
 
 #plus-btn:hover {

@@ -144,7 +144,8 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
     await MyTweet.sync({force: true})
 
     const tweets = await twitterUserClient.get('statuses/user_timeline', {
-      tweet_mode: 'extended'
+      tweet_mode: 'extended',
+      count: 25
     })
 
     await Promise.all(

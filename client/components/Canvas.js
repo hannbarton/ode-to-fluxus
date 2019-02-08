@@ -3,7 +3,6 @@ import {WordMove} from './'
 import {
   fetchWordList,
   eraseWord,
-  postWord,
   fetchTwitter,
   eraseTwitter
 } from '../store/word'
@@ -49,8 +48,6 @@ export class Canvas extends React.Component {
   render() {
     let counter = 0
     let newCounter = 0
-    // console.log(counter)
-    console.log('props', this.props)
     return (
       <div className="canvas" onClick={this.handleStartToggle}>
         {this.props.name &&
@@ -105,7 +102,6 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   loadwords: () => dispatch(fetchWordList()),
   eraseWord: id => dispatch(eraseWord(id)),
-  postWord: word => dispatch(postWord(word)),
   loadTwitter: () => dispatch(fetchTwitter()),
   eraseTwitter: id => dispatch(eraseTwitter(id))
 })

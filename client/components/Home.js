@@ -19,8 +19,9 @@ class Home extends React.Component {
       this.state.open === 'close' ? 'peek' : this.state.open ? 'open' : 'close'
     return (
       <div className="home-outer">
-        <Navbar />
-        <img src="./images/plus.png" id="plus-btn" onClick={this.toggle} />
+        {/* <Navbar /> */}
+
+        <img src="./images/about.png" id="plus-btn" onClick={this.toggle} />
         <br />
 
         <div className="home-container">
