@@ -15,8 +15,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       </div>
     ) : (
       <div className="nav-bar-unlogin">
-        <Link to="/home">Home</Link>{" "}
+        {/* <Link to="/home">Home</Link>{" "} */}
         {/* <Link to="/login">Login</Link> */}
+        <img src="./images/back.png" id="plus-btn" href="/home"/>
       </div>
     )}
   </nav>

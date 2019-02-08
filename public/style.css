@@ -163,8 +163,8 @@ div.trash:hover{
   position: absolute;
   text-align: center;
   font-family: 'Futura medium';
-  top: 40%;
-  left: calc(50vw - 130px)
+  top: 38%;
+  left: calc(50vw - 150px)
 }
 
 #twitter-button {
@@ -188,4 +188,8 @@ div.trash:hover{
 #twitter-button:hover {
   background-color: rgb(61, 160, 236);
   cursor: pointer
+}
+
+#home-page-link:hover {
+  color: palevioletred
 }

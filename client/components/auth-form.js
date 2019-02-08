@@ -11,13 +11,12 @@ const AuthForm = props => {
     <div>
       {isLoggedIn ? (
         <div className='home-page'>
-        <button type='button' id='make-button' onClick="window.location='/tweet'">Make a poem</button>
-          <a href="/tweet">from your own tweets</a>
+          <a href="/tweet" id='home-page-link'>Make a poem from your own tweets</a>
         </div>
       ) : (
         <div className='home-page'>
         <button type='button' id='twitter-button' onClick="window.location='/auth/twitter'">Login</button>
-          <a href="/auth/twitter">
+          <a href="/auth/twitter" id='home-page-link'>
             to make a poem from your own tweets
           </a>
         </div>

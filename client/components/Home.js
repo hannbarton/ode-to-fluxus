@@ -26,7 +26,7 @@ class Home extends React.Component {
 
         <div className="home-container">
           <br />
-          <Link to="/poem">Make a poem from trending hashtags</Link>
+          <Link to="/poem" id='home-page-link'>Make a poem from trending hashtags</Link>
           <br />
           <br />
           <Login />
