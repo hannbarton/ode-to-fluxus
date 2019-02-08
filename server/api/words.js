@@ -148,6 +148,8 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
       count: 25
     })
 
+    console.log('user', req.user.id)
+
     await Promise.all(
       tweets.map(eachTweet => {
         if (eachTweet.full_text[0] === 'R' && eachTweet.full_text[1] === 'T') {
@@ -158,7 +160,6 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
               .replace(']', '')
               .replace(/["]r/g, '')
               .split(' '),
-            session_id: req.user.id
           }
 
           let randomIndex = Math.floor(
@@ -166,6 +167,9 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
           )
 
           tweet.tweet = tweet.tweet[randomIndex]
+
+          const sessionUser = +hasPassport(req, next)
+          tweet.userId = sessionUser
 
           return MyTweet.create(tweet)
         } else {
@@ -176,7 +180,6 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
               .replace(']', '')
               .replace(/["]r/g, '')
               .split(' '),
-            session_id: req.user.id
           }
 
           let randomized = Math.floor(
@@ -184,7 +187,7 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
           )
 
           realTweet.tweet = realTweet.tweet[randomized]
-          MyTweet.create(realTweet)
+          MyTweet.create(realTweet, {include: [User.MyTweet]})
         }
       })
     )
