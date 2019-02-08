@@ -164,6 +164,28 @@ div.trash:hover{
   text-align: center;
   font-family: 'Futura medium';
   top: 40%;
-  left: calc(50vw - 200px)
+  left: calc(50vw - 130px)
 }
 
+#twitter-button {
+  margin-right: 10px;
+  padding-left: 40px;
+  padding-right: 15px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background: rgb(87, 180, 252) url('./images/twitter-48.png');
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: top 5px left 10px;
+  border-radius: 3px;
+  font-family: 'Futura medium', monospace;
+  font-size: 10pt;
+  color: white;
+  border: solid 1px rgb(90, 164, 221);
+  box-shadow: 0 2px rgb(180, 180, 180);
+}
+
+#twitter-button:hover {
+  background-color: rgb(61, 160, 236);
+  cursor: pointer
+}
