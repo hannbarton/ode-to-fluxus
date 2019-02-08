@@ -20,13 +20,6 @@ const hasPassport = (req, next) => {
   }
 }
 
-let client = new Twitter({
-  consumer_key: process.env.TWITTER_CONSUMER_KEY,
-  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
-})
-
 router.get('/words', async (req, res, next) => {
   try {
     const id = req.session.passport
@@ -63,7 +56,8 @@ router.get('/common', async (req, res, next) => {
 
 router.get('/twitter', async (req, res, next) => {
   try {
-    // if you are completely new, create a user
+
+    // if you are completely new, create a new session first and then create a user
     if (!req.session) {
       req.session.save()
     }
@@ -73,18 +67,19 @@ router.get('/twitter', async (req, res, next) => {
       })
 
       req.session.sessionUser = await {
-        session_id : user.id
+        session_id: user.id
       }
     }
     if (req.session.sessionUser) {
-      // else, if you have a passport, refresh your tweets from passport.user.id
 
+      // else, if you have a passport, refresh your tweets from passport.user.id
       await TrendingTweet.destroy({
         where: {
           session_id: req.session.sessionUser.session_id
         }
       })
-    } if (req.session.passport) {
+    }
+    if (req.session.passport) {
       await TrendingTweet.destroy({
         where: {
           session_id: req.session.passport.user
@@ -92,12 +87,22 @@ router.get('/twitter', async (req, res, next) => {
       })
     }
 
+    let client = new Twitter({
+      consumer_key: process.env.TWITTER_CONSUMER_KEY,
+      consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+      access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+      access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+    })
+
+    // return a promise for trending hashtags for USA
     const tweets = await client.get('/trends/place', {id: 23424977})
     const dataTweet = tweets[0].trends
 
+    // resolve all promises for each trending hashtag
     await Promise.all(
       dataTweet.map(eachTweet => {
-        // id the trending hash starts with # and has numbers
+
+        // if the trending hash starts with # and has numbers
         if (eachTweet.name[0] === '#' && /\d/.test(eachTweet.name)) {
           eachTweet.name.slice(1)
         } else if (
@@ -115,9 +120,16 @@ router.get('/twitter', async (req, res, next) => {
             .replace(/([A-Z])([A-Z])/g, '$1 $2')
         }
 
+        // determine the userId through passport.user or session_id
         const sessionUser = +hasPassport(req, next)
+
+        // assign a session_id to the tweet
         eachTweet.session_id = sessionUser
+
+        // assign a userId to the tweet
         eachTweet.userId = sessionUser
+
+        // create each tweet
         return TrendingTweet.create(eachTweet)
       })
     )
@@ -134,6 +146,7 @@ router.get('/twitter', async (req, res, next) => {
 
 router.get('/myTweets', isLoggedIn, async (req, res, next) => {
   try {
+
     let twitterUserClient = new Twitter({
       consumer_key: process.env.TWITTER_CONSUMER_KEY,
       consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -148,8 +161,6 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
       count: 25
     })
 
-    console.log('user', req.user.id)
-
     await Promise.all(
       tweets.map(eachTweet => {
         if (eachTweet.full_text[0] === 'R' && eachTweet.full_text[1] === 'T') {
@@ -159,7 +170,7 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
               .replace('[', '')
               .replace(']', '')
               .replace(/["]r/g, '')
-              .split(' '),
+              .split(' ')
           }
 
           let randomIndex = Math.floor(
@@ -169,6 +180,7 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
           tweet.tweet = tweet.tweet[randomIndex]
 
           const sessionUser = +hasPassport(req, next)
+
           tweet.userId = sessionUser
 
           return MyTweet.create(tweet)
@@ -179,7 +191,7 @@ router.get('/myTweets', isLoggedIn, async (req, res, next) => {
               .replace('[', '')
               .replace(']', '')
               .replace(/["]r/g, '')
-              .split(' '),
+              .split(' ')
           }
 
           let randomized = Math.floor(
