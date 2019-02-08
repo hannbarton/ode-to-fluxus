@@ -22,8 +22,7 @@ if (process.env.NODE_ENV !== 'production') require('../secrets')
 
 // passport registration
 passport.serializeUser((user, done) => {
-  console.log('has been serialized')
-  console.log('USERSDDD', user)
+  console.log('USER SERIALIZED', user)
   done(null, user.id)
 })
 

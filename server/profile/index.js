@@ -3,7 +3,6 @@ module.exports = router
 
 const authCheck = (req, res, next) => {
     if (!req.user) {
-        console.log('auth check not passing')
         res.send('YOU MUST LOG IN')
     }
     else {
@@ -12,5 +11,5 @@ const authCheck = (req, res, next) => {
 }
 
 router.get('/', authCheck, (req, res) => {
-    res.send('YOU ARE lOGGED in')
+    res.send('YOU ARE lOGGED IN')
 })

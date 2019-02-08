@@ -42,7 +42,9 @@ class Home extends React.Component {
               <div className="home">
                 <h1>
                   Found Poetry is a type of poetry created by taking words,
-                  phrases, and sometimes whole passages from other sources and reframing them by making changes in spacing and lines, or by adding or deleting text, thus imparting new meaning.
+                  phrases, and sometimes whole passages from other sources and
+                  reframing them by making changes in spacing and lines, or by
+                  adding or deleting text, thus imparting new meaning.
                 </h1>
               </div>
             </animated.div>

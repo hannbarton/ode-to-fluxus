@@ -5,7 +5,7 @@ import {auth} from '../store'
 
 
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error, isLoggedIn} = props
+  const {isLoggedIn} = props
 
   return (
     <div>
@@ -58,9 +58,5 @@ export const Login = connect(mapLogin, mapDispatch)(AuthForm)
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
 
 AuthForm.propTypes = {
-  name: PropTypes.string.isRequired,
-  displayName: PropTypes.string.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  error: PropTypes.object,
   isLoggedIn: PropTypes.bool.isRequired
 }

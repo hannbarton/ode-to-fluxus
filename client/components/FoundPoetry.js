@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, {css, keyframes} from 'styled-components'
+import styled, {css} from 'styled-components'
 
 class FoundPoetry extends React.Component {
   state = {
@@ -26,7 +26,6 @@ class FoundPoetry extends React.Component {
   handleMouseOver() {
     let random = Math.floor((Math.random() * 4) + 1) * 90
 
-    // console.log(random)
     this.setState({
         rotate: random
     })
@@ -40,8 +39,6 @@ class FoundPoetry extends React.Component {
     if (this.props.onDragStart) {
       this.props.onDragStart()
     }
-
-    // console.log(clientX, clientY)
 
     this.setState({
       originalX: clientX,
