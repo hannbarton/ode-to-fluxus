@@ -61,6 +61,10 @@ a:visited{
   color: blueviolet
 }
 
+a:hover{
+  color: #0a091c
+}
+
 .drag-words {
   top: 45%;
   left: calc(50vw - 210px);
@@ -90,10 +94,6 @@ img#plus-btn {
 #plus-btn:hover {
   transform: scale(.9);
   transition-duration: .3s;
-}
-
-.a:hover{
-  color: #0a091c
 }
 
 h2 {
@@ -169,10 +169,7 @@ div.trash:hover{
 
 #twitter-button {
   margin-right: 10px;
-  padding-left: 40px;
-  padding-right: 15px;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  padding: 6px 15px 6px 40px;
   background: rgb(87, 180, 252) url('./images/twitter-48.png');
   background-size: 20px;
   background-repeat: no-repeat;
