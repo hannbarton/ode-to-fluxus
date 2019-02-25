@@ -6,15 +6,18 @@ A application that gives you a random set of currently #TrendingWords from Twitt
 
 This application was inspired by the concept of Found Poetry. Found Poetry is a type of poetry created by taking words, phrases, and sometimes whole passages from other sources and reframing them by making changes in spacing and lines, or by adding or deleting text, thus imparting new meaning.
 
+Note: This application started with a boilerplate [here](https://github.com/FullstackAcademy/boilermaker)
+
 ## Stack
 - Node.js
 - Express.js
 - Sequelize
+- PostgreSQL
 - React
 - Redux
 - Twitter API
 - Twitter Oauth
-- CSS
+- CSS/HTML
 
 ## Example from Literature:
 ![Image of Poem](https://i.pinimg.com/236x/36/69/a8/3669a88b74bac893c641c889b45f7a33--ee-cummings-revolutionaries.jpg) - ee cummings
