@@ -1,7 +1,6 @@
 import React from 'react'
-import {Navbar} from '..'
 import {Link} from 'react-router-dom'
-import {FoundPoetry} from '..'
+import {FoundPoetry} from '../index'
 import {ToastContainer, toast} from 'react-toastify'
 
 const found = ['F', 'O', 'U', 'N', 'D']
@@ -49,7 +48,6 @@ class HomePage extends React.Component {
           Not currently mobile compatible. Please use desktop
         </div>
         <div className="show" onMouseOver={this.handleSiteStart}>
-          <Navbar />
           <div className="home-page">
             <div className="poetry-inline-block">
               {found.map((each, i) => {
