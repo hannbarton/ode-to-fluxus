@@ -84,12 +84,13 @@ a:hover{
   text-align: right;
 }
 
-img#plus-btn {
+#plus-btn {
   width:30px;
   float: right;
-  padding: 1em;
+  padding: 1em 1em 1em 1em;
   opacity: .5
 }
+
 
 #plus-btn:hover {
   transform: scale(.9);
@@ -180,6 +181,25 @@ div.trash:hover{
   color: white;
   border: solid 1px rgb(90, 164, 221);
   box-shadow: 0 2px rgb(180, 180, 180);
+}
+
+#twitter-logout {
+  margin-top: 1em;
+  padding: 6px 15px 6px 40px;
+  background: rgb(87, 180, 252) url('./images/twitter-48.png');
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: top 5px left 10px;
+  border-radius: 3px;
+  font-family: 'Futura medium', monospace;
+  font-size: 10pt;
+  color: white;
+  border: solid 1px rgb(90, 164, 221);
+  box-shadow: 0 2px rgb(180, 180, 180);
+}
+#twitter-logout:hover {
+  background-color: rgb(61, 160, 236);
+  cursor: pointer
 }
 
 #twitter-button:hover {

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Login, Navbar} from '../components'
 import {Link} from 'react-router-dom'
-import { Keyframes, animated, } from 'react-spring'
+import { Keyframes, animated} from 'react-spring/renderprops'
 
 const Sidebar = Keyframes.Spring({
   peek: [{x: 0, from: {x: 100}, delay: 500}, {x: 100, delay: 800}],
@@ -20,7 +20,6 @@ class Home extends React.Component {
     return (
       <div className="home-outer">
         {/* <Navbar /> */}
-
         <img src="./images/about.png" id="plus-btn" onClick={this.toggle} />
         <br />
 

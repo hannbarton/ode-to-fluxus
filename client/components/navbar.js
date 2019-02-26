@@ -8,16 +8,18 @@ const Navbar = ({handleClick, isLoggedIn}) => (
   <nav>
     {isLoggedIn ? (
       <div className="nav-bar-login">
-        <Link to="/home">Home</Link> {" "}
-        <a href="#" onClick={handleClick}>
-          Logout
-        </a>
+        {/* <Link to="/home">Home</Link> {" "} */}
+        <a href="/home">
+        <img src="./images/back.png" id="plus-btn" /></a>
+        <button type='button' id='twitter-logout' onClick={handleClick}>Logout</button>
+          <a href="#"></a>
       </div>
     ) : (
       <div className="nav-bar-unlogin">
         {/* <Link to="/home">Home</Link>{" "} */}
         {/* <Link to="/login">Login</Link> */}
-        <img src="./images/back.png" id="plus-btn" href="/home"/>
+        <a href="/home">
+        <img src="./images/back.png" id="plus-btn" /></a>
       </div>
     )}
   </nav>
