@@ -1,5 +1,5 @@
 import React from 'react'
-import {Login, Navbar} from '../components'
+import {Login, Navbar} from '../index'
 import {Link} from 'react-router-dom'
 import { Keyframes, animated} from 'react-spring/renderprops'
 
@@ -19,8 +19,8 @@ class Home extends React.Component {
       this.state.open === 'close' ? 'peek' : this.state.open ? 'open' : 'close'
     return (
       <div className="home-outer">
-        {/* <Navbar /> */}
-        <img src="./images/about.png" id="plus-btn" onClick={this.toggle} />
+        <Navbar />
+        <img src="./images/about.png" id="about-btn" onClick={this.toggle} />
         <br />
 
         <div className="home-container">

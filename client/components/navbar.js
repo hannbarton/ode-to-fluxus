@@ -1,25 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <nav>
     {isLoggedIn ? (
       <div className="nav-bar-login">
-        {/* <Link to="/home">Home</Link> {" "} */}
         <a href="/home">
-        <img src="./images/back.png" id="plus-btn" /></a>
-        <button type='button' id='twitter-logout' onClick={handleClick}>Logout</button>
-          <a href="#"></a>
+          <img src="./images/back.png" id="plus-btn" />
+        </a>
+        <button type="button" id="twitter-logout" onClick={handleClick}>
+          Logout
+        </button>
+        <a href="#" />
       </div>
     ) : (
       <div className="nav-bar-unlogin">
-        {/* <Link to="/home">Home</Link>{" "} */}
-        {/* <Link to="/login">Login</Link> */}
         <a href="/home">
-        <img src="./images/back.png" id="plus-btn" /></a>
+          <img src="./images/back.png" id="plus-btn" />
+        </a>
       </div>
     )}
   </nav>

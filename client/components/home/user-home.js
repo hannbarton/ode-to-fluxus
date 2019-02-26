@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Home} from './'
+import {Home} from '..'
 
 export const UserHome = props => {
   const {displayName} = props

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {auth} from '../store'
+import {auth} from '../../store'
 
 
 const AuthForm = props => {

@@ -91,6 +91,12 @@ a:hover{
   opacity: .5
 }
 
+#about-btn {
+  width:30px;
+  float: left;
+  padding: 1.15em 2em 1em 1em;
+  opacity: .5
+}
 
 #plus-btn:hover {
   transform: scale(.9);

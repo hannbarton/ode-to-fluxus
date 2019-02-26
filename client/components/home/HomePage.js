@@ -1,7 +1,7 @@
 import React from 'react'
-import {Navbar} from '../components'
+import {Navbar} from '..'
 import {Link} from 'react-router-dom'
-import {FoundPoetry} from './'
+import {FoundPoetry} from '..'
 import {ToastContainer, toast} from 'react-toastify'
 
 const found = ['F', 'O', 'U', 'N', 'D']
