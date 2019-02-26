@@ -1,5 +1,5 @@
 import React from 'react'
-import {CreateWord, Navbar, Canvas} from './'
+import {CreateWord, Navbar, Canvas} from '../'
 
 class TrendingPage extends React.Component {
 

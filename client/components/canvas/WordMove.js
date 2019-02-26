@@ -5,7 +5,7 @@ import {
   clearSingleWord,
   fetchSingleMyWord,
   fetchSingleTweet,
-} from '../store/word'
+} from '../../store/word'
 import {connect} from 'react-redux'
 
 class WordMove extends React.Component {

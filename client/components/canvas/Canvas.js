@@ -1,11 +1,11 @@
 import React from 'react'
-import {WordMove} from './'
+import {WordMove} from '../index'
 import {
   fetchWordList,
   eraseWord,
   fetchTwitter,
   eraseTwitter
-} from '../store/word'
+} from '../../store/word'
 import {connect} from 'react-redux'
 
 export class Canvas extends React.Component {

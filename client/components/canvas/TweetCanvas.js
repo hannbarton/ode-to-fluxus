@@ -1,12 +1,12 @@
 import React from 'react'
-import {WordMove} from './'
+import {WordMove} from '../'
 import {
   fetchMyTweets,
   eraseWord,
   postWord,
   fetchWordList,
   eraseMyTweets,
-} from '../store/word'
+} from '../../store/word'
 import {connect} from 'react-redux'
 
 class TweetCanvas extends React.Component {

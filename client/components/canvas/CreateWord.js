@@ -1,5 +1,5 @@
 import React from 'react'
-import {postWord, loadWordList} from '../store/word'
+import {postWord, loadWordList} from '../../store/word'
 import {connect} from 'react-redux'
 
 class CreateWord extends React.Component {

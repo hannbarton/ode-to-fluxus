@@ -1,5 +1,5 @@
 import React from 'react'
-import { TweetCanvas, CreateWord, Navbar } from './';
+import { TweetCanvas, CreateWord, Navbar } from '../index';
 
 class TweetPage extends React.Component {
 
