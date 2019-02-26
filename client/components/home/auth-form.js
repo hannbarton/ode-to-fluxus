@@ -3,20 +3,27 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {auth} from '../../store'
 
-
 const AuthForm = props => {
   const {isLoggedIn} = props
 
   return (
     <div>
       {isLoggedIn ? (
-        <div className='home-page'>
-          <a href="/tweet" id='home-page-link'>Make a poem from your own tweets</a>
+        <div className="home-page">
+          <a href="/tweet" id="home-page-link">
+            Make a poem from your own tweets
+          </a>
         </div>
       ) : (
-        <div className='home-page'>
-        <button type='button' id='twitter-button' onClick="window.location='/auth/twitter'">Login</button>
-          <a href="/auth/twitter" id='home-page-link'>
+        <div className="home-page">
+          <a href="/auth/twitter" id="home-page-link">
+            <button
+              type="button"
+              id="twitter-button"
+              onClick="window.location='/auth/twitter'"
+            >
+              Login
+            </button>
             to make a poem from your own tweets
           </a>
         </div>
@@ -25,7 +32,7 @@ const AuthForm = props => {
   )
 }
 
-//  Login and Signup share the same Component; keep code dry
+//  Login and Signup share the same Component
 const mapLogin = state => {
   return {
     name: 'login',
