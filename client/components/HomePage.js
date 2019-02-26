@@ -3,7 +3,6 @@ import {Navbar} from '../components'
 import {Link} from 'react-router-dom'
 import {FoundPoetry} from './'
 import {ToastContainer, toast} from 'react-toastify'
-// import 'ReactToastify.css'
 
 const found = ['F', 'O', 'U', 'N', 'D']
 const poetry = ['P', 'O', 'E', 'T', 'R', 'Y']
