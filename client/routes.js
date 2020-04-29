@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import {
   Login,
   Signup,
-  UserHome,
   TrendingPage,
   HomePage,
   TweetPage
@@ -26,7 +25,6 @@ class Routes extends Component {
         <Route exact path="/" component={HomePage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/home" component={UserHome} />
         <Route path="/poem" component={TrendingPage} />
         {isLoggedIn && (
           <Switch>

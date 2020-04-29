@@ -24,7 +24,7 @@ class HomePage extends React.Component {
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
-        draggable: true
+        draggable: false
       })
     }
     this.setState({
@@ -37,7 +37,7 @@ class HomePage extends React.Component {
       <div>
         <ToastContainer
           position="bottom-right"
-          autoClose={false}
+          autoClose={true}
           newestOnTop={false}
           closeOnClick
           rtl={false}

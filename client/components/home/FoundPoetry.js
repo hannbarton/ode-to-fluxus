@@ -115,14 +115,18 @@ const Container = styled.div.attrs({
     animation: `${deg} 1s`
   }),
 })`
-  color: palevioletred;
+@font-face {
+  font-family: Montserrat-Bold;
+  src: url(../../../public/montserrat/Montserrat-Bold.ttf);
+}
+  color: white;
   cursor: move;
-  font-size: 20vw;
-  padding: 0rem 1rem 0rem 1rem;
+  font-family: Montserrat-Bold;
+  font-size: 9vw;
   display: inline-block;
-
+  padding: 0rem .3rem 0rem .3rem;
   &:hover {
-    color: #0c5bd1;
+    color: #2d9c55;
 
   ${({rotate}) =>
   rotate &&

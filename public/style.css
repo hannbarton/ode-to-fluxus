@@ -12,7 +12,7 @@
     display: inline;
     font-size: 15vh;
     text-align: center;
-    color: palevioletred
+    color: white
   }
   .show{
     display: none;
@@ -21,8 +21,7 @@
 
 body {
   font-family: sans-serif;
-  background: url('./images/white-1.jpg') no-repeat fixed center;
-  background-size: cover;
+  background: linear-gradient(#f47984, #f6b95b);
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -58,7 +57,7 @@ a {
   text-decoration: none;
 }
 a:visited{
-  color: blueviolet
+  color: white;
 }
 
 a:hover{
@@ -104,11 +103,11 @@ a:hover{
 }
 
 h2 {
-  color:#0a091c
+  color:white
 }
 
 p{
-  color: #000000
+  color: white
 }
 
 label {
@@ -140,7 +139,7 @@ nav {
 h1{
   padding-right: 1em;
   padding-left: 1em;
-  color: purple;
+  color: white;
   opacity: .8;
   text-align: center;
   font-size: 9.5vh;
@@ -167,11 +166,11 @@ div.trash:hover{
 }
 
 .home-container{
-  position: absolute;
+  /* position: absolute; */
   text-align: center;
   font-family: 'Futura medium';
-  top: 38%;
-  left: calc(50vw - 150px)
+  /* top: 38%; */
+  /* left: calc(50vw - 150px) */
 }
 
 #twitter-button {
@@ -214,5 +213,5 @@ div.trash:hover{
 }
 
 #home-page-link:hover {
-  color: palevioletred
+  color: white
 }

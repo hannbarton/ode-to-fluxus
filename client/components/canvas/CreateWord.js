@@ -1,5 +1,5 @@
 import React from 'react'
-import {postWord, loadWordList} from '../../store/word'
+import {postWord} from '../../store/word'
 import {connect} from 'react-redux'
 
 class CreateWord extends React.Component {
@@ -53,7 +53,6 @@ class CreateWord extends React.Component {
 
 const mapDispatch = dispatch => ({
   postWord: word => dispatch(postWord(word)),
-  loadWordList: () => dispatch(loadWordList())
 })
 
 export default connect(null, mapDispatch)(CreateWord)
